@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="content-header">
+        <h1>Questões <small>Gerenciamento de questões</small></h1>
+        <nav>
+            <div class="nav-wrapper2 row">
+                <div class="col s12">
+                    <a [routerLink]="['/questoes']">Banco de questões</a> >
+                    <span>Suas questões</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="card col s12">
+        <div class="col s4 card-action">
+            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/questoes/new']">Criar nova Questão</a>
+        </div>
+        <search [resource]="'pquestoes'" (onSearch)="searched($event)"></search>
+        <div class="card-content">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>AREA</th>
+                    <th>SERIE</th>
+                    <th>NIVEL</th>
+                    <th>CATEGORIA</th>
+                    <th>HABILIDADE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let questao of questoes.data" [routerLink]="['/questoes/' + questao.id]">
+                    <td>
+                        <small>{{questao.id}}</small>
+                    </td>
+                    <td>
+                        <small>{{questao.area.area}}</small>
+                    </td>
+                    <td>
+                        <small>{{questao.serie.serie}}</small>
+                    </td>
+                    <td>
+                        <small>{{questao.nivel.nivel}}</small>
+                    </td>
+                    <td>
+                        <small>{{questao.categoria.categoria}}</small>
+                    </td>
+                    <td>
+                        <small>{{questao.habilidade.habilidade}}</small>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <paginate
+                (onChangePage)="pageChanged($event)"
+                [total]="questoes.total"
+                [activePage]="questoes.current_page"
+                [totalPage]="questoes.last_page"
+                [resource]="'pquestoes'"
+                ></paginate>
+        </div>
+        <div class="card-action">
+            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/questoes/new']">Criar nova Questão</a>
+        </div>
+    </div>
+</div>

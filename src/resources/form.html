@@ -1,0 +1,243 @@
+<div class="row">
+  <div class="content-header">
+    <h1>Questões
+      <small>{{ sub_title }}</small>
+    </h1>
+    <nav>
+      <div class="nav-wrapper2 row">
+        <div class="col s12">
+          <a href="#/">Banco de questões</a> >
+          <a [routerLink]="['/questoes']">Questões</a> >
+          <span>{{ sub_title }}</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="card col s12">
+    <div class="card-content">
+      <form class="row" autocomplete="on" @submit.prevent="save">
+        <div class="input-field col s3">
+          <select ngModel="questao1.area_id" id="area_id" class="browser-default">
+            <option value="" disabled selected>Selecione a área</option>
+            <option ngFor="area in areas.data" value="area.id">{{area.area}}</option>
+          </select>
+          <label class="active">Área</label>
+        </div>
+        <div class="input-field col s2">
+          <select ngModel="questao1.serie_id" id="serie_id" class="browser-default" (change)="getNivels">
+            <option value="" disabled selected>Selecione a série</option>
+            <option ngFor="serie in series.data" value="serie.id">{{serie.serie}}</option>
+          </select>
+          <label class="active">Série</label>
+        </div>
+        <div class="input-field col s1 ">
+          <select ngModel="questao1.nivel_id" id="nivel_id" class="browser-default" (change)="getCategorias">
+            <option value="" disabled selected>Selecione o nível</option>
+            <option ngFor="nivel in nivels.data" value="nivel.id">{{nivel.nivel}}</option>
+          </select>
+          <label class="active">Nível</label>
+        </div>
+        <div class="input-field col s3">
+          <select ngModel="questao1.categoria_id" id="categoria_id" class="browser-default" (change)="getHabilidades">
+            <option value="" disabled selected>Selecione o Tema/Tópicos</option>
+            <option ngFor="categoria in categorias.data" value="categoria.id">{{categoria.categoria}}</option>
+          </select>
+          <label class="active">Tema/Tópicos</label>
+        </div>
+        <div class="input-field col s3">
+          <select ngModel="questao1.habilidade_id" id="habilidade_id" class="browser-default">
+            <option value="" disabled selected>Selecione a Habilidades</option>
+            <option ngFor="habilidade in habilidades.data" value="habilidade.id">{{habilidade.habilidade}}</option>
+          </select>
+          <label class="active">Habilidades</label>
+        </div>
+        <div class="input-field col s9">
+          <textarea ngModel="questao1.enunciado" id="enuciado" class="materialize-textarea"></textarea>
+          <label for="enuciado" class="active">ENUCIADO DA QUESTÃO</label>
+        </div>
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 1)" type="file"
+                       accept="image/png, image/jpeg">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_enu"></div>
+        <div v-else>
+          <img :src="image_enu"/>
+          <button @click="removeImage(1)">Remove image</button>
+        </div>
+        </div>
+
+        <div class="input-field col s7">
+          <textarea ngModel="questao1.alternativa1" id="alternativa1" class="materialize-textarea"></textarea>
+          <label for="alternativa1" class="active">1º ALTERNATIVA</label>
+        </div>
+
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 2)" type="file" accept="image/png, image/jpeg">
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="input-field col s2">
+          <p>
+            <input ngModel="questao1.correta" value="1" type="radio" name="gender" class="with-gap" id="correta1"/>
+            <label for="correta1">Alternativa correta</label>
+          </p>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_alt1"></div>
+        <div v-else>
+          <img :src="image_alt1"/>
+          <button @click="removeImage(2)">Remove image</button>
+        </div>
+        </div>
+        <div class="input-field col s7">
+          <textarea ngModel="questao1.alternativa2" id="alternativa2" class="materialize-textarea"></textarea>
+          <label for="alternativa2" class="active">2º ALTERNATIVA</label>
+        </div>
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 3)" type="file" accept="image/png, image/jpeg">
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="input-field col s2">
+          <p>
+            <input ngModel="questao1.correta" value="2" type="radio" name="gender" class="with-gap" id="correta2"/>
+            <label for="correta2">Alternativa correta</label>
+          </p>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_alt2"></div>
+        <div v-else>
+          <img :src="image_alt2"/>
+          <button @click="removeImage(3)">Remove image</button>
+        </div>
+        </div>
+
+        <div class="input-field col s7">
+          <textarea ngModel="questao1.alternativa3" id="alternativa3" class="materialize-textarea"></textarea>
+          <label for="alternativa3" class="active">3º ALTERNATIVA</label>
+        </div>
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 4)" type="file" accept="image/png, image/jpeg">
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="input-field col s2">
+          <p>
+            <input ngModel="questao1.correta" value="3" type="radio" name="gender" class="with-gap" id="correta3"/>
+            <label for="correta3">Alternativa correta</label>
+          </p>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_alt3"></div>
+        <div v-else>
+          <img :src="image_alt3"/>
+          <button @click="removeImage(4)">Remove image</button>
+        </div>
+        </div>
+
+        <div class="input-field col s7">
+          <textarea ngModel="questao1.alternativa4" id="alternativa4" class="materialize-textarea"></textarea>
+          <label for="alternativa4" class="active">4º ALTERNATIVA</label>
+        </div>
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 5)" type="file" accept="image/png, image/jpeg">
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="input-field col s2">
+          <p>
+            <input ngModel="questao1.correta" value="4" type="radio" name="gender" class="with-gap" id="correta4"/>
+            <label for="correta4">Alternativa correta</label>
+          </p>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_alt4"></div>
+        <div v-else>
+          <img :src="image_alt4"/>
+          <button @click="removeImage(5)">Remove image</button>
+        </div>
+        </div>
+
+        <div class="input-field col s7">
+          <textarea ngModel="questao1.alternativa5" id="alternativa5" class="materialize-textarea"></textarea>
+          <label for="alternativa5" class="active">5º ALTERNATIVA</label>
+        </div>
+
+        <div class="input-field col s3">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span class="ion-md-images"></span>
+                <input (change)="onFileChange(this.event, 6)" type="file" accept="image/png, image/jpeg">
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <div class="input-field col s2">
+          <p>
+            <input ngModel="questao1.correta" value="5" type="radio" name="gender" class="with-gap" id="correta5"/>
+            <label for="correta5">Alternativa correta</label>
+          </p>
+        </div>
+        <div class="col s12">
+        <div v-if="!image_alt5"></div>
+        <div v-else>
+          <img :src="image_alt5"/>
+          <button @click="removeImage(6)">Remove image</button>
+        </div>
+        </div>
+        <div class="input-field col s6">
+          <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
+                 value="Salvar">
+        </div>
+
+      </form>
+    </div>
+    <div class="card-action">
+      <a class="waves-effect waves-light btn indigo accent-1 darken-4" href="#/questoes">Voltar</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="content-header">
+        <h1>Questões
+            <small>Editar questão</small>
+        </h1>
+        <nav>
+            <div class="nav-wrapper2 row">
+                <div class="col s12">
+                    <a href="#/">Banco de questões</a> >
+                    <a [routerLink]="['/provas']">Questões</a> >
+                    <span>Editar questão</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="card col s12">
+        <div class="card-content">
+            <form class="row" autocomplete="on" (submit)="save(prova.id)">
+                <div class="input-field col s3">
+                    <select [(ngModel)]="prova.area_id" name="area_id" class="browser-default" (change)="listNivels(prova)">
+                        <option value="" disabled selected>Selecione a área</option>
+                        <option *ngFor="let area of areas.data" [value]="area.id">{{area.area}}</option>
+                    </select>
+                    <label class="active">Área</label>
+                </div>
+                <div class="input-field col s2">
+                    <select [(ngModel)]="prova.serie_id" name="serie_id" class="browser-default" (change)="listNivels(prova)">
+                        <option value="" disabled selected>Selecione a série</option>
+                        <option *ngFor="let serie of series.data" [value]="serie.id">{{serie.serie}}</option>
+                    </select>
+                    <label class="active">Série</label>
+                </div>
+                <div class="input-field col s1 ">
+                    <select [(ngModel)]="prova.nivel_id" name="nivel_id" class="browser-default" (change)="listCategorias(prova)">
+                        <option value="" disabled selected>Selecione o nível</option>
+                        <option *ngFor="let nivel of nivels.data" [value]="nivel.id">{{nivel.nivel}}</option>
+                    </select>
+                    <label class="active">Nível</label>
+                </div>
+                <div class="input-field col s3">
+                    <select [(ngModel)]="prova.categoria_id" name="categoria_id" class="browser-default" (change)="listHabilidades(prova)">
+                        <option value="" disabled selected>Selecione o Tema/Tópicos</option>
+                        <option *ngFor="let categoria of categorias.data" [value]="categoria.id">{{categoria.categoria}}</option>
+                    </select>
+                    <label class="active">Tema/Tópicos</label>
+                </div>
+                <div class="input-field col s3">
+                    <select [(ngModel)]="prova.habilidade_id" name="habilidade_id" class="browser-default">
+                        <option value="" disabled selected>Selecione a Habilidades</option>
+                        <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">{{habilidade.habilidade}}</option>
+                    </select>
+                    <label class="active">Habilidades</label>
+                </div>
+                <div class="input-field col s9">
+                    <textarea [(ngModel)]="prova.enunciado" name="enuciado" class="materialize-textarea"></textarea>
+                    <label for="enuciado" class="active">ENUCIADO DA QUESTÃO</label>
+                </div>
+
+                <div class="input-field col s3">
+                    <form action="#">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span class="ion-md-images"></span>
+                                <input (change)="onFileChange($event, 1)" type="file"
+                                       accept="image/png, image/jpeg">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col s12">
+                    <div *ngIf="prova.imagem">
+                        <img [src]="prova.imagem"/>
+                        <button (click)="removeImage(1)">Remover imagem</button>
+                    </div>
+                </div>
+
+                <div class="input-field col s7">
+                    <textarea [(ngModel)]="prova.alternativa1" name="alternativa1" class="materialize-textarea"></textarea>
+                    <label for="alternativa1" class="active">1º ALTERNATIVA</label>
+                </div>
+
+
+                <div class="input-field col s3">
+                    <form action="#">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span class="ion-md-images"></span>
+                                <input (change)="onFileChange($event, 2)" type="file" accept="image/png, image/jpeg">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="input-field col s6">
+                    <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
+                           value="Salvar">
+                </div>
+
+            </form>
+        </div>
+        <div class="card-action">
+            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas/' + prova.id ]">Voltar</a>
+        </div>
+    </div>
+</div>

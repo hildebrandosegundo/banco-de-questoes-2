@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="content-header">
+        <h1>Provas <small>Gerenciamento de provas</small></h1>
+        <nav>
+            <div class="nav-wrapper2 row">
+                <div class="col s12">
+                    <a [routerLink]="['/provas']">Banco de provas</a> >
+                    <span>Suas provas</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="card col s12">
+        <div class="col s4 card-action">
+            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas/new']">Criar nova Prova</a>
+        </div>
+        <search [resource]="'provas'" (onSearch)="searched($event)"></search>
+        <div class="card-content">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>BIMESTRE</th>
+                    <th>ANO</th>
+                    <th>SERIE</th>
+                    <th>AREA</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let prova of provas.data" [routerLink]="['/provas/' + prova.id]">
+                    <td>
+                        <small>{{prova.id}}</small>
+                    </td>
+                    <td>
+                        <small>{{prova.bimestre}}</small>
+                    </td>
+                    <td>
+                        <small>{{prova.ano}}</small>
+                    </td>
+                    <td>
+                        <small>{{prova.serie.serie}}</small>
+                    </td>
+                    <td>
+                        <small>{{prova.area.area}}</small>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <paginate
+                (onChangePage)="pageChanged($event)"
+                [total]="provas.total"
+                [activePage]="provas.current_page"
+                [totalPage]="provas.last_page"
+                [resource]="'provas'"
+                ></paginate>
+        </div>
+        <div class="card-action">
+            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas/new']">Criar nova Questão</a>
+        </div>
+    </div>
+</div>
