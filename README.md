@@ -13,11 +13,10 @@ npm install -g webpack-dev-server
 Clone this repository, remove .git dir and run `npm install`:
 
 ```
-git clone this git
-cd angular2-webpack-skeleton
+git clone https://github.com/hildebrandosegundo/banco-de-questoes-2.git
+cd banco-de-questoes-2
 npm install
 ```
-Or use [NgInstall](https://github.com/erikfig/ng2-install).
 
 ## Usage
 
