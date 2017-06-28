@@ -3,7 +3,7 @@
  */
 import { Component } from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     templateUrl: './questoes-new.component.html',

@@ -11,34 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var app_http_service_1 = require("../app/app-http.service");
-var provasComponent = (function () {
-    function provasComponent(httpService) {
+const core_1 = require("@angular/core");
+const app_http_service_1 = require("../app/app-http.service");
+let provasComponent = class provasComponent {
+    constructor(httpService) {
         this.httpService = httpService;
         this.provas = {
             data: []
         };
     }
-    provasComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.list();
-    };
-    provasComponent.prototype.list = function () {
-        var _this = this;
+    }
+    list() {
         this.httpService.builder('provas')
             .list({ order: 'id,desc' })
-            .then(function (res) {
-            _this.provas = res;
+            .then((res) => {
+            this.provas = res;
         });
-    };
-    provasComponent.prototype.pageChanged = function (data) {
+    }
+    pageChanged(data) {
         this.provas = data;
-    };
-    provasComponent.prototype.searched = function (data) {
+    }
+    searched(data) {
         this.provas = data;
-    };
-    return provasComponent;
-}());
+    }
+};
 provasComponent = __decorate([
     core_1.Component({
         templateUrl: './provas.component.html',

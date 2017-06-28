@@ -8,27 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var router_1 = require("@angular/router");
-var app_shared_components_module_1 = require("../app/app-shared-components.module");
-var app_http_service_1 = require("../app/app-http.service");
-var forms_1 = require("@angular/forms");
-var questoes_component_1 = require("./questoes.component");
-var questoes_view_component_1 = require("./questoes-view.component");
-var questoes_new_component_1 = require("./questoes-new.component");
-var questoes_edit_component_1 = require("./questoes-edit.component");
-var appRoutes = [
+const core_1 = require("@angular/core");
+const platform_browser_1 = require("@angular/platform-browser");
+const router_1 = require("@angular/router");
+const app_shared_components_module_1 = require("../app/app-shared-components.module");
+const app_http_service_1 = require("../app/app-http.service");
+const forms_1 = require("@angular/forms");
+const questoes_component_1 = require("./questoes.component");
+const questoes_view_component_1 = require("./questoes-view.component");
+const questoes_new_component_1 = require("./questoes-new.component");
+const questoes_edit_component_1 = require("./questoes-edit.component");
+const appRoutes = [
     { path: 'questoes', component: questoes_component_1.QuestoesComponent },
     { path: 'questoes/new', component: questoes_new_component_1.QuestoesNewComponent },
     { path: 'questoes/:id', component: questoes_view_component_1.QuestoesViewComponent },
     { path: 'questoes/:id/edit', component: questoes_edit_component_1.QuestoesEditComponent },
 ];
-var QuestoesModule = (function () {
-    function QuestoesModule() {
-    }
-    return QuestoesModule;
-}());
+let QuestoesModule = class QuestoesModule {
+};
 QuestoesModule = __decorate([
     core_1.NgModule({
         imports: [

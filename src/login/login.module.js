@@ -8,20 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 /**
  * Created by hildebrandosegundo on 08/06/17.
  */
-var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var router_1 = require("@angular/router");
-var forms_1 = require("@angular/forms");
-var app_http_service_1 = require("../app/app-http.service");
-var login_component_1 = require("./login.component");
-var appRoutes = [
+const core_1 = require("@angular/core");
+const platform_browser_1 = require("@angular/platform-browser");
+const router_1 = require("@angular/router");
+const forms_1 = require("@angular/forms");
+const app_http_service_1 = require("../app/app-http.service");
+const login_component_1 = require("./login.component");
+const appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent }
 ];
-var LoginModule = (function () {
-    function LoginModule() {
-    }
-    return LoginModule;
-}());
+let LoginModule = class LoginModule {
+};
 LoginModule = __decorate([
     core_1.NgModule({
         imports: [

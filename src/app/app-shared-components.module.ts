@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppPaginateComponent } from './app-paginate.component';
 import { AppSearchComponent } from './app-search.component';
+import { AppendQuestaoComponent } from "./AppendQuestao.component";
 
 @NgModule({
     imports: [
@@ -14,10 +15,12 @@ import { AppSearchComponent } from './app-search.component';
         FormsModule
     ],
     declarations: [
+        AppendQuestaoComponent,
         AppPaginateComponent,
         AppSearchComponent,
     ],
     exports: [
+        AppendQuestaoComponent,
         AppPaginateComponent,
         AppSearchComponent
     ]

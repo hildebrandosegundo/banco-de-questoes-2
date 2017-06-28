@@ -11,18 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 08/06/17.
  */
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var app_http_service_1 = require("../app/app-http.service");
-var LoginComponent = (function () {
-    function LoginComponent(httpService, router) {
+const core_1 = require("@angular/core");
+const router_1 = require("@angular/router");
+const app_http_service_1 = require("../app/app-http.service");
+let LoginComponent = class LoginComponent {
+    constructor(httpService, router) {
         this.httpService = httpService;
         this.router = router;
         this.user = {};
     }
-    LoginComponent.prototype.login = function () {
-        var _this = this;
-        var auth = {
+    login() {
+        let auth = {
             grant_type: 'password',
             client_id: '2',
             client_secret: 'blZmXjP1utuXX9wDg4DKbXAN1SPq1JvUnZKTZfHX',
@@ -31,14 +30,13 @@ var LoginComponent = (function () {
             scope: '',
         };
         this.httpService.client('oauth/token').insert(auth)
-            .then(function (res) {
+            .then((res) => {
             localStorage['tokens'] = JSON.stringify(res);
-            _this.httpService.setAccessToken(res.access_token);
-            _this.router.navigate(['/home']);
+            this.httpService.setAccessToken(res.access_token);
+            this.router.navigate(['/home']);
         });
-    };
-    return LoginComponent;
-}());
+    }
+};
 LoginComponent = __decorate([
     core_1.Component({
         templateUrl: './login.component.html',

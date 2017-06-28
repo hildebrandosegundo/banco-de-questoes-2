@@ -11,15 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var app_http_service_1 = require("../app/app-http.service");
-var router_1 = require("@angular/router");
-var provasViewComponent = (function () {
-    function provasViewComponent(httpService, route, router) {
+const core_1 = require("@angular/core");
+const app_http_service_1 = require("../app/app-http.service");
+const router_1 = require("@angular/router");
+let provasViewComponent = class provasViewComponent {
+    constructor(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
-        this.questao = {
+        this.prova = {
             area: {},
             nivel: {},
             serie: {},
@@ -27,31 +27,27 @@ var provasViewComponent = (function () {
             habilidade: {}
         };
     }
-    provasViewComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         this.route.params
-            .subscribe(function (params) {
-            _this.view(params.id);
+            .subscribe((params) => {
+            this.view(params.id);
         });
-    };
-    provasViewComponent.prototype.view = function (id) {
-        var _this = this;
-        this.httpService.builder('pquestoes')
+    }
+    view(id) {
+        this.httpService.builder('provas')
             .view(id)
-            .then(function (res) {
-            _this.questao = res;
+            .then((res) => {
+            this.prova = res;
         });
-    };
-    provasViewComponent.prototype.delete = function (id) {
-        var _this = this;
-        this.httpService.builder('pquestoes')
+    }
+    delete(id) {
+        this.httpService.builder('provas')
             .delete(id)
-            .then(function () {
-            _this.router.navigate(['/questoes']);
+            .then(() => {
+            this.router.navigate(['/provas']);
         });
-    };
-    return provasViewComponent;
-}());
+    }
+};
 provasViewComponent = __decorate([
     core_1.Component({
         templateUrl: './provas-view.component.html',

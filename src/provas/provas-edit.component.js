@@ -11,38 +11,80 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var app_http_service_1 = require("../app/app-http.service");
-var router_1 = require("@angular/router");
-var provasEditComponent = (function () {
-    function provasEditComponent(httpService, route, router) {
+const core_1 = require("@angular/core");
+const app_http_service_1 = require("../app/app-http.service");
+const router_1 = require("@angular/router");
+let provasEditComponent = class provasEditComponent {
+    constructor(httpService, route, router, listaQuestao, renderer) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
-        this.questao = {
+        this.listaQuestao = listaQuestao;
+        this.renderer = renderer;
+        this.resultado = [];
+        this.CountQuestoes = 0;
+        this.qtdquestao = 30;
+        this.prova = {
             serie_id: '',
             area_id: '',
-            nivel_id: '',
-            categoria_id: '',
-            habilidade_id: '',
-            enunciado: '',
-            imagem: '',
-            imagemAl1: '',
-            imagemAl2: '',
-            imagemAl3: '',
-            imagemAl4: '',
-            imagemAl5: '',
-            correta: '',
-            alternativa1: '',
-            alternativa2: '',
-            alternativa3: '',
-            alternativa4: '',
-            alternativa5: '',
-            area: {},
-            nivel: {},
-            serie: {},
-            categoria: {},
-            habilidade: {}
+            ano: new Date().getFullYear(),
+            bimestre: '',
+            questao1_id: '',
+            questao2_id: '',
+            questao3_id: '',
+            questao4_id: '',
+            questao5_id: '',
+            questao6_id: '',
+            questao7_id: '',
+            questao8_id: '',
+            questao9_id: '',
+            questao10_id: '',
+            questao11_id: '',
+            questao12_id: '',
+            questao13_id: '',
+            questao14_id: '',
+            questao15_id: '',
+            questao16_id: '',
+            questao17_id: '',
+            questao18_id: '',
+            questao19_id: '',
+            questao20_id: '',
+            questao21_id: '',
+            questao22_id: '',
+            questao23_id: '',
+            questao24_id: '',
+            questao25_id: '',
+            questao26_id: '',
+            questao27_id: '',
+            questao28_id: '',
+            questao29_id: '',
+            questao30_id: '',
+            questao31_id: '',
+            questao32_id: '',
+            questao33_id: '',
+            questao34_id: '',
+            questao35_id: '',
+            questao36_id: '',
+            questao37_id: '',
+            questao38_id: '',
+            questao39_id: '',
+            questao41_id: '',
+            questao42_id: '',
+            questao43_id: '',
+            questao44_id: '',
+            questao45_id: '',
+            questao46_id: '',
+            questao47_id: '',
+            questao48_id: '',
+            questao49_id: '',
+            questao50_id: ''
+        };
+        this.questao = {
+            data: []
+        };
+        this.questoes = {
+            data: [],
+            total: ''
         };
         this.areas = {
             data: []
@@ -60,137 +102,246 @@ var provasEditComponent = (function () {
             data: []
         };
     }
-    provasEditComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
+        this.route.params
+            .subscribe((params) => {
+            this.view(params.id);
+        });
         this.listAreas();
         this.listSeries();
-        this.listNivels(this.questao);
-        this.listCategorias(this.questao);
-        this.listHabilidades(this.questao);
-        this.route.params
-            .subscribe(function (params) {
-            _this.view(params.id);
-        });
-    };
-    provasEditComponent.prototype.onFileChange = function (e, img) {
-        var files = e.target.files || e.dataTransfer.files;
-        if (!files.length) {
-            return;
-        }
-        this.createImage(files[0], img);
-    };
-    provasEditComponent.prototype.createImage = function (file, img) {
-        var reader = new FileReader();
-        var vm = this;
-        reader.onload = function (e) {
-            if (img === 1) {
-                vm.questao.imagem = e.target.result;
+        $('.collapsible').collapsible();
+        $('.tooltipped').tooltip({ delay: 50 });
+    }
+    percorrer(obj) {
+        for (let propriedade in obj) {
+            if (obj.hasOwnProperty(propriedade)) {
+                if (typeof obj[propriedade] == "object" && obj[propriedade] != null) {
+                    this.resultado.push(obj[propriedade]);
+                }
             }
-            if (img === 2) {
-                vm.questao.imagemAl1 = e.target.result;
-            }
-            if (img === 3) {
-                vm.questao.imagemAl2 = e.target.result;
-            }
-            if (img === 4) {
-                vm.questao.imagemAl3 = e.target.result;
-            }
-            if (img === 5) {
-                vm.questao.imagemAl4 = e.target.result;
-            }
-            if (img === 6) {
-                vm.questao.imagemAl5 = e.target.result;
-            }
-        };
-        reader.readAsDataURL(file);
-    };
-    provasEditComponent.prototype.removeImage = function (img) {
-        if (img === 1) {
-            this.questao.imagem = '';
         }
-        if (img === 2) {
-            this.questao.imagemAl1 = '';
-        }
-        if (img === 3) {
-            this.questao.imagemAl2 = '';
-        }
-        if (img === 4) {
-            this.questao.imagemAl3 = '';
-        }
-        if (img === 5) {
-            this.questao.imagemAl4 = '';
-        }
-        if (img === 6) {
-            this.questao.imagemAl5 = '';
-        }
-    };
-    provasEditComponent.prototype.listAreas = function () {
-        var _this = this;
+    }
+    listAreas() {
         this.httpService.builder('areas')
             .list()
-            .then(function (res) {
-            _this.areas = res;
+            .then((res) => {
+            this.areas = res;
         });
-    };
-    provasEditComponent.prototype.listSeries = function () {
-        var _this = this;
+    }
+    listSeries() {
         this.httpService.builder('series')
             .list()
-            .then(function (res) {
-            _this.series = res;
+            .then((res) => {
+            this.series = res;
         });
-    };
-    provasEditComponent.prototype.listNivels = function (data) {
-        var _this = this;
+    }
+    listNivels(data) {
         this.httpService.builder('nivels')
             .getNivel(data)
-            .then(function (res) {
-            _this.nivels = res;
+            .then((res) => {
+            this.nivels = res;
         });
-    };
-    provasEditComponent.prototype.listCategorias = function (data) {
-        var _this = this;
+    }
+    listCategorias(data) {
+        //$('#questao_area').attr('disabled', 'true');
+        //$('#questao_serie').attr('disabled', 'true');
         this.httpService.builder('categorias')
             .getCategoria(data)
-            .then(function (res) {
-            _this.categorias = res;
+            .then((res) => {
+            this.categorias = res;
         });
-    };
-    provasEditComponent.prototype.listHabilidades = function (data) {
-        var _this = this;
+    }
+    listHabilidades(data) {
         this.httpService.builder('habilidades')
             .getHabilidade(data)
-            .then(function (res) {
-            _this.habilidades = res;
+            .then((res) => {
+            this.habilidades = res;
         });
-    };
-    provasEditComponent.prototype.view = function (id) {
-        var _this = this;
+    }
+    listQuestao(data) {
         this.httpService.builder('pquestoes')
+            .getQuestao(data)
+            .then((res) => {
+            this.questoes = res;
+        });
+        return false;
+    }
+    view(id) {
+        this.httpService.builder('provas')
             .view(id)
-            .then(function (res) {
-            _this.questao = res;
+            .then((res) => {
+            this.prova = res;
+            this.percorrer(res);
+            console.log(this.resultado);
+            let vm = '';
+            for (let i = 0; i < this.resultado.length; i++) {
+                if (i == 2) {
+                    this.listQuestao(this.resultado[i]).then(function () {
+                        this.addQuestao();
+                    });
+                }
+            }
         });
-    };
-    provasEditComponent.prototype.save = function (id) {
-        var _this = this;
-        console.log(this.questao);
-        this.httpService.builder('pquestoes')
-            .update(id, this.questao)
-            .then(function (res) {
-            _this.router.navigate(['/questoes/' + id]);
+    }
+    getQuestao(data) {
+        this.listQuestao(data);
+        $('#buttonAdd').addClass('pulse');
+        $('#buttonAdd').removeClass('disabled');
+    }
+    atualizaCount() {
+        this.CountQuestoes = 0;
+        let vm = this;
+        $('#listaQuestao li').each(function () {
+            vm.CountQuestoes++;
         });
-    };
-    return provasEditComponent;
-}());
+    }
+    atualizaNum() {
+        this.CountQuestoes = 0;
+        this.renderer.destroy();
+        let vm = this;
+        $('#listaQuestao li a').each(function () {
+            vm.renderer.listen(this, 'click', (evt) => {
+                $(this).closest('li').remove();
+                vm.atualizaCount();
+            });
+            vm.CountQuestoes++;
+        });
+    }
+    parseHTML(questao) {
+        let vm = '';
+        vm += `<li #liquestao value="` + questao.id + `">
+                <div class="collapsible-header">
+                <div class="col s11"><small>Id: ` + questao.id + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Tema: ` + questao.categoria.categoria + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
+                </div>
+                <div class="collapsible-body">`;
+        if (questao.enunciado) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="questao.enunciado" name="enuciado" class="materialize-textarea">` + questao.enunciado + `</textarea>
+                <label class="active">ENUCIADO DA QUESTÃO</label>
+                </div>`;
+        }
+        if (questao.imagem) {
+            vm += `<div>           
+                <img src="` + questao.imagem + `"/>
+                </div>`;
+        }
+        if (questao.alternativa1) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="prova.alternativa1" name="alternativa1" class="materialize-textarea">` + questao.alternativa1 + `</textarea>
+                <label class="active">1º ALTERNATIVA</label>
+                </div>`;
+        }
+        if (questao.imagemAl1) {
+            vm += `<div>
+                    <img src="` + questao.imagemAl1 + `"/>
+                    </div>`;
+        }
+        if (questao.alternativa2) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="prova.alternativa2" name="alternativa2" class="materialize-textarea">` + questao.alternativa2 + `</textarea>
+                <label class="active">2º ALTERNATIVA</label>
+                </div>`;
+        }
+        if (questao.imagemAl2) {
+            vm += `<div>
+                    <img src="` + questao.imagemAl2 + `"/>
+                    </div>`;
+        }
+        if (questao.alternativa3) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="prova.alternativa3" name="alternativa3" class="materialize-textarea">` + questao.alternativa3 + `</textarea>
+                <label class="active">3º ALTERNATIVA</label>
+                </div>`;
+        }
+        if (questao.imagemAl3) {
+            vm += `<div>
+                    <img src="` + questao.imagemAl3 + `"/>
+                </div>`;
+        }
+        if (questao.alternativa4) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="prova.alternativa4" name="alternativa4" class="materialize-textarea">` + questao.alternativa4 + `</textarea>
+                <label class="active">4º ALTERNATIVA</label>
+                </div>`;
+        }
+        if (questao.imagemAl4) {
+            vm += `<div>
+                    <img src="` + questao.imagemAl4 + `"/>
+                    </div>`;
+        }
+        if (questao.alternativa5) {
+            vm += `<div class="input-field">
+                <textarea [(ngModel)]="questao.alternativa5" name="alternativa5" class="materialize-textarea">` + questao.alternativa5 + `</textarea>
+                <label class="active">5º ALTERNATIVA</label>
+                </div>`;
+        }
+        if (questao.imagemAl5) {
+            vm += `<div>              
+                    <img src="` + questao.imagemAl5 + `"/>
+                </div>`;
+        }
+        vm += `</div>
+            </li>`;
+        return vm;
+    }
+    addQuestao() {
+        if (this.qtdquestao > 50) {
+            alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
+        }
+        else {
+            if (this.CountQuestoes <= this.qtdquestao) {
+                Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
+                $('#buttonAdd').removeClass('pulse');
+                let vm = '';
+                if ($('#aleatorio').is(':checked')) {
+                    let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
+                    vm = this.parseHTML(questao);
+                }
+                else {
+                    for (let i in this.questoes.data) {
+                        vm += this.parseHTML(this.questoes.data[i]);
+                    }
+                }
+                $('#listaQuestao').append(vm);
+            }
+            else {
+                alert('A quantidade de questão ultrapassou a quantidade prevista! Por favor, adeque a quantidade de questões.');
+            }
+            this.atualizaNum();
+        }
+    }
+    save() {
+        let data = new FormData();
+        if (this.CountQuestoes > 0) {
+            let vm = this;
+            data.append('serie_id', this.questao.serie_id);
+            data.append('area_id', this.questao.area_id);
+            $('#listaQuestao li').each(function (index, value) {
+                data.append('questao' + (index + 1) + '_id', $(this).val());
+            });
+            data.append('ano', this.prova.ano);
+            data.append('bimestre', this.prova.bimestre);
+            this.httpService.builder('provas')
+                .insert(data)
+                .then((res) => {
+                this.router.navigate(['/provas']);
+            });
+        }
+        else {
+            alert('Adicione questões!');
+        }
+    }
+};
 provasEditComponent = __decorate([
     core_1.Component({
-        templateUrl: './provas-edit.component.html',
+        templateUrl: './provas-new.component.html',
         styles: ['tbody tr {cursor: pointer}'],
     }),
     __metadata("design:paramtypes", [app_http_service_1.AppHttpService,
         router_1.ActivatedRoute,
-        router_1.Router])
+        router_1.Router,
+        core_1.ElementRef,
+        core_1.Renderer2])
 ], provasEditComponent);
 exports.provasEditComponent = provasEditComponent;
 //# sourceMappingURL=provas-edit.component.js.map

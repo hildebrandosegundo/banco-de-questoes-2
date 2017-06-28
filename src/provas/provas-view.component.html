@@ -5,7 +5,7 @@
             <div class="nav-wrapper2 row">
                 <div class="col s12">
                     <a href="#/">Banco de questões</a> >
-                    <a [routerLink]="['/questoes']">Questões</a> >
+                    <a [routerLink]="['/provas']">Questões</a> >
                     <span>Detalhes da questão</span>
                 </div>
             </div>
@@ -15,21 +15,21 @@
         <div class="card-content">
             <div class="row">
                 <div class="col s12">
-                    <div class="card-title">Detalhes da Questão</div>
-                    <p><b>Código da Prova:</b> {{questao.id}} <b>Área:</b> {{questao.area.area}} </p>
-                    <p><b>Série:</b> {{questao.serie.serie}} <b>Nível:</b> {{questao.nivel.nivel}} <b>Catégoria:</b> {{questao.categoria.categoria}} </p>
-                    <p><b>Habilidade:</b> {{questao.habilidade.codigo}} - {{questao.habilidade.habilidade}}</p>
+                    <div class="card-title">Detalhes da Prova</div>
+                    <p><b>Código da Prova:</b> {{prova.id}} <b>Área:</b> {{prova.area.area}} </p>
+                    <p><b>Série:</b> {{prova.serie.serie}} <b>Ano: </b> {{prova.ano}} </p>
+                    <p><b>Bimestre:</b> {{prova.bimestre}}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
-                    <a class="btn blue" [routerLink]="['/questoes/' + questao.id + '/edit']">Editar</a>
+                    <a class="btn blue" [routerLink]="['/provas/' + prova.id + '/edit']">Editar</a>
                     <a class="btn red" (click)="delete(questao.id)">Remover</a>
                 </div>
             </div>
         </div>
         <div class="card-action">
-            <a class="waves-effect waves-light btn" [routerLink]="['/questoes']">Voltar</a>
+            <a class="waves-effect waves-light btn" [routerLink]="['/provas']">Voltar</a>
         </div>
     </div>
 </div>

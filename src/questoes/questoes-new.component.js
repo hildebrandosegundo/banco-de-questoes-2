@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var app_http_service_1 = require("../app/app-http.service");
-var router_1 = require("@angular/router");
-var QuestoesNewComponent = (function () {
-    function QuestoesNewComponent(httpService, route, router) {
+const core_1 = require("@angular/core");
+const app_http_service_1 = require("../app/app-http.service");
+const router_1 = require("@angular/router");
+let QuestoesNewComponent = class QuestoesNewComponent {
+    constructor(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -55,21 +55,21 @@ var QuestoesNewComponent = (function () {
             data: []
         };
     }
-    QuestoesNewComponent.prototype.ngOnInit = function () {
+    ngOnInit() {
         this.listAreas();
         this.listSeries();
-    };
-    QuestoesNewComponent.prototype.onFileChange = function (e, img) {
-        var files = e.target.files || e.dataTransfer.files;
+    }
+    onFileChange(e, img) {
+        const files = e.target.files || e.dataTransfer.files;
         if (!files.length) {
             return;
         }
         this.createImage(files[0], img);
-    };
-    QuestoesNewComponent.prototype.createImage = function (file, img) {
-        var reader = new FileReader();
-        var vm = this;
-        reader.onload = function (e) {
+    }
+    createImage(file, img) {
+        const reader = new FileReader();
+        const vm = this;
+        reader.onload = (e) => {
             if (img === 1) {
                 vm.questao.imagem = e.target.result;
             }
@@ -90,8 +90,8 @@ var QuestoesNewComponent = (function () {
             }
         };
         reader.readAsDataURL(file);
-    };
-    QuestoesNewComponent.prototype.removeImage = function (img) {
+    }
+    removeImage(img) {
         if (img === 1) {
             this.questao.imagem = '';
         }
@@ -110,47 +110,42 @@ var QuestoesNewComponent = (function () {
         if (img === 6) {
             this.questao.imagemAl5 = '';
         }
-    };
-    QuestoesNewComponent.prototype.listAreas = function () {
-        var _this = this;
+    }
+    listAreas() {
         this.httpService.builder('areas')
             .list()
-            .then(function (res) {
-            _this.areas = res;
+            .then((res) => {
+            this.areas = res;
         });
-    };
-    QuestoesNewComponent.prototype.listSeries = function () {
-        var _this = this;
+    }
+    listSeries() {
         this.httpService.builder('series')
             .list()
-            .then(function (res) {
-            _this.series = res;
+            .then((res) => {
+            this.series = res;
         });
-    };
-    QuestoesNewComponent.prototype.listNivels = function (data) {
-        var _this = this;
+    }
+    listNivels(data) {
         this.httpService.builder('nivels')
             .getNivel(data)
-            .then(function (res) {
-            _this.nivels = res;
+            .then((res) => {
+            this.nivels = res;
         });
-    };
-    QuestoesNewComponent.prototype.listCategorias = function (data) {
-        var _this = this;
+    }
+    listCategorias(data) {
         this.httpService.builder('categorias')
             .getCategoria(data)
-            .then(function (res) {
-            _this.categorias = res;
+            .then((res) => {
+            this.categorias = res;
         });
-    };
-    QuestoesNewComponent.prototype.listHabilidades = function (data) {
-        var _this = this;
+    }
+    listHabilidades(data) {
         this.httpService.builder('habilidades')
             .getHabilidade(data)
-            .then(function (res) {
-            _this.habilidades = res;
+            .then((res) => {
+            this.habilidades = res;
         });
-    };
+    }
     /* view (id: number) {
          this.httpService.builder('pquestoes')
              .view(id)
@@ -158,16 +153,14 @@ var QuestoesNewComponent = (function () {
                  this.questao = res;
              })
      }*/
-    QuestoesNewComponent.prototype.save = function () {
-        var _this = this;
+    save() {
         this.httpService.builder('pquestoes')
             .insert(this.questao)
-            .then(function (res) {
-            _this.router.navigate(['/questoes']);
+            .then((res) => {
+            this.router.navigate(['/questoes']);
         });
-    };
-    return QuestoesNewComponent;
-}());
+    }
+};
 QuestoesNewComponent = __decorate([
     core_1.Component({
         templateUrl: './questoes-new.component.html',

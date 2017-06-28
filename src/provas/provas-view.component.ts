@@ -3,13 +3,13 @@
  */
 import { Component } from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 @Component({
     templateUrl: './provas-view.component.html',
     styles: ['tbody tr {cursor: pointer}'],
 })
 export class provasViewComponent {
-    public questao: Object = {
+    public prova: Object = {
         area: {},
         nivel: {},
         serie: {},
@@ -31,18 +31,18 @@ export class provasViewComponent {
     }
 
     view (id: number) {
-        this.httpService.builder('pquestoes')
+        this.httpService.builder('provas')
             .view(id)
             .then((res) => {
-                this.questao = res;
+                this.prova = res;
             })
     }
 
     delete (id: number) {
-        this.httpService.builder('pquestoes')
+        this.httpService.builder('provas')
             .delete(id)
             .then(() => {
-                this.router.navigate(['/questoes']);
+                this.router.navigate(['/provas']);
             })
     }
 }

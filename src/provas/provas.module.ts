@@ -12,7 +12,8 @@ import {provasComponent} from "./provas.component";
 import {provasViewComponent} from "./provas-view.component";
 import {provasNewComponent} from "./provas-new.component";
 import {provasEditComponent} from "./provas-edit.component";
-
+import { MaterializeModule } from 'ng2-materialize';
+import {AppendQuestaoComponent} from "../app/AppendQuestao.component";
 const appRoutes: Routes =[
     {path: 'provas', component: provasComponent},
     {path: 'provas/new', component: provasNewComponent},
@@ -23,6 +24,7 @@ const appRoutes: Routes =[
      imports: [
          AppSharedComponentsModule,
          BrowserModule,
+         MaterializeModule.forRoot(),
          RouterModule.forRoot(appRoutes),
          FormsModule
      ],
@@ -32,10 +34,9 @@ const appRoutes: Routes =[
          provasViewComponent,
          provasEditComponent
      ],
-     // bootstrap: [ ProvasAppendComponent ],
      providers: [
-         AppHttpService
-     ],
+         AppHttpService, AppendQuestaoComponent
+     ]
  })
 
  export class ProvasModule {}

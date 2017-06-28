@@ -11,29 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
+const core_1 = require("@angular/core");
+const http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
-var AppHttpService = (function () {
-    function AppHttpService(http) {
+let AppHttpService = class AppHttpService {
+    constructor(http) {
         this.http = http;
         this.options = {};
     }
-    AppHttpService.prototype.setAccessToken = function (token) {
-        var header = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
+    setAccessToken(token) {
+        let header = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
         this.options.headers = header;
-    };
-    AppHttpService.prototype.client = function (url) {
+    }
+    client(url) {
         this.url = 'http://localhost:8000/' + url;
         return this;
-    };
-    AppHttpService.prototype.builder = function (resource) {
+    }
+    builder(resource) {
         this.url = 'http://localhost:8000/api/' + resource;
         return this;
-    };
-    AppHttpService.prototype.list = function (options) {
-        if (options === void 0) { options = {}; }
-        var url = this.url;
+    }
+    list(options = {}) {
+        let url = this.url;
         if (options.limit === undefined) {
             options.limit = 20;
         }
@@ -48,75 +47,74 @@ var AppHttpService = (function () {
         url += '&order=' + options.order;
         return this.http.get(url, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.view = function (id) {
+    }
+    view(id) {
         return this.http.get(this.url + '/' + id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.update = function (id, data) {
+    }
+    update(id, data) {
         return this.http.put(this.url + '/' + id, data, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.insert = function (data) {
+    }
+    insert(data) {
         return this.http.post(this.url, data, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.delete = function (id) {
+    }
+    delete(id) {
         return this.http.delete(this.url + '/' + id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.search = function (term) {
+    }
+    search(term) {
         return this.http.get(this.url + '?likequestoes=' + term, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.getNivel = function (data) {
+    }
+    getNivel(data) {
         return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.getCategoria = function (data) {
+    }
+    getCategoria(data) {
         return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[nivel_id]=' + data.nivel_id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.getHabilidade = function (data) {
+    }
+    getHabilidade(data) {
         return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    AppHttpService.prototype.getQuestao = function (data) {
+    }
+    getQuestao(data) {
         return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&where[habilidade_id]=' + data.habilidade_id, this.options)
             .toPromise()
-            .then(function (res) {
+            .then((res) => {
             return res.json() || {};
         });
-    };
-    return AppHttpService;
-}());
+    }
+};
 AppHttpService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])

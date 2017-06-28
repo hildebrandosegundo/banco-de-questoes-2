@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-var core_1 = require("@angular/core");
-var app_http_service_1 = require("../app/app-http.service");
-var router_1 = require("@angular/router");
-var QuestoesViewComponent = (function () {
-    function QuestoesViewComponent(httpService, route, router) {
+const core_1 = require("@angular/core");
+const app_http_service_1 = require("../app/app-http.service");
+const router_1 = require("@angular/router");
+let QuestoesViewComponent = class QuestoesViewComponent {
+    constructor(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -27,31 +27,27 @@ var QuestoesViewComponent = (function () {
             habilidade: {}
         };
     }
-    QuestoesViewComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         this.route.params
-            .subscribe(function (params) {
-            _this.view(params.id);
+            .subscribe((params) => {
+            this.view(params.id);
         });
-    };
-    QuestoesViewComponent.prototype.view = function (id) {
-        var _this = this;
+    }
+    view(id) {
         this.httpService.builder('pquestoes')
             .view(id)
-            .then(function (res) {
-            _this.questao = res;
+            .then((res) => {
+            this.questao = res;
         });
-    };
-    QuestoesViewComponent.prototype.delete = function (id) {
-        var _this = this;
+    }
+    delete(id) {
         this.httpService.builder('pquestoes')
             .delete(id)
-            .then(function () {
-            _this.router.navigate(['/questoes']);
+            .then(() => {
+            this.router.navigate(['/questoes']);
         });
-    };
-    return QuestoesViewComponent;
-}());
+    }
+};
 QuestoesViewComponent = __decorate([
     core_1.Component({
         templateUrl: './questoes-view.component.html',

@@ -8,17 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 /**
  * Created by hildebrandosegundo on 07/06/17.
  */
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var home_component_1 = require("./home.component");
-var appRoutes = [
+const core_1 = require("@angular/core");
+const router_1 = require("@angular/router");
+const home_component_1 = require("./home.component");
+const appRoutes = [
     { path: 'home', component: home_component_1.HomeComponent },
 ];
-var HomeModule = (function () {
-    function HomeModule() {
-    }
-    return HomeModule;
-}());
+let HomeModule = class HomeModule {
+};
 HomeModule = __decorate([
     core_1.NgModule({
         imports: [

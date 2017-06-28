@@ -1,106 +1,120 @@
 <div class="row">
     <div class="content-header">
-        <h1>Questões
-            <small>Editar questão</small>
+        <h1>Provas
+            <small>Criar prova</small>
         </h1>
         <nav>
             <div class="nav-wrapper2 row">
                 <div class="col s12">
-                    <a href="#/">Banco de questões</a> >
-                    <a [routerLink]="['/provas']">Questões</a> >
-                    <span>Editar questão</span>
+                    <a href="#/">Banco de provas</a> >
+                    <a [routerLink]="['/provas']">Provas</a> >
+                    <span>Criar prova</span>
                 </div>
             </div>
         </nav>
     </div>
     <div class="card col s12">
         <div class="card-content">
-            <form class="row" autocomplete="on" (submit)="save(prova.id)">
+            <form class="row" autocomplete="on" (submit)="save()">
                 <div class="input-field col s3">
-                    <select [(ngModel)]="prova.area_id" name="area_id" class="browser-default" (change)="listNivels(prova)">
+                    <select [(ngModel)]="questao.area_id" name="area_id" id="questao_area" class="browser-default"
+                            (change)="listNivels(questao)">
                         <option value="" disabled selected>Selecione a área</option>
                         <option *ngFor="let area of areas.data" [value]="area.id">{{area.area}}</option>
                     </select>
                     <label class="active">Área</label>
                 </div>
                 <div class="input-field col s2">
-                    <select [(ngModel)]="prova.serie_id" name="serie_id" class="browser-default" (change)="listNivels(prova)">
+                    <select [(ngModel)]="questao.serie_id" name="serie_id" id="questao_serie" class="browser-default"
+                            (change)="listNivels(questao)">
                         <option value="" disabled selected>Selecione a série</option>
                         <option *ngFor="let serie of series.data" [value]="serie.id">{{serie.serie}}</option>
                     </select>
                     <label class="active">Série</label>
                 </div>
                 <div class="input-field col s1 ">
-                    <select [(ngModel)]="prova.nivel_id" name="nivel_id" class="browser-default" (change)="listCategorias(prova)">
+                    <select [(ngModel)]="questao.nivel_id" name="nivel_id" class="browser-default"
+                            (change)="listCategorias(questao)">
                         <option value="" disabled selected>Selecione o nível</option>
                         <option *ngFor="let nivel of nivels.data" [value]="nivel.id">{{nivel.nivel}}</option>
                     </select>
                     <label class="active">Nível</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="prova.categoria_id" name="categoria_id" class="browser-default" (change)="listHabilidades(prova)">
+                    <select [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default"
+                            (change)="listHabilidades(questao)">
                         <option value="" disabled selected>Selecione o Tema/Tópicos</option>
-                        <option *ngFor="let categoria of categorias.data" [value]="categoria.id">{{categoria.categoria}}</option>
+                        <option *ngFor="let categoria of categorias.data" [value]="categoria.id">
+                            {{categoria.categoria}}
+                        </option>
                     </select>
                     <label class="active">Tema/Tópicos</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="prova.habilidade_id" name="habilidade_id" class="browser-default">
+                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default"
+                            (change)="getQuestao(questao)">
                         <option value="" disabled selected>Selecione a Habilidades</option>
-                        <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">{{habilidade.habilidade}}</option>
+                        <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">
+                            {{habilidade.habilidade}}
+                        </option>
                     </select>
                     <label class="active">Habilidades</label>
                 </div>
-                <div class="input-field col s9">
-                    <textarea [(ngModel)]="prova.enunciado" name="enuciado" class="materialize-textarea"></textarea>
-                    <label for="enuciado" class="active">ENUCIADO DA QUESTÃO</label>
+                <div class="input-field col s1">
+                    <a (click)="addQuestao()" id="buttonAdd"
+                       class="btn-floating btn-large waves-effect waves-light"><i
+                            class="ion-md-add"></i></a>
                 </div>
-
+                <div class="input-field col s2">
+                    <label class="waves-effect waves-light">{{CountQuestoes}}</label>
+                </div>
                 <div class="input-field col s3">
-                    <form action="#">
-                        <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
-                                <input (change)="onFileChange($event, 1)" type="file"
-                                       accept="image/png, image/jpeg">
-                            </div>
-                        </div>
-                    </form>
+                    <i class="ion-ios-calculator prefix"></i>
+                    <input [(ngModel)]="qtdquestao" name="qtdquestao" id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix">Qtd questões</label>
                 </div>
-                <div class="col s12">
-                    <div *ngIf="prova.imagem">
-                        <img [src]="prova.imagem"/>
-                        <button (click)="removeImage(1)">Remover imagem</button>
-                    </div>
+                <div class="input-field col s6">
+                    <i class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Seleciona uma questão aleatoriamente de todas encontradas do banco de questão.">
+                        <input name="group1" type="radio" id="aleatorio" checked />
+                        <label for="aleatorio">Aleatório</label>
+                    </i>
+                    <i class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Todas as questões encontradas no banco são apresentadas para ser selecionada manualmente.">
+                        <input name="group1" type="radio" id="manual" />
+                        <label for="manual">Selecionar manualmente</label>
+                    </i>
                 </div>
-
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="prova.alternativa1" name="alternativa1" class="materialize-textarea"></textarea>
-                    <label for="alternativa1" class="active">1º ALTERNATIVA</label>
+            </form>
+            <div class="card-content">
+                <div>
+                    <ul #listaQuestao id="listaQuestao"  class="collapsible popout" data-collapsible="accordion" (change)="atualizaNum()">
+                    </ul>
                 </div>
+            </div>
 
-
+            <div class="card-content">
                 <div class="input-field col s3">
-                    <form action="#">
-                        <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
-                                <input (change)="onFileChange($event, 2)" type="file" accept="image/png, image/jpeg">
-                            </div>
-                        </div>
-                    </form>
+                    <i class="ion-md-calendar prefix"></i>
+                    <input [(ngModel)]="prova.ano" name="qtdquestao" id="ano" type="text" class="validate">
+                    <label for="icon_prefix">Ano</label>
                 </div>
-
-
+                <div class="input-field col s2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Seleciona o bimestre de aplicação da prova.">
+                    <select [(ngModel)]="prova.bimestre" class="browser-default validate">
+                        <option value="" disabled selected>Bimestre</option>
+                        <option value="1º">1º</option>
+                        <option value="2º">2º</option>
+                        <option value="3º">3º</option>
+                        <option value="4º">4º</option>
+                    </select>
+                </div>
                 <div class="input-field col s6">
                     <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
-                           value="Salvar">
+                           value="Gerar Prova" (click)="save()">
                 </div>
+                <div class="card-action input-field col s12">
+                    <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas']">Voltar</a>
+                </div>
+            </div>
+        </div>
 
-            </form>
-        </div>
-        <div class="card-action">
-            <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas/' + prova.id ]">Voltar</a>
-        </div>
     </div>
 </div>

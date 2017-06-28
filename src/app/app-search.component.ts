@@ -47,9 +47,7 @@ export class AppSearchComponent {
                     })
             })
     }
-
     search(term: string) {
         this.searchTerm.next(term);
     }
-
 }
