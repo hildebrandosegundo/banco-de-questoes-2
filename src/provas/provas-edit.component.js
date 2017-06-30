@@ -106,6 +106,7 @@ let provasEditComponent = class provasEditComponent {
         this.route.params
             .subscribe((params) => {
             this.view(params.id);
+            //this.prova.id = params.id;
         });
         this.listAreas();
         this.listSeries();
@@ -164,7 +165,6 @@ let provasEditComponent = class provasEditComponent {
             .then((res) => {
             this.questoes = res;
         });
-        return false;
     }
     view(id) {
         this.httpService.builder('provas')
@@ -174,12 +174,13 @@ let provasEditComponent = class provasEditComponent {
             this.percorrer(res);
             console.log(this.resultado);
             let vm = '';
-            for (let i = 0; i < this.resultado.length; i++) {
-                if (i == 2) {
-                    this.listQuestao(this.resultado[i]).then(function () {
-                        this.addQuestao();
-                    });
-                }
+            for (let i = 2; i < this.resultado.length; i++) {
+                this.httpService.builder('pquestoes')
+                    .getQuestao(this.resultado[i])
+                    .then((res) => {
+                    this.questoes = res;
+                    this.addQuestao();
+                });
             }
         });
     }
@@ -313,7 +314,6 @@ let provasEditComponent = class provasEditComponent {
     save() {
         let data = new FormData();
         if (this.CountQuestoes > 0) {
-            let vm = this;
             data.append('serie_id', this.questao.serie_id);
             data.append('area_id', this.questao.area_id);
             $('#listaQuestao li').each(function (index, value) {
@@ -322,9 +322,9 @@ let provasEditComponent = class provasEditComponent {
             data.append('ano', this.prova.ano);
             data.append('bimestre', this.prova.bimestre);
             this.httpService.builder('provas')
-                .insert(data)
+                .update(this.prova.id, data)
                 .then((res) => {
-                this.router.navigate(['/provas']);
+                this.router.navigate(['/provas/' + this.prova.id]);
             });
         }
         else {

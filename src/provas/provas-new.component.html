@@ -41,22 +41,16 @@
                     <label class="active">Nível</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default"
-                            (change)="listHabilidades(questao)">
+                    <select [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default" (change)="listHabilidades(questao)">
                         <option value="" disabled selected>Selecione o Tema/Tópicos</option>
-                        <option *ngFor="let categoria of categorias.data" [value]="categoria.id">
-                            {{categoria.categoria}}
-                        </option>
+                        <option *ngFor="let categoria of categorias.data" [value]="categoria.id">{{categoria.codigo}} - {{categoria.categoria}}</option>
                     </select>
                     <label class="active">Tema/Tópicos</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default"
-                            (change)="getQuestao(questao)">
+                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default">
                         <option value="" disabled selected>Selecione a Habilidades</option>
-                        <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">
-                            {{habilidade.habilidade}}
-                        </option>
+                        <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">{{habilidade.codigo}} - {{habilidade.habilidade}}</option>
                     </select>
                     <label class="active">Habilidades</label>
                 </div>
@@ -106,10 +100,20 @@
                         <option value="4º">4º</option>
                     </select>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                     <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
                            value="Gerar Prova" (click)="save()">
                 </div>
+                <div class="fixed-action-btn toolbar">
+                    <a class="btn-floating btn-large red pulse">
+                        <i class="ion-md-menu"></i>
+                    </a>
+                    <ul>
+                        <li><a class="waves-effect waves-purple"><i class="ion-md-paper"></i> DOCX</a></li>
+                        <li><a class="waves-effect waves-orange"><i class="ion-ios-book"></i> PDF</a></li>
+                    </ul>
+                </div>
+
                 <div class="card-action input-field col s12">
                     <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas']">Voltar</a>
                 </div>

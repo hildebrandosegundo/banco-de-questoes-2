@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
     styles: ['tbody tr {cursor: pointer}'],
 })
 
-export class provasEditComponent {
+export class provasEditComponent{
     public resultado: any = [];
     public CountQuestoes: number = 0;
     public qtdquestao: number = 30;
@@ -95,13 +95,13 @@ export class provasEditComponent {
                 private route: ActivatedRoute,
                 private router: Router,
                 private listaQuestao: ElementRef,
-                private renderer: Renderer2) {
-    }
+                private renderer: Renderer2) {}
 
     ngOnInit() {
         this.route.params
             .subscribe((params: any) => {
                 this.view(params.id);
+                //this.prova.id = params.id;
             });
         this.listAreas();
         this.listSeries();
@@ -112,12 +112,13 @@ export class provasEditComponent {
     percorrer(obj: any) {
         for (let propriedade in obj) {
             if (obj.hasOwnProperty(propriedade)) {
-                if (typeof obj[propriedade] == "object" && obj[propriedade]!=null) {
+                if (typeof obj[propriedade] == "object" && obj[propriedade] != null) {
                     this.resultado.push(obj[propriedade]);
                 }
             }
         }
     }
+
     listAreas() {
         this.httpService.builder('areas')
             .list()
@@ -167,7 +168,6 @@ export class provasEditComponent {
             .then((res) => {
                 this.questoes = res;
             });
-        return false;
     }
 
     view(id: number) {
@@ -178,13 +178,13 @@ export class provasEditComponent {
                 this.percorrer(res);
                 console.log(this.resultado);
                 let vm = '';
-                for (let i=0; i<this.resultado.length; i++) {
-                    if (i==2){
-                        this.listQuestao(this.resultado[i]).then(function () {
-                            this.addQuestao()
+                for (let i = 2; i < this.resultado.length; i++) {
+                    this.httpService.builder('pquestoes')
+                        .getQuestao(this.resultado[i])
+                        .then((res) => {
+                            this.questoes = res;
+                            this.addQuestao();
                         });
-                    }
-
                 }
             })
     }
@@ -324,7 +324,6 @@ export class provasEditComponent {
     save() {
         let data = new FormData()
         if (this.CountQuestoes > 0) {
-            let vm = this;
             data.append('serie_id', this.questao.serie_id);
             data.append('area_id', this.questao.area_id);
             $('#listaQuestao li').each(function (index, value) {
@@ -333,9 +332,9 @@ export class provasEditComponent {
             data.append('ano', this.prova.ano);
             data.append('bimestre', this.prova.bimestre);
             this.httpService.builder('provas')
-                .insert(data)
+                .update(this.prova.id, data)
                 .then((res) => {
-                    this.router.navigate(['/provas']);
+                    this.router.navigate(['/provas/'+this.prova.id]);
                 })
         } else {
             alert('Adicione questões!');
