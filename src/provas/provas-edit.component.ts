@@ -177,7 +177,6 @@ export class provasEditComponent{
                 this.prova = res;
                 this.percorrer(res);
                 console.log(this.resultado);
-                let vm = '';
                 for (let i = 2; i < this.resultado.length; i++) {
                     this.httpService.builder('pquestoes')
                         .getQuestao(this.resultado[i])

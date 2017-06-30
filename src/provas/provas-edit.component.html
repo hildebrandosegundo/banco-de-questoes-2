@@ -48,7 +48,7 @@
                     <label class="active">Tema/Tópicos</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default">
+                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default" (change)="getQuestao(questao)">
                         <option value="" disabled selected>Selecione a Habilidades</option>
                         <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">{{habilidade.codigo}} - {{habilidade.habilidade}}</option>
                     </select>

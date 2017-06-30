@@ -20,11 +20,13 @@ const provas_new_component_1 = require("./provas-new.component");
 const provas_edit_component_1 = require("./provas-edit.component");
 const ng2_materialize_1 = require("ng2-materialize");
 const AppendQuestao_component_1 = require("../app/AppendQuestao.component");
+const provagerada_component_1 = require("./provagerada.component");
 const appRoutes = [
     { path: 'provas', component: provas_component_1.provasComponent },
     { path: 'provas/new', component: provas_new_component_1.provasNewComponent },
     { path: 'provas/:id', component: provas_view_component_1.provasViewComponent },
     { path: 'provas/:id/edit', component: provas_edit_component_1.provasEditComponent },
+    { path: 'provagerada/:id', component: provagerada_component_1.provaGeradaComponent },
 ];
 let ProvasModule = class ProvasModule {
 };
@@ -41,7 +43,8 @@ ProvasModule = __decorate([
             provas_component_1.provasComponent,
             provas_new_component_1.provasNewComponent,
             provas_view_component_1.provasViewComponent,
-            provas_edit_component_1.provasEditComponent
+            provas_edit_component_1.provasEditComponent,
+            provagerada_component_1.provaGeradaComponent
         ],
         providers: [
             app_http_service_1.AppHttpService, AppendQuestao_component_1.AppendQuestaoComponent

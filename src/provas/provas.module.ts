@@ -14,11 +14,13 @@ import {provasNewComponent} from "./provas-new.component";
 import {provasEditComponent} from "./provas-edit.component";
 import { MaterializeModule } from 'ng2-materialize';
 import {AppendQuestaoComponent} from "../app/AppendQuestao.component";
+import {provaGeradaComponent} from "./provagerada.component";
 const appRoutes: Routes =[
     {path: 'provas', component: provasComponent},
     {path: 'provas/new', component: provasNewComponent},
     {path: 'provas/:id', component: provasViewComponent},
     {path: 'provas/:id/edit', component: provasEditComponent},
+    {path: 'provagerada/:id', component: provaGeradaComponent},
 ];
 @NgModule({
      imports: [
@@ -32,7 +34,8 @@ const appRoutes: Routes =[
          provasComponent,
          provasNewComponent,
          provasViewComponent,
-         provasEditComponent
+         provasEditComponent,
+         provaGeradaComponent
      ],
      providers: [
          AppHttpService, AppendQuestaoComponent
