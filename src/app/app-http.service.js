@@ -80,7 +80,7 @@ let AppHttpService = class AppHttpService {
         });
     }
     search(term) {
-        return this.http.get(this.url + '?likequestoes=' + term, this.options)
+        return this.http.get(this.url + '?like=codigo,' + term, this.options)
             .toPromise()
             .then((res) => {
             return res.json() || {};

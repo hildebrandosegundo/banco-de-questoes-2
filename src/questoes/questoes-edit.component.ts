@@ -4,8 +4,6 @@
 import { Component } from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import anything = jasmine.anything;
-import any = jasmine.any;
 
 @Component({
     templateUrl: './questoes-edit.component.html',
@@ -13,6 +11,7 @@ import any = jasmine.any;
 })
 export class QuestoesEditComponent {
     public questao: any = {
+        codigo: '',
         serie_id: '',
         area_id: '',
         nivel_id: '',
@@ -72,7 +71,7 @@ export class QuestoesEditComponent {
             })
     }
     onFileChange (e: any, img: number) {
-        const files = e.target.files || e.dataTransfer.files
+        const files = e.target.files || e.dataTransfer.files;
 
         if (!files.length) {
             return
@@ -143,12 +142,18 @@ export class QuestoesEditComponent {
                 this.questao = res;
             })
     }
-
+    putCorreta (al: number) {
+        this.questao.correta = al;
+    }
     save (id: number) {
-       console.log(this.questao)
+        if ($("#selectHabilidade option:selected").val()!=null)
+            this.questao.codigo = $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0];
+
+        console.log(this.questao);
        this.httpService.builder('pquestoes')
             .update(id, this.questao)
             .then((res) => {
+                console.log(res);
                 this.router.navigate(['/questoes/' + id]);
             })
     }

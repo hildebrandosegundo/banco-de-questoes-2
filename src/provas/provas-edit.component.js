@@ -23,7 +23,7 @@ let provasEditComponent = class provasEditComponent {
         this.renderer = renderer;
         this.resultado = [];
         this.CountQuestoes = 0;
-        this.qtdquestao = 30;
+        this.qtdquestao = 50;
         this.prova = {
             serie_id: '',
             area_id: '',

@@ -4,14 +4,17 @@
 import {Component} from '@angular/core';
 import {AppHttpService} from '../app/app-http.service';
 import {ActivatedRoute} from '@angular/router';
+let jsPdf = require('jspdf');
+let html2canvas = require('html2canvas');
 @Component({
     templateUrl: './provagerada.component.html',
     styles: ['tbody tr {cursor: pointer}'],
 })
 export class provaGeradaComponent {
     public resultado: any = [];
+    public doc: any;
     public CountQuestao: number = 0;
-    public prova: Object = {
+    public prova: any = {
         area: {},
         nivel: {},
         serie: {},
@@ -22,16 +25,19 @@ export class provaGeradaComponent {
         data: [],
         total: ''
     };
+
     constructor(private httpService: AppHttpService,
                 private route: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.doc = new jsPdf('p', 'pt', 'letter');
         this.route.params
             .subscribe((params: any) => {
                 this.view(params.id);
             })
     }
+
     percorrer(obj: any) {
         for (let propriedade in obj) {
             if (obj.hasOwnProperty(propriedade)) {
@@ -41,6 +47,7 @@ export class provaGeradaComponent {
             }
         }
     }
+
     view(id: number) {
         this.httpService.builder('provas')
             .view(id)
@@ -64,7 +71,7 @@ export class provaGeradaComponent {
         this.CountQuestao++;
         vm += `<li>`;
         if (questao.enunciado || questao.imagem)
-            vm +=`<p style="text-align:justify"><span>`+this.CountQuestao + ` . </span>`;
+            vm += `<p style="text-align:justify"><span>` + this.CountQuestao + ` . </span>`;
         if (questao.enunciado) {
             vm += questao.enunciado;
         }
@@ -74,7 +81,7 @@ export class provaGeradaComponent {
                 </div>`;
         }
         if (questao.enunciado || questao.imagem)
-            vm +=`</p><br>`;
+            vm += `</p><br>`;
         if (questao.alternativa1 || questao.imagemAl1)
             vm += `<p style="text-align:justify"><span>a) </span>`;
         if (questao.alternativa1) {
@@ -146,5 +153,66 @@ export class provaGeradaComponent {
             vm += this.parseHTML(this.questoes.data[i]);
         }
         $('#listaQuestao').append(vm);
+    }
+
+    ExportDocx() {
+        ($('#content-prova') as any).wordExport(this.prova.ano + this.prova.bimestre + this.prova.area_id + this.prova.serie_id + this.prova.id);
+    }
+
+    ExportPDF() {
+        /*let specialElementHandlers = {
+         '#content-prova': function(element: any, renderer: any){
+         return true;
+         }
+         };*/
+        let quotes = document.getElementById('content-prova');
+        let vm = this;
+        html2canvas(quotes, {
+            onrendered: function (canvas: any) {
+
+                //! MAKE YOUR PDF
+                let pdf = new jsPdf('p', 'pt', 'a4');
+
+                for (let i = 0; i <= quotes.clientHeight / 980; i++) {
+                    //! This is all just html2canvas stuff
+                    let srcImg = canvas;
+                    let sX = 0;
+                    let sY = 980 * i; // start 980 pixels down for every new page
+                    let sWidth = 900;
+                    let sHeight = 980;
+                    let dX = 0;
+                    let dY = 0;
+                    let dWidth = 900;
+                    let dHeight = 980;
+
+                    (window as any).onePageCanvas = document.createElement("canvas");
+                    (window as any).onePageCanvas.setAttribute('width', 900);
+                    (window as any).onePageCanvas.setAttribute('height', 980);
+                    let ctx = (window as any).onePageCanvas.getContext('2d');
+                    // details on this usage of this function:
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+                    ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
+
+                    // document.body.appendChild(canvas);
+                    let canvasDataURL = (window as any).onePageCanvas.toDataURL("image/png", 1.0);
+
+                    let width = (window as any).onePageCanvas.width;
+                    let height = (window as any).onePageCanvas.clientHeight;
+
+                    //! If we're on anything other than the first page,
+                    // add another page
+                    if (i > 0) {
+                        pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                    }
+                    //! now we declare that we're working on that page
+                    pdf.setPage(i + 1);
+                    //! now we add content to that page!
+                    pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width * .62), (height * .62));
+
+                }
+                //! after the for loop is finished running, we save the pdf.
+                pdf.output('save', vm.prova.ano + vm.prova.bimestre + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
+            }
+        });
     }
 }

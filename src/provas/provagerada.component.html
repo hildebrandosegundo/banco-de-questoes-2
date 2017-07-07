@@ -1,5 +1,5 @@
 <div class="card col s12">
-    <div class="card-content">
+    <div id="content-prova" class="card-content">
         <div style="text-align: justify">
         <p>ESCOLA MUNICIPAL __________________________________________________________________________________________</p>
 
@@ -16,5 +16,14 @@
             <ul #listaQuestao id="listaQuestao">
             </ul>
         </div>
+    </div>
+    <div class="fixed-action-btn toolbar">
+        <a class="btn-floating btn-large red pulse">
+            <i class="ion-md-menu"></i>
+        </a>
+        <ul>
+            <li><a (click)="ExportDocx()" class="word btn waves-effect waves-purple"><i class="ion-md-paper"></i> WORD</a></li>
+            <li><a (click)="ExportPDF()" class="pdf btn waves-effect waves-orange"><i class="ion-ios-book"></i> PDF</a></li>
+        </ul>
     </div>
 </div>

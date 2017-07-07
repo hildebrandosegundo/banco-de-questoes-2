@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class provasEditComponent{
     public resultado: any = [];
     public CountQuestoes: number = 0;
-    public qtdquestao: number = 30;
+    public qtdquestao: number = 50;
     public prova: any = {
         serie_id: '',
         area_id: '',

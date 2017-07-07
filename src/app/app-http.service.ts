@@ -67,7 +67,7 @@ export class AppHttpService {
             });
     }
 
-    update (id: number, data: Object) {
+    update (id: number, data: any) {
         return this.http.put(this.url + '/' + id, data, this.options)
             .toPromise()
             .then((res) => {
@@ -75,7 +75,7 @@ export class AppHttpService {
             });
     }
 
-    insert (data: Object) {
+    insert (data: any) {
         return this.http.post(this.url, data, this.options)
             .toPromise()
             .then((res) => {
@@ -91,7 +91,7 @@ export class AppHttpService {
             });
     }
     search (term: string) {
-        return this.http.get(this.url + '?likequestoes=' + term, this.options)
+        return this.http.get(this.url + '?like=codigo,' + term, this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};

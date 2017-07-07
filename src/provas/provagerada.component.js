@@ -14,6 +14,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require("@angular/core");
 const app_http_service_1 = require("../app/app-http.service");
 const router_1 = require("@angular/router");
+let jsPdf = require('jspdf');
+let html2canvas = require('html2canvas');
 let provaGeradaComponent = class provaGeradaComponent {
     constructor(httpService, route) {
         this.httpService = httpService;
@@ -33,6 +35,7 @@ let provaGeradaComponent = class provaGeradaComponent {
         };
     }
     ngOnInit() {
+        this.doc = new jsPdf('p', 'pt', 'letter');
         this.route.params
             .subscribe((params) => {
             this.view(params.id);
@@ -150,6 +153,58 @@ let provaGeradaComponent = class provaGeradaComponent {
             vm += this.parseHTML(this.questoes.data[i]);
         }
         $('#listaQuestao').append(vm);
+    }
+    ExportDocx() {
+        $('#content-prova').wordExport(this.prova.ano + this.prova.bimestre + this.prova.area_id + this.prova.serie_id + this.prova.id);
+    }
+    ExportPDF() {
+        /*let specialElementHandlers = {
+         '#content-prova': function(element: any, renderer: any){
+         return true;
+         }
+         };*/
+        let quotes = document.getElementById('content-prova');
+        let vm = this;
+        html2canvas(quotes, {
+            onrendered: function (canvas) {
+                //! MAKE YOUR PDF
+                let pdf = new jsPdf('p', 'pt', 'a4');
+                for (let i = 0; i <= quotes.clientHeight / 980; i++) {
+                    //! This is all just html2canvas stuff
+                    let srcImg = canvas;
+                    let sX = 0;
+                    let sY = 980 * i; // start 980 pixels down for every new page
+                    let sWidth = 900;
+                    let sHeight = 980;
+                    let dX = 0;
+                    let dY = 0;
+                    let dWidth = 900;
+                    let dHeight = 980;
+                    window.onePageCanvas = document.createElement("canvas");
+                    window.onePageCanvas.setAttribute('width', 900);
+                    window.onePageCanvas.setAttribute('height', 980);
+                    let ctx = window.onePageCanvas.getContext('2d');
+                    // details on this usage of this function:
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+                    ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
+                    // document.body.appendChild(canvas);
+                    let canvasDataURL = window.onePageCanvas.toDataURL("image/png", 1.0);
+                    let width = window.onePageCanvas.width;
+                    let height = window.onePageCanvas.clientHeight;
+                    //! If we're on anything other than the first page,
+                    // add another page
+                    if (i > 0) {
+                        pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                    }
+                    //! now we declare that we're working on that page
+                    pdf.setPage(i + 1);
+                    //! now we add content to that page!
+                    pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width * .62), (height * .62));
+                }
+                //! after the for loop is finished running, we save the pdf.
+                pdf.output('save', vm.prova.ano + vm.prova.bimestre + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
+            }
+        });
     }
 };
 provaGeradaComponent = __decorate([

@@ -278,9 +278,12 @@ export class provasNewComponent {
     }
 
     save () {
-        let data = new FormData()
+        let data = new FormData();
+        if (this.prova.bimestre!=''){
+            alert('Adicione o BIMESTRE!');
+            return;
+        }
         if (this.CountQuestoes>0) {
-            let vm = this;
             data.append('serie_id', this.questao.serie_id);
             data.append('area_id', this.questao.area_id);
             $('#listaQuestao li').each(function (index, value) {

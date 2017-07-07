@@ -154,8 +154,30 @@ let QuestoesNewComponent = class QuestoesNewComponent {
              })
      }*/
     save() {
+        let data = new FormData();
+        data.append('serie_id', this.questao.serie_id || '');
+        data.append('area_id', this.questao.area_id || '');
+        data.append('nivel_id', this.questao.nivel_id || '');
+        data.append('categoria_id', this.questao.categoria_id || '');
+        data.append('habilidade_id', this.questao.habilidade_id || '');
+        data.append('enunciado', this.questao.enunciado || '');
+        data.append('imagem', this.questao.imagem || '');
+        data.append('imagemAl1', this.questao.imagemAl1 || '');
+        data.append('imagemAl2', this.questao.imagemAl2 || '');
+        data.append('imagemAl3', this.questao.imagemAl3 || '');
+        data.append('imagemAl4', this.questao.imagemAl4 || '');
+        data.append('imagemAl5', this.questao.imagemAl5 || '');
+        data.append('alternativa1', this.questao.alternativa1 || '');
+        data.append('alternativa2', this.questao.alternativa2 || '');
+        data.append('alternativa3', this.questao.alternativa3 || '');
+        data.append('alternativa4', this.questao.alternativa4 || '');
+        data.append('alternativa5', this.questao.alternativa5 || '');
+        data.append('correta', this.questao.correta || null);
+        if ($("#selectHabilidade option:selected").val() != null)
+            data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
+        console.log(this.questao);
         this.httpService.builder('pquestoes')
-            .insert(this.questao)
+            .insert(data)
             .then((res) => {
             this.router.navigate(['/questoes']);
         });

@@ -4,8 +4,8 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'mdi/css/materialdesignicons.css';
 import 'materialize-css/dist/js/materialize.min.js';
 import 'ionicons/dist/css/ionicons.css';
-import '../../src/jquery-2.1.1.min.js';
-
+import 'jquery/dist/jquery-2.1.1.min.js';
+import '../../src/jquery.wordexport.js';
 import {Router} from "@angular/router";
 @Component({
   selector: 'my-app',

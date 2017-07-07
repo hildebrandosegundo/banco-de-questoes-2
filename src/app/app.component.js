@@ -14,7 +14,8 @@ require("materialize-css/dist/css/materialize.min.css");
 require("mdi/css/materialdesignicons.css");
 require("materialize-css/dist/js/materialize.min.js");
 require("ionicons/dist/css/ionicons.css");
-require("../../src/jquery-2.1.1.min.js");
+require("jquery/dist/jquery-2.1.1.min.js");
+require("../../src/jquery.wordexport.js");
 const router_1 = require("@angular/router");
 let AppComponent = class AppComponent {
     constructor(router) {

@@ -19,18 +19,18 @@
             <table class="striped">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>CODIGO</th>
                     <th>AREA</th>
                     <th>SERIE</th>
                     <th>NIVEL</th>
-                    <th>CATEGORIA</th>
+                    <th>TEMA</th>
                     <th>HABILIDADE</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let questao of questoes.data" [routerLink]="['/questoes/' + questao.id]">
                     <td>
-                        <small>{{questao.id}}</small>
+                        <small>{{questao.codigo}}</small>
                     </td>
                     <td>
                         <small>{{questao.area.area}}</small>

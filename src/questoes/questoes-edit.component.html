@@ -17,35 +17,35 @@
         <div class="card-content">
             <form class="row" autocomplete="on" (submit)="save(questao.id)">
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.area_id" name="area_id" class="browser-default" (change)="listNivels(questao)">
+                    <select id="selectArea" [(ngModel)]="questao.area_id" name="area_id" class="browser-default" (change)="listNivels(questao)">
                         <option value="" disabled selected>Selecione a área</option>
                         <option *ngFor="let area of areas.data" [value]="area.id">{{area.area}}</option>
                     </select>
                     <label class="active">Área</label>
                 </div>
                 <div class="input-field col s2">
-                    <select [(ngModel)]="questao.serie_id" name="serie_id" class="browser-default" (change)="listNivels(questao)">
+                    <select id="selectSerie" [(ngModel)]="questao.serie_id" name="serie_id" class="browser-default" (change)="listNivels(questao)">
                         <option value="" disabled selected>Selecione a série</option>
                         <option *ngFor="let serie of series.data" [value]="serie.id">{{serie.serie}}</option>
                     </select>
                     <label class="active">Série</label>
                 </div>
                 <div class="input-field col s1 ">
-                    <select [(ngModel)]="questao.nivel_id" name="nivel_id" class="browser-default" (change)="listCategorias(questao)">
+                    <select id="selectNivel" [(ngModel)]="questao.nivel_id" name="nivel_id" class="browser-default" (change)="listCategorias(questao)">
                         <option value="" disabled selected>Selecione o nível</option>
                         <option *ngFor="let nivel of nivels.data" [value]="nivel.id">{{nivel.nivel}}</option>
                     </select>
                     <label class="active">Nível</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default" (change)="listHabilidades(questao)">
+                    <select id="selectCategoria" [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default" (change)="listHabilidades(questao)">
                         <option value="" disabled selected>Selecione o Tema/Tópicos</option>
                         <option *ngFor="let categoria of categorias.data" [value]="categoria.id">{{categoria.codigo}} - {{categoria.categoria}}</option>
                     </select>
                     <label class="active">Tema/Tópicos</label>
                 </div>
                 <div class="input-field col s3">
-                    <select [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default">
+                    <select id="selectHabilidade" [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default">
                         <option value="" disabled selected>Selecione a Habilidades</option>
                         <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.id">{{habilidade.codigo}} - {{habilidade.habilidade}}</option>
                     </select>
@@ -59,8 +59,8 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
+                            <div class="btn btn-floating">
+                                <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 1)" type="file"
                                        accept="image/png, image/jpeg">
                             </div>
@@ -83,8 +83,8 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
+                            <div class="btn btn-floating">
+                                <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 2)" type="file" accept="image/png, image/jpeg">
                             </div>
                         </div>
@@ -93,7 +93,7 @@
 
                 <div class="input-field col s2">
                     <p>
-                        <input [(ngModel)]="questao.correta" value="1" type="radio" name="gender" class="with-gap" id="correta1"/>
+                        <input [(ngModel)]="questao.correta" value="1" (change)="putCorreta(1)" type="radio" name="gender" class="with-gap" id="correta1"/>
                         <label for="correta1">Alternativa correta</label>
                     </p>
                 </div>
@@ -111,8 +111,8 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
+                            <div class="btn btn-floating">
+                                <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 3)" type="file" accept="image/png, image/jpeg">
                             </div>
 
@@ -122,7 +122,7 @@
 
                 <div class="input-field col s2">
                     <p>
-                        <input [(ngModel)]="questao.correta" value="2" type="radio" name="gender" class="with-gap" id="correta2"/>
+                        <input [(ngModel)]="questao.correta" value="2" (change)="putCorreta(2)" type="radio" name="gender" class="with-gap" id="correta2"/>
                         <label for="correta2">Alternativa correta</label>
                     </p>
                 </div>
@@ -141,8 +141,8 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
-                                <span class="ion-md-images"></span>
+                            <div class="btn btn-floating">
+                                <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 4)" type="file" accept="image/png, image/jpeg">
                             </div>
 
@@ -152,7 +152,7 @@
 
                 <div class="input-field col s2">
                     <p>
-                        <input [(ngModel)]="questao.correta" value="3" type="radio" name="gender" class="with-gap" id="correta3"/>
+                        <input [(ngModel)]="questao.correta" value="3" (change)="putCorreta(3)" type="radio" name="gender" class="with-gap" id="correta3"/>
                         <label for="correta3">Alternativa correta</label>
                     </p>
                 </div>
@@ -171,7 +171,7 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
+                            <div class="btn btn-floating">
                                 <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 5)" type="file" accept="image/png, image/jpeg">
                             </div>
@@ -181,7 +181,7 @@
 
                 <div class="input-field col s2">
                     <p>
-                        <input [(ngModel)]="questao.correta" value="4" type="radio" name="gender" class="with-gap" id="correta4"/>
+                        <input [(ngModel)]="questao.correta" value="4" (change)="putCorreta(4)" type="radio" name="gender" class="with-gap" id="correta4"/>
                         <label for="correta4">Alternativa correta</label>
                     </p>
                 </div>
@@ -200,7 +200,7 @@
                 <div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
-                            <div class="btn">
+                            <div class="btn btn-floating">
                                 <i class="ion-md-images"></i>
                                 <input (change)="onFileChange($event, 6)" type="file" accept="image/png, image/jpeg">
                             </div>
@@ -211,7 +211,7 @@
 
                 <div class="input-field col s2">
                     <p>
-                        <input [(ngModel)]="questao.correta" value="5" type="radio" name="gender" class="with-gap" id="correta5"/>
+                        <input [(ngModel)]="questao.correta" value="5" (change)="putCorreta(5)" type="radio" name="gender" class="with-gap" id="correta5"/>
                         <label for="correta5">Alternativa correta</label>
                     </p>
                 </div>

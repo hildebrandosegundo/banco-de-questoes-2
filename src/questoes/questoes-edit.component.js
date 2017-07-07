@@ -20,6 +20,7 @@ let QuestoesEditComponent = class QuestoesEditComponent {
         this.route = route;
         this.router = router;
         this.questao = {
+            codigo: '',
             serie_id: '',
             area_id: '',
             nivel_id: '',
@@ -165,11 +166,17 @@ let QuestoesEditComponent = class QuestoesEditComponent {
             this.questao = res;
         });
     }
+    putCorreta(al) {
+        this.questao.correta = al;
+    }
     save(id) {
+        if ($("#selectHabilidade option:selected").val() != null)
+            this.questao.codigo = $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0];
         console.log(this.questao);
         this.httpService.builder('pquestoes')
             .update(id, this.questao)
             .then((res) => {
+            console.log(res);
             this.router.navigate(['/questoes/' + id]);
         });
     }
