@@ -8,14 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 /**
  * Created by hildebrandosegundo on 08/06/17.
  */
-const core_1 = require("@angular/core");
-const platform_browser_1 = require("@angular/platform-browser");
-const forms_1 = require("@angular/forms");
-const app_paginate_component_1 = require("./app-paginate.component");
-const app_search_component_1 = require("./app-search.component");
-const AppendQuestao_component_1 = require("./AppendQuestao.component");
-let AppSharedComponentsModule = class AppSharedComponentsModule {
-};
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var app_paginate_component_1 = require("./app-paginate.component");
+var app_search_component_1 = require("./app-search.component");
+var AppSharedComponentsModule = (function () {
+    function AppSharedComponentsModule() {
+    }
+    return AppSharedComponentsModule;
+}());
 AppSharedComponentsModule = __decorate([
     core_1.NgModule({
         imports: [
@@ -23,12 +25,10 @@ AppSharedComponentsModule = __decorate([
             forms_1.FormsModule
         ],
         declarations: [
-            AppendQuestao_component_1.AppendQuestaoComponent,
             app_paginate_component_1.AppPaginateComponent,
             app_search_component_1.AppSearchComponent,
         ],
         exports: [
-            AppendQuestao_component_1.AppendQuestaoComponent,
             app_paginate_component_1.AppPaginateComponent,
             app_search_component_1.AppSearchComponent
         ]

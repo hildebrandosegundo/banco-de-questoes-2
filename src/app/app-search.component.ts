@@ -13,7 +13,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
     template: `
         <div class="row">
             <div class="input-field col s6">
-                <input name="search" type="text" #searchInput id="search-input" class="validate" placeholder="Pesquise aqui..." (keyup)="search(searchInput.value)">
+                <input name="search" type="text" #searchInput id="search-input" class="validate" placeholder="Pesquise pelo código..." (keyup)="search(searchInput.value)">
                 <label for="search" class="active">Busca</label>
             </div>
         </div>

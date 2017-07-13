@@ -11,30 +11,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("./app-http.service");
-let AppPaginateComponent = class AppPaginateComponent {
-    constructor(httpService) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("./app-http.service");
+var AppPaginateComponent = (function () {
+    function AppPaginateComponent(httpService) {
         this.httpService = httpService;
         this.onChangePage = new core_1.EventEmitter();
     }
-    ngOnChanges(changes) {
+    AppPaginateComponent.prototype.ngOnChanges = function (changes) {
         if (changes.totalPage) {
             this.pages = Array(this.totalPage)
                 .fill(this.totalPage)
-                .map((x, i) => {
+                .map(function (x, i) {
                 return i + 1;
             });
         }
-    }
-    changePage(page) {
+    };
+    AppPaginateComponent.prototype.changePage = function (page) {
+        var _this = this;
         this.activePage = page;
         this.httpService.builder(this.resource).list({ page: page })
-            .then((res) => {
-            this.onChangePage.emit(res);
+            .then(function (res) {
+            _this.onChangePage.emit(res);
         });
-    }
-};
+    };
+    return AppPaginateComponent;
+}());
 __decorate([
     core_1.Input(),
     __metadata("design:type", Number)
@@ -62,16 +64,7 @@ __decorate([
 AppPaginateComponent = __decorate([
     core_1.Component({
         selector: 'paginate',
-        template: `
-      <div class="center-align">
-          <ul class="pagination">
-              <li class="waves-effect" [ngClass]="{'active': page == activePage}" *ngFor="let page of pages">
-                  <a (click)="changePage(page)">{{page}}</a>
-              </li>
-          </ul>
-          <p>Você tem um total de {{total}} registros, exibindo página {{activePage}} de {{totalPage}}</p>
-      </div>
-  `
+        template: "\n      <div class=\"center-align\">\n          <ul class=\"pagination\">\n              <li class=\"waves-effect\" [ngClass]=\"{'active': page == activePage}\" *ngFor=\"let page of pages\">\n                  <a (click)=\"changePage(page)\">{{page}}</a>\n              </li>\n          </ul>\n          <p>Voc\u00EA tem um total de {{total}} registros, exibindo p\u00E1gina {{activePage}} de {{totalPage}}</p>\n      </div>\n  "
     }),
     __metadata("design:paramtypes", [app_http_service_1.AppHttpService])
 ], AppPaginateComponent);

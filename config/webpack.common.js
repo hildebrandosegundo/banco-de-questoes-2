@@ -14,12 +14,8 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
     node: {
-        console: true,
         fs: "empty",
-        child_process: "empty",
-        dns: "empty",
-        cluster: "empty",
-        net: "empty"
+        child_process: "empty"
     },
     module: {
         rules: [

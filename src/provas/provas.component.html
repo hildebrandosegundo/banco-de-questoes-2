@@ -19,33 +19,34 @@
             <table class="striped">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>BIMESTRE</th>
+                    <th>CODIGO</th>
                     <th>ANO</th>
-                    <th>SERIE</th>
                     <th>AREA</th>
+                    <th>SERIE</th>
+                    <th>TITULO</th>
                     <th>VISUALIZAR</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let prova of provas.data" [routerLink]="['/provas/' + prova.id]">
                     <td>
-                        <small>{{prova.id}}</small>
-                    </td>
-                    <td>
-                        <small>{{prova.bimestre}}</small>
+                        <small>{{prova.codigo}}</small>
                     </td>
                     <td>
                         <small>{{prova.ano}}</small>
                     </td>
                     <td>
-                        <small>{{prova.serie.serie}}</small>
-                    </td>
-                    <td>
                         <small>{{prova.area.area}}</small>
                     </td>
                     <td>
+                        <small>{{prova.serie.serie}}</small>
+                    </td>
+                    <td>
+                        <small>{{prova.titulo}}</small>
+                    </td>
+                    <td>
                         <a [routerLink]="['/provagerada/' + prova.id]" class="waves-effect waves-light btn-floating"><i class="ion-md-search"></i></a>
+                        <a [routerLink]="['/provas/' + prova.id + '/edit']" class="waves-effect waves-light btn-floating blue"><i class="ion-md-create"></i></a>
                     </td>
                 </tr>
                 </tbody>

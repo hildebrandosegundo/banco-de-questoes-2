@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let provasViewComponent = class provasViewComponent {
-    constructor(httpService, route, router) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var provasViewComponent = (function () {
+    function provasViewComponent(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -27,27 +27,31 @@ let provasViewComponent = class provasViewComponent {
             habilidade: {}
         };
     }
-    ngOnInit() {
+    provasViewComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.route.params
-            .subscribe((params) => {
-            this.view(params.id);
+            .subscribe(function (params) {
+            _this.view(params.id);
         });
-    }
-    view(id) {
+    };
+    provasViewComponent.prototype.view = function (id) {
+        var _this = this;
         this.httpService.builder('provas')
             .view(id)
-            .then((res) => {
-            this.prova = res;
+            .then(function (res) {
+            _this.prova = res;
         });
-    }
-    delete(id) {
+    };
+    provasViewComponent.prototype.delete = function (id) {
+        var _this = this;
         this.httpService.builder('provas')
             .delete(id)
-            .then(() => {
-            this.router.navigate(['/provas']);
+            .then(function () {
+            _this.router.navigate(['/provas']);
         });
-    }
-};
+    };
+    return provasViewComponent;
+}());
 provasViewComponent = __decorate([
     core_1.Component({
         templateUrl: './provas-view.component.html',

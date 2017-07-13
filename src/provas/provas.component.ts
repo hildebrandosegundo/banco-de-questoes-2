@@ -15,6 +15,7 @@ export class provasComponent {
     constructor (private httpService: AppHttpService) {}
     ngOnInit () {
         this.list();
+        ($('.tooltipped') as any).tooltip({delay: 50});
     }
 
     list () {

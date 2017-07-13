@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let provasNewComponent = class provasNewComponent {
-    constructor(httpService, router, listaQuestao, renderer) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var provasNewComponent = (function () {
+    function provasNewComponent(httpService, router, listaQuestao, renderer) {
         this.httpService = httpService;
         this.router = router;
         this.listaQuestao = listaQuestao;
@@ -26,7 +26,8 @@ let provasNewComponent = class provasNewComponent {
             serie_id: '',
             area_id: '',
             ano: new Date().getFullYear(),
-            bimestre: '',
+            titulo: '',
+            codigo: '',
             questao1_id: '',
             questao2_id: '',
             questao3_id: '',
@@ -100,158 +101,130 @@ let provasNewComponent = class provasNewComponent {
             data: []
         };
     }
-    ngOnInit() {
+    provasNewComponent.prototype.ngOnInit = function () {
         this.listAreas();
         this.listSeries();
         $('.collapsible').collapsible();
         $('.tooltipped').tooltip({ delay: 50 });
-    }
-    listAreas() {
+    };
+    provasNewComponent.prototype.listAreas = function () {
+        var _this = this;
         this.httpService.builder('areas')
             .list()
-            .then((res) => {
-            this.areas = res;
+            .then(function (res) {
+            _this.areas = res;
         });
-    }
-    listSeries() {
+    };
+    provasNewComponent.prototype.listSeries = function () {
+        var _this = this;
         this.httpService.builder('series')
             .list()
-            .then((res) => {
-            this.series = res;
+            .then(function (res) {
+            _this.series = res;
         });
-    }
-    listNivels(data) {
+    };
+    provasNewComponent.prototype.listNivels = function (data) {
+        var _this = this;
         this.httpService.builder('nivels')
             .getNivel(data)
-            .then((res) => {
-            this.nivels = res;
+            .then(function (res) {
+            _this.nivels = res;
         });
-    }
-    listCategorias(data) {
+    };
+    provasNewComponent.prototype.listCategorias = function (data) {
+        var _this = this;
         $('#questao_area').attr('disabled', 'true');
         $('#questao_serie').attr('disabled', 'true');
         this.httpService.builder('categorias')
             .getCategoria(data)
-            .then((res) => {
-            this.categorias = res;
+            .then(function (res) {
+            _this.categorias = res;
         });
-    }
-    listHabilidades(data) {
+    };
+    provasNewComponent.prototype.listHabilidades = function (data) {
+        var _this = this;
         this.httpService.builder('habilidades')
             .getHabilidade(data)
-            .then((res) => {
-            this.habilidades = res;
+            .then(function (res) {
+            _this.habilidades = res;
         });
-    }
-    listQuestao(data) {
+    };
+    provasNewComponent.prototype.listQuestao = function (data) {
+        var _this = this;
         this.httpService.builder('pquestoes')
             .getQuestao(data)
-            .then((res) => {
-            this.questoes = res;
+            .then(function (res) {
+            _this.questoes = res;
         });
-    }
-    getQuestao(data) {
+    };
+    provasNewComponent.prototype.getQuestao = function (data) {
         this.listQuestao(data);
         $('#buttonAdd').addClass('pulse');
         $('#buttonAdd').removeClass('disabled');
-    }
-    atualizaCount() {
+    };
+    provasNewComponent.prototype.atualizaCount = function () {
         this.CountQuestoes = 0;
-        let vm = this;
+        var vm = this;
         $('#listaQuestao li').each(function () {
             vm.CountQuestoes++;
         });
-    }
-    atualizaNum() {
+    };
+    provasNewComponent.prototype.atualizaNum = function () {
         this.CountQuestoes = 0;
         this.renderer.destroy();
-        let vm = this;
+        var vm = this;
         $('#listaQuestao li a').each(function () {
-            vm.renderer.listen(this, 'click', (evt) => {
-                $(this).closest('li').remove();
+            var _this = this;
+            vm.renderer.listen(this, 'click', function (evt) {
+                $(_this).closest('li').remove();
                 vm.atualizaCount();
             });
             vm.CountQuestoes++;
         });
-    }
-    parseHTML(questao) {
-        let vm = '';
-        vm += `<li #liquestao value="` + questao.id + `">
-                <div class="collapsible-header">
-                <div class="col s11"><small>Id: ` + questao.id + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Tema: ` + questao.categoria.categoria + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
-                </div>
-                <div class="collapsible-body">`;
+    };
+    provasNewComponent.prototype.parseHTML = function (questao) {
+        var vm = '';
+        vm += "<li #liquestao value=\"" + questao.id + "\">\n                <div class=\"collapsible-header\">\n                <div class=\"col s11\"><small>#" + questao.codigo + " | Area: " + questao.area.area + " | S\u00E9rie: " + questao.serie.serie + " | N\u00EDvel: " + questao.nivel.nivel + " | Tema: " + questao.categoria.codigo + " Habilidade: " + questao.habilidade.codigo + "</small></div><a class=\"btn-floating btn waves-effect waves-light red\"><div class=\"ion-md-trash\"></div></a>\n                </div>\n                <div class=\"collapsible-body\">";
         if (questao.enunciado) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="questao.enunciado" name="enuciado" class="materialize-textarea">` + questao.enunciado + `</textarea>
-                <label class="active">ENUCIADO DA QUESTÃO</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"questao.enunciado\" name=\"enuciado\" class=\"materialize-textarea\">" + questao.enunciado + "</textarea>\n                <label class=\"active\">ENUCIADO DA QUEST\u00C3O</label>\n                </div>";
         }
         if (questao.imagem) {
-            vm += `<div>           
-                <img src="` + questao.imagem + `"/>
-                </div>`;
+            vm += "<div>           \n                <img src=\"" + questao.imagem + "\"/>\n                </div>";
         }
         if (questao.alternativa1) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa1" name="alternativa1" class="materialize-textarea">` + questao.alternativa1 + `</textarea>
-                <label class="active">1º ALTERNATIVA</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa1\" name=\"alternativa1\" class=\"materialize-textarea\">" + questao.alternativa1 + "</textarea>\n                <label class=\"active\">1\u00BA ALTERNATIVA</label>\n                </div>";
         }
         if (questao.imagemAl1) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl1 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img src=\"" + questao.imagemAl1 + "\"/>\n                    </div>";
         }
         if (questao.alternativa2) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa2" name="alternativa2" class="materialize-textarea">` + questao.alternativa2 + `</textarea>
-                <label class="active">2º ALTERNATIVA</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa2\" name=\"alternativa2\" class=\"materialize-textarea\">" + questao.alternativa2 + "</textarea>\n                <label class=\"active\">2\u00BA ALTERNATIVA</label>\n                </div>";
         }
         if (questao.imagemAl2) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl2 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img src=\"" + questao.imagemAl2 + "\"/>\n                    </div>";
         }
         if (questao.alternativa3) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa3" name="alternativa3" class="materialize-textarea">` + questao.alternativa3 + `</textarea>
-                <label class="active">3º ALTERNATIVA</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa3\" name=\"alternativa3\" class=\"materialize-textarea\">" + questao.alternativa3 + "</textarea>\n                <label class=\"active\">3\u00BA ALTERNATIVA</label>\n                </div>";
         }
         if (questao.imagemAl3) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl3 + `"/>
-                </div>`;
+            vm += "<div>\n                    <img src=\"" + questao.imagemAl3 + "\"/>\n                </div>";
         }
         if (questao.alternativa4) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa4" name="alternativa4" class="materialize-textarea">` + questao.alternativa4 + `</textarea>
-                <label class="active">4º ALTERNATIVA</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa4\" name=\"alternativa4\" class=\"materialize-textarea\">" + questao.alternativa4 + "</textarea>\n                <label class=\"active\">4\u00BA ALTERNATIVA</label>\n                </div>";
         }
         if (questao.imagemAl4) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl4 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img src=\"" + questao.imagemAl4 + "\"/>\n                    </div>";
         }
         if (questao.alternativa5) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="questao.alternativa5" name="alternativa5" class="materialize-textarea">` + questao.alternativa5 + `</textarea>
-                <label class="active">5º ALTERNATIVA</label>
-                </div>`;
+            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"questao.alternativa5\" name=\"alternativa5\" class=\"materialize-textarea\">" + questao.alternativa5 + "</textarea>\n                <label class=\"active\">5\u00BA ALTERNATIVA</label>\n                </div>";
         }
         if (questao.imagemAl5) {
-            vm += `<div>              
-                    <img src="` + questao.imagemAl5 + `"/>
-                </div>`;
+            vm += "<div>              \n                    <img src=\"" + questao.imagemAl5 + "\"/>\n                </div>";
         }
-        vm += `</div>
-            </li>`;
+        vm += "</div>\n            </li>";
         return vm;
-    }
-    addQuestao() {
+    };
+    provasNewComponent.prototype.addQuestao = function () {
         if (this.qtdquestao > 50) {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
         }
@@ -259,13 +232,13 @@ let provasNewComponent = class provasNewComponent {
             if (this.CountQuestoes <= this.qtdquestao) {
                 Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
                 $('#buttonAdd').removeClass('pulse');
-                let vm = '';
+                var vm = '';
                 if ($('#aleatorio').is(':checked')) {
-                    let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
+                    var questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
                     vm = this.parseHTML(questao);
                 }
                 else {
-                    for (let i in this.questoes.data) {
+                    for (var i in this.questoes.data) {
                         vm += this.parseHTML(this.questoes.data[i]);
                     }
                 }
@@ -276,32 +249,41 @@ let provasNewComponent = class provasNewComponent {
             }
             this.atualizaNum();
         }
-    }
-    save() {
-        let data = new FormData();
-        if (this.prova.bimestre != '') {
-            alert('Adicione o BIMESTRE!');
-            return;
-        }
+    };
+    provasNewComponent.prototype.FormDataToJSON = function (key, value) {
+        this.prova[key] = value;
+    };
+    provasNewComponent.prototype.save = function () {
+        var _this = this;
         if (this.CountQuestoes > 0) {
-            data.append('serie_id', this.questao.serie_id);
-            data.append('area_id', this.questao.area_id);
+            var vm_1 = this;
             $('#listaQuestao li').each(function (index, value) {
-                data.append('questao' + (index + 1) + '_id', $(this).val());
+                vm_1.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
-            data.append('ano', this.prova.ano);
-            data.append('bimestre', this.prova.bimestre);
+            var codigo_1 = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val();
             this.httpService.builder('provas')
-                .insert(data)
-                .then((res) => {
-                this.router.navigate(['/provas']);
+                .insert(this.prova)
+                .then(function (res) {
+                vm_1.prova.codigo = codigo_1 + vm_1.prova.ano + res.id;
+                vm_1.httpService.builder('provas')
+                    .update(res.id, vm_1.prova)
+                    .then(function (res) {
+                    var retVal = confirm("Deseja visualizar a prova?");
+                    if (retVal == true) {
+                        _this.router.navigate(['/provagerada/' + res.id]);
+                    }
+                    else {
+                        _this.router.navigate(['/provas']);
+                    }
+                });
             });
         }
         else {
             alert('Adicione questões!');
         }
-    }
-};
+    };
+    return provasNewComponent;
+}());
 provasNewComponent = __decorate([
     core_1.Component({
         templateUrl: './provas-new.component.html',

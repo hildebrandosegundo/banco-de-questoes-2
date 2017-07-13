@@ -24,6 +24,7 @@ export class QuestoesNewComponent {
         imagemAl4: '',
         imagemAl5: '',
         correta: '',
+        codigo: '',
         alternativa1: '',
         alternativa2: '',
         alternativa3: '',
@@ -128,7 +129,6 @@ export class QuestoesNewComponent {
                 this.questao = res;
             })
     }*/
-
     save () {
         let data = new FormData();
         data.append('serie_id', this.questao.serie_id || '');
@@ -148,10 +148,8 @@ export class QuestoesNewComponent {
         data.append('alternativa3', this.questao.alternativa3 || '');
         data.append('alternativa4', this.questao.alternativa4 || '');
         data.append('alternativa5', this.questao.alternativa5 || '');
-        data.append('correta', this.questao.correta || null);
-
-        if ($("#selectHabilidade option:selected").val()!=null)
-            data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
+        data.append('correta', this.questao.correta || '');
+        data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
         console.log(this.questao);
         this.httpService.builder('pquestoes')
             .insert(data)

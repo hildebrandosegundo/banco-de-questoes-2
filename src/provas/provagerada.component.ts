@@ -57,10 +57,10 @@ export class provaGeradaComponent {
                 console.log(this.resultado);
                 for (let i = 2; i < this.resultado.length; i++) {
                     this.httpService.builder('pquestoes')
-                        .getQuestao(this.resultado[i])
+                        .getQuestaoIni(this.resultado[i])
                         .then((res) => {
                             this.questoes = res;
-                            this.addQuestao();
+                            this.addQuestaoIni();
                         });
                 }
             })
@@ -89,7 +89,7 @@ export class provaGeradaComponent {
         }
         if (questao.imagemAl1) {
             vm += `<div>
-                    <img src="` + questao.imagemAl1 + `"/>
+                    <img id="img1" src="` + questao.imagemAl1 + `"/>
                     </div>`;
         }
         if (questao.alternativa1 || questao.imagemAl1)
@@ -101,7 +101,7 @@ export class provaGeradaComponent {
         }
         if (questao.imagemAl2) {
             vm += `<div>
-                    <img src="` + questao.imagemAl2 + `"/>
+                    <img id="img2" src="` + questao.imagemAl2 + `"/>
                     </div>`;
         }
         if (questao.alternativa2 || questao.imagemAl2)
@@ -113,8 +113,8 @@ export class provaGeradaComponent {
         }
         if (questao.imagemAl3) {
             vm += `<div>
-                    <img src="` + questao.imagemAl3 + `"/>
-                </div>`;
+                   <img id="img3" src="` + questao.imagemAl3 + `"/>
+                   </div>`;
         }
         if (questao.alternativa3 || questao.imagemAl3)
             vm += `</p>`;
@@ -125,7 +125,7 @@ export class provaGeradaComponent {
         }
         if (questao.imagemAl4) {
             vm += `<div>
-                    <img src="` + questao.imagemAl4 + `"/>
+                    <img id="img4" src="` + questao.imagemAl4 + `"/>
                     </div>`;
         }
         if (questao.alternativa4 || questao.imagemAl4)
@@ -137,8 +137,8 @@ export class provaGeradaComponent {
         }
         if (questao.imagemAl5) {
             vm += `<div>              
-                    <img src="` + questao.imagemAl5 + `"/>
-                </div>`;
+                    <img id="img5" src="` + questao.imagemAl5 + `"/>
+                    </div>`;
         }
         if (questao.alternativa5 || questao.imagemAl5)
             vm += `</p>`;
@@ -147,7 +147,7 @@ export class provaGeradaComponent {
         return vm;
     }
 
-    addQuestao() {
+    addQuestaoIni() {
         let vm = '';
         for (let i  in this.questoes.data) {
             vm += this.parseHTML(this.questoes.data[i]);
@@ -156,7 +156,7 @@ export class provaGeradaComponent {
     }
 
     ExportDocx() {
-        ($('#content-prova') as any).wordExport(this.prova.ano + this.prova.bimestre + this.prova.area_id + this.prova.serie_id + this.prova.id);
+        ($('#content-prova') as any).wordExport(this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
     }
 
     ExportPDF() {
@@ -211,7 +211,7 @@ export class provaGeradaComponent {
 
                 }
                 //! after the for loop is finished running, we save the pdf.
-                pdf.output('save', vm.prova.ano + vm.prova.bimestre + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
+                pdf.output('save', vm.prova.ano + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
             }
         });
     }

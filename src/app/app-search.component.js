@@ -11,40 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 08/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("./app-http.service");
-const Subject_1 = require("rxjs/Subject");
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("./app-http.service");
+var Subject_1 = require("rxjs/Subject");
 require("rxjs/add/operator/debounceTime");
 require("rxjs/add/operator/distinctUntilChanged");
-let AppSearchComponent = class AppSearchComponent {
-    constructor(httpService) {
+var AppSearchComponent = (function () {
+    function AppSearchComponent(httpService) {
         this.httpService = httpService;
         this.onSearch = new core_1.EventEmitter();
         this.searchTerm = new Subject_1.Subject();
     }
-    ngOnInit() {
+    AppSearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.searchTerm
             .debounceTime(300)
             .distinctUntilChanged()
-            .subscribe((term) => {
+            .subscribe(function (term) {
             if (term) {
-                this.httpService.builder(this.resource)
+                _this.httpService.builder(_this.resource)
                     .search(term)
-                    .then((res) => {
-                    this.onSearch.emit(res);
+                    .then(function (res) {
+                    _this.onSearch.emit(res);
                 });
             }
-            this.httpService.builder(this.resource)
+            _this.httpService.builder(_this.resource)
                 .list()
-                .then((res) => {
-                this.onSearch.emit(res);
+                .then(function (res) {
+                _this.onSearch.emit(res);
             });
         });
-    }
-    search(term) {
+    };
+    AppSearchComponent.prototype.search = function (term) {
         this.searchTerm.next(term);
-    }
-};
+    };
+    return AppSearchComponent;
+}());
 __decorate([
     core_1.Input(),
     __metadata("design:type", String)
@@ -56,14 +58,7 @@ __decorate([
 AppSearchComponent = __decorate([
     core_1.Component({
         selector: 'search',
-        template: `
-        <div class="row">
-            <div class="input-field col s6">
-                <input name="search" type="text" #searchInput id="search-input" class="validate" placeholder="Pesquise aqui..." (keyup)="search(searchInput.value)">
-                <label for="search" class="active">Busca</label>
-            </div>
-        </div>
-    `
+        template: "\n        <div class=\"row\">\n            <div class=\"input-field col s6\">\n                <input name=\"search\" type=\"text\" #searchInput id=\"search-input\" class=\"validate\" placeholder=\"Pesquise pelo c\u00F3digo...\" (keyup)=\"search(searchInput.value)\">\n                <label for=\"search\" class=\"active\">Busca</label>\n            </div>\n        </div>\n    "
     }),
     __metadata("design:paramtypes", [app_http_service_1.AppHttpService])
 ], AppSearchComponent);

@@ -5,11 +5,12 @@ import {Component, ElementRef, Renderer2} from '@angular/core';
 import {AppHttpService} from '../app/app-http.service';
 import {ActivatedRoute, Router} from '@angular/router';
 @Component({
-    templateUrl: './provas-new.component.html',
+    templateUrl: './provas-edit.component.html',
     styles: ['tbody tr {cursor: pointer}'],
 })
 
-export class provasEditComponent{
+export class provasEditComponent {
+    public source: any;
     public resultado: any = [];
     public CountQuestoes: number = 0;
     public qtdquestao: number = 50;
@@ -17,56 +18,57 @@ export class provasEditComponent{
         serie_id: '',
         area_id: '',
         ano: new Date().getFullYear(),
-        bimestre: '',
-        questao1_id: '',
-        questao2_id: '',
-        questao3_id: '',
-        questao4_id: '',
-        questao5_id: '',
-        questao6_id: '',
-        questao7_id: '',
-        questao8_id: '',
-        questao9_id: '',
-        questao10_id: '',
-        questao11_id: '',
-        questao12_id: '',
-        questao13_id: '',
-        questao14_id: '',
-        questao15_id: '',
-        questao16_id: '',
-        questao17_id: '',
-        questao18_id: '',
-        questao19_id: '',
-        questao20_id: '',
-        questao21_id: '',
-        questao22_id: '',
-        questao23_id: '',
-        questao24_id: '',
-        questao25_id: '',
-        questao26_id: '',
-        questao27_id: '',
-        questao28_id: '',
-        questao29_id: '',
-        questao30_id: '',
-        questao31_id: '',
-        questao32_id: '',
-        questao33_id: '',
-        questao34_id: '',
-        questao35_id: '',
-        questao36_id: '',
-        questao37_id: '',
-        questao38_id: '',
-        questao39_id: '',
-        questao41_id: '',
-        questao42_id: '',
-        questao43_id: '',
-        questao44_id: '',
-        questao45_id: '',
-        questao46_id: '',
-        questao47_id: '',
-        questao48_id: '',
-        questao49_id: '',
-        questao50_id: ''
+        titulo: '',
+        codigo: '',
+        questao1_id: null,
+        questao2_id: null,
+        questao3_id: null,
+        questao4_id: null,
+        questao5_id: null,
+        questao6_id: null,
+        questao7_id: null,
+        questao8_id: null,
+        questao9_id: null,
+        questao10_id: null,
+        questao11_id: null,
+        questao12_id: null,
+        questao13_id: null,
+        questao14_id: null,
+        questao15_id: null,
+        questao16_id: null,
+        questao17_id: null,
+        questao18_id: null,
+        questao19_id: null,
+        questao20_id: null,
+        questao21_id: null,
+        questao22_id: null,
+        questao23_id: null,
+        questao24_id: null,
+        questao25_id: null,
+        questao26_id: null,
+        questao27_id: null,
+        questao28_id: null,
+        questao29_id: null,
+        questao30_id: null,
+        questao31_id: null,
+        questao32_id: null,
+        questao33_id: null,
+        questao34_id: null,
+        questao35_id: null,
+        questao36_id: null,
+        questao37_id: null,
+        questao38_id: null,
+        questao39_id: null,
+        questao41_id: null,
+        questao42_id: null,
+        questao43_id: null,
+        questao44_id: null,
+        questao45_id: null,
+        questao46_id: null,
+        questao47_id: null,
+        questao48_id: null,
+        questao49_id: null,
+        questao50_id: null
     };
     public questao: any = {
         data: []
@@ -95,7 +97,8 @@ export class provasEditComponent{
                 private route: ActivatedRoute,
                 private router: Router,
                 private listaQuestao: ElementRef,
-                private renderer: Renderer2) {}
+                private renderer: Renderer2) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -107,6 +110,64 @@ export class provasEditComponent{
         this.listSeries();
         ($('.collapsible')as any).collapsible();
         ($('.tooltipped') as any).tooltip({delay: 50});
+        this.sortable(document.getElementById('listaQuestao'), function (item: any) {
+            console.log(item);
+        });
+    }
+
+    sortable(rootEl: any, onUpdate: any) {
+        let dragEl: any;
+
+        // Making all siblings movable
+        [].slice.call(rootEl.children).forEach(function (itemEl: any) {
+            itemEl.draggable = true;
+        });
+
+        // Function responsible for sorting
+        function _onDragOver(evt: any) {
+
+            evt.preventDefault();
+            evt.dataTransfer.dropEffect = 'move';
+
+            let target = evt.target;
+            if (target && target !== dragEl && target.nodeName == 'LI') {
+                // Sorting
+                rootEl.insertBefore(dragEl, target.nextSibling || target);
+            }
+        }
+
+        // End of sorting
+        function _onDragEnd(evt: any) {
+            evt.preventDefault();
+
+            dragEl.classList.remove('ghost');
+            rootEl.removeEventListener('dragover', _onDragOver, false);
+            rootEl.removeEventListener('dragend', _onDragEnd, false);
+
+            // Notification about the end of sorting
+            onUpdate(dragEl);
+        }
+
+        // Sorting starts
+        rootEl.addEventListener('dragstart', function (evt: any) {
+            dragEl = evt.target; // Remembering an element that will be moved
+
+            // Limiting the movement type
+            evt.dataTransfer.effectAllowed = 'move';
+            evt.dataTransfer.setData('Text', dragEl.textContent);
+
+
+            // Subscribing to the events at dnd
+            rootEl.addEventListener('dragover', _onDragOver, false);
+            rootEl.addEventListener('dragend', _onDragEnd, false);
+
+
+            setTimeout(function () {
+                // If this action is performed without setTimeout, then
+                // the moved object will be of this class.
+                dragEl.classList.add('ghost');
+            }, 0)
+        }, false);
     }
 
     percorrer(obj: any) {
@@ -144,8 +205,8 @@ export class provasEditComponent{
     }
 
     listCategorias(data: any) {
-        //$('#questao_area').attr('disabled', 'true');
-        //$('#questao_serie').attr('disabled', 'true');
+        $('#questao_area').attr('disabled', 'true');
+        $('#questao_serie').attr('disabled', 'true');
 
         this.httpService.builder('categorias')
             .getCategoria(data)
@@ -175,14 +236,15 @@ export class provasEditComponent{
             .view(id)
             .then((res) => {
                 this.prova = res;
+                this.questao.serie_id = res.serie_id;
+                this.questao.area_id = res.area_id;
                 this.percorrer(res);
-                console.log(this.resultado);
                 for (let i = 2; i < this.resultado.length; i++) {
                     this.httpService.builder('pquestoes')
-                        .getQuestao(this.resultado[i])
+                        .getQuestaoIni(this.resultado[i])
                         .then((res) => {
                             this.questoes = res;
-                            this.addQuestao();
+                            this.addQuestaoIni();
                         });
                 }
             })
@@ -201,25 +263,23 @@ export class provasEditComponent{
             vm.CountQuestoes++;
         });
     }
-
     atualizaNum(): void {
         this.CountQuestoes = 0;
         this.renderer.destroy();
         let vm = this;
         $('#listaQuestao li a').each(function () {
             vm.renderer.listen(this, 'click', (evt) => {
-                $(this).closest('li').remove();
-                vm.atualizaCount();
+                    $(this).closest('li').remove();
+                    vm.atualizaCount();
             });
             vm.CountQuestoes++;
         });
     }
-
     parseHTML(questao: any) {
         let vm = '';
-        vm += `<li #liquestao value="` + questao.id + `">
+        vm += `<li draggable="true" #liquestao value="` + questao.id + `">
                 <div class="collapsible-header">
-                <div class="col s11"><small>Id: ` + questao.id + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Tema: ` + questao.categoria.categoria + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
+                <div class="col s11"><small> #` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo + ` Habilidade: ` + questao.habilidade.codigo + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
                 </div>
                 <div class="collapsible-body">`;
         if (questao.enunciado) {
@@ -292,7 +352,14 @@ export class provasEditComponent{
             </li>`;
         return vm;
     }
-
+    addQuestaoIni() {
+        let vm = '';
+        for (let i  in this.questoes.data) {
+            vm += this.parseHTML(this.questoes.data[i]);
+        }
+        $('#listaQuestao').append(vm);
+        this.atualizaNum();
+    }
     addQuestao() {
         if (this.qtdquestao > 50) {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
@@ -320,21 +387,30 @@ export class provasEditComponent{
         }
     }
 
-    save() {
-        let data = new FormData()
+    FormDataToJSON(key: any, value: any) {
+            this.prova[key] = value;
+    }
+
+    save(id: number) {
         if (this.CountQuestoes > 0) {
-            data.append('serie_id', this.questao.serie_id);
-            data.append('area_id', this.questao.area_id);
+            let vm = this;
+            for(let i=1;i<=50;i++){
+                vm.FormDataToJSON('questao' + i + '_id', null);
+            }
             $('#listaQuestao li').each(function (index, value) {
-                data.append('questao' + (index + 1) + '_id', $(this).val())
+                vm.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
-            data.append('ano', this.prova.ano);
-            data.append('bimestre', this.prova.bimestre);
+            this.prova.codigo = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val() + this.prova.ano + id;
+            //console.log(JSON.stringify(this.FormDataToJSON(data)));
             this.httpService.builder('provas')
-                .update(this.prova.id, data)
-                .then((res) => {
-                    this.router.navigate(['/provas/'+this.prova.id]);
-                })
+             .update(id, this.prova)
+             .then((res) => {
+             let retVal = confirm("Deseja visualizar a prova?");
+             if( retVal == true ){
+             this.router.navigate(['/provagerada/' + id]);
+             }
+             else{ this.router.navigate(['/provas/' + id]);}
+             })
         } else {
             alert('Adicione questões!');
         }

@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
+var core_1 = require("@angular/core");
 require("../../public/css/styles.css");
 require("materialize-css/dist/css/materialize.min.css");
 require("mdi/css/materialdesignicons.css");
@@ -16,23 +16,25 @@ require("materialize-css/dist/js/materialize.min.js");
 require("ionicons/dist/css/ionicons.css");
 require("jquery/dist/jquery-2.1.1.min.js");
 require("../../src/jquery.wordexport.js");
-const router_1 = require("@angular/router");
-let AppComponent = class AppComponent {
-    constructor(router) {
+require("../../src/jquery.sortable.min.js");
+var router_1 = require("@angular/router");
+var AppComponent = (function () {
+    function AppComponent(router) {
         this.router = router;
         this.ano = new Date().getFullYear();
     }
-    logout() {
+    AppComponent.prototype.logout = function () {
         localStorage.removeItem('tokens');
         this.router.navigate(['/login']);
-    }
-    istoken() {
+    };
+    AppComponent.prototype.istoken = function () {
         return localStorage.getItem('tokens');
-    }
-    getAno() {
+    };
+    AppComponent.prototype.getAno = function () {
         return this.ano;
-    }
-};
+    };
+    return AppComponent;
+}());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',

@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let QuestoesViewComponent = class QuestoesViewComponent {
-    constructor(httpService, route, router) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var QuestoesViewComponent = (function () {
+    function QuestoesViewComponent(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -27,27 +27,31 @@ let QuestoesViewComponent = class QuestoesViewComponent {
             habilidade: {}
         };
     }
-    ngOnInit() {
+    QuestoesViewComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.route.params
-            .subscribe((params) => {
-            this.view(params.id);
+            .subscribe(function (params) {
+            _this.view(params.id);
         });
-    }
-    view(id) {
+    };
+    QuestoesViewComponent.prototype.view = function (id) {
+        var _this = this;
         this.httpService.builder('pquestoes')
             .view(id)
-            .then((res) => {
-            this.questao = res;
+            .then(function (res) {
+            _this.questao = res;
         });
-    }
-    delete(id) {
+    };
+    QuestoesViewComponent.prototype.delete = function (id) {
+        var _this = this;
         this.httpService.builder('pquestoes')
             .delete(id)
-            .then(() => {
-            this.router.navigate(['/questoes']);
+            .then(function () {
+            _this.router.navigate(['/questoes']);
         });
-    }
-};
+    };
+    return QuestoesViewComponent;
+}());
 QuestoesViewComponent = __decorate([
     core_1.Component({
         templateUrl: './questoes-view.component.html',

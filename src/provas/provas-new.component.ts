@@ -16,7 +16,8 @@ export class provasNewComponent {
         serie_id: '',
         area_id: '',
         ano: new Date().getFullYear(),
-        bimestre: '',
+        titulo: '',
+        codigo: '',
         questao1_id: '',
         questao2_id: '',
         questao3_id: '',
@@ -167,8 +168,8 @@ export class provasNewComponent {
         let vm = this;
         $('#listaQuestao li a').each(function () {
             vm.renderer.listen(this, 'click', (evt) => {
-                $(this).closest('li').remove();
-                vm.atualizaCount();
+                    $(this).closest('li').remove();
+                    vm.atualizaCount();
             });
             vm.CountQuestoes++;
         });
@@ -177,7 +178,7 @@ export class provasNewComponent {
         let vm = '';
         vm += `<li #liquestao value="` + questao.id + `">
                 <div class="collapsible-header">
-                <div class="col s11"><small>Id: ` + questao.id + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Tema: ` + questao.categoria.categoria + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
+                <div class="col s11"><small>#` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo +` Habilidade: `+questao.habilidade.codigo+`</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
                 </div>
                 <div class="collapsible-body">`;
         if (questao.enunciado) {
@@ -276,25 +277,29 @@ export class provasNewComponent {
             this.atualizaNum();
         }
     }
-
+    FormDataToJSON(key: any, value: any) {
+        this.prova[key] = value;
+    }
     save () {
-        let data = new FormData();
-        if (this.prova.bimestre!=''){
-            alert('Adicione o BIMESTRE!');
-            return;
-        }
         if (this.CountQuestoes>0) {
-            data.append('serie_id', this.questao.serie_id);
-            data.append('area_id', this.questao.area_id);
+            let vm = this;
             $('#listaQuestao li').each(function (index, value) {
-                data.append('questao'+(index+1)+'_id', $(this).val())
+                vm.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
-            data.append('ano', this.prova.ano);
-            data.append('bimestre', this.prova.bimestre);
+            let codigo = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val();
             this.httpService.builder('provas')
-                .insert(data)
+                .insert(this.prova)
                 .then((res) => {
-                    this.router.navigate(['/provas']);
+                    vm.prova.codigo = codigo + vm.prova.ano + res.id;
+                    vm.httpService.builder('provas')
+                        .update(res.id, vm.prova)
+                        .then((res) => {
+                            let retVal = confirm("Deseja visualizar a prova?");
+                            if( retVal == true ){
+                                this.router.navigate(['/provagerada/' + res.id]);
+                            }
+                            else{ this.router.navigate(['/provas']);}
+                        })
                 })
         }else{
             alert('Adicione questões!');

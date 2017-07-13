@@ -11,13 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 20/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let jsPdf = require('jspdf');
-let html2canvas = require('html2canvas');
-let provaGeradaComponent = class provaGeradaComponent {
-    constructor(httpService, route) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var jsPdf = require('jspdf');
+var html2canvas = require('html2canvas');
+var provaGeradaComponent = (function () {
+    function provaGeradaComponent(httpService, route) {
         this.httpService = httpService;
         this.route = route;
         this.resultado = [];
@@ -34,163 +34,152 @@ let provaGeradaComponent = class provaGeradaComponent {
             total: ''
         };
     }
-    ngOnInit() {
+    provaGeradaComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.doc = new jsPdf('p', 'pt', 'letter');
         this.route.params
-            .subscribe((params) => {
-            this.view(params.id);
+            .subscribe(function (params) {
+            _this.view(params.id);
         });
-    }
-    percorrer(obj) {
-        for (let propriedade in obj) {
+    };
+    provaGeradaComponent.prototype.percorrer = function (obj) {
+        for (var propriedade in obj) {
             if (obj.hasOwnProperty(propriedade)) {
                 if (typeof obj[propriedade] == "object" && obj[propriedade] != null) {
                     this.resultado.push(obj[propriedade]);
                 }
             }
         }
-    }
-    view(id) {
+    };
+    provaGeradaComponent.prototype.view = function (id) {
+        var _this = this;
         this.httpService.builder('provas')
             .view(id)
-            .then((res) => {
-            this.prova = res;
-            this.percorrer(res);
-            console.log(this.resultado);
-            for (let i = 2; i < this.resultado.length; i++) {
-                this.httpService.builder('pquestoes')
-                    .getQuestao(this.resultado[i])
-                    .then((res) => {
-                    this.questoes = res;
-                    this.addQuestao();
+            .then(function (res) {
+            _this.prova = res;
+            _this.percorrer(res);
+            console.log(_this.resultado);
+            for (var i = 2; i < _this.resultado.length; i++) {
+                _this.httpService.builder('pquestoes')
+                    .getQuestaoIni(_this.resultado[i])
+                    .then(function (res) {
+                    _this.questoes = res;
+                    _this.addQuestaoIni();
                 });
             }
         });
-    }
-    parseHTML(questao) {
-        let vm = '';
+    };
+    provaGeradaComponent.prototype.parseHTML = function (questao) {
+        var vm = '';
         this.CountQuestao++;
-        vm += `<li>`;
+        vm += "<li>";
         if (questao.enunciado || questao.imagem)
-            vm += `<p style="text-align:justify"><span>` + this.CountQuestao + ` . </span>`;
+            vm += "<p style=\"text-align:justify\"><span>" + this.CountQuestao + " . </span>";
         if (questao.enunciado) {
             vm += questao.enunciado;
         }
         if (questao.imagem) {
-            vm += `<div style="display: flex;display: -webkit-flex;justify-content: center;align-items: center;">           
-                <img src="` + questao.imagem + `"/>
-                </div>`;
+            vm += "<div style=\"display: flex;display: -webkit-flex;justify-content: center;align-items: center;\">           \n                <img src=\"" + questao.imagem + "\"/>\n                </div>";
         }
         if (questao.enunciado || questao.imagem)
-            vm += `</p><br>`;
+            vm += "</p><br>";
         if (questao.alternativa1 || questao.imagemAl1)
-            vm += `<p style="text-align:justify"><span>a) </span>`;
+            vm += "<p style=\"text-align:justify\"><span>a) </span>";
         if (questao.alternativa1) {
             vm += questao.alternativa1;
         }
         if (questao.imagemAl1) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl1 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img id=\"img1\" src=\"" + questao.imagemAl1 + "\"/>\n                    </div>";
         }
         if (questao.alternativa1 || questao.imagemAl1)
-            vm += `</p>`;
+            vm += "</p>";
         if (questao.alternativa2 || questao.imagemAl2)
-            vm += `<p style="text-align:justify"><span>b) </span>`;
+            vm += "<p style=\"text-align:justify\"><span>b) </span>";
         if (questao.alternativa2) {
             vm += questao.alternativa2;
         }
         if (questao.imagemAl2) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl2 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img id=\"img2\" src=\"" + questao.imagemAl2 + "\"/>\n                    </div>";
         }
         if (questao.alternativa2 || questao.imagemAl2)
-            vm += `</p>`;
+            vm += "</p>";
         if (questao.alternativa3 || questao.imagemAl3)
-            vm += `<p style="text-align:justify"><span>c) </span>`;
+            vm += "<p style=\"text-align:justify\"><span>c) </span>";
         if (questao.alternativa3) {
             vm += questao.alternativa3;
         }
         if (questao.imagemAl3) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl3 + `"/>
-                </div>`;
+            vm += "<div>\n                   <img id=\"img3\" src=\"" + questao.imagemAl3 + "\"/>\n                   </div>";
         }
         if (questao.alternativa3 || questao.imagemAl3)
-            vm += `</p>`;
+            vm += "</p>";
         if (questao.alternativa4 || questao.imagemAl4)
-            vm += `<p style="text-align:justify"><span>d) </span>`;
+            vm += "<p style=\"text-align:justify\"><span>d) </span>";
         if (questao.alternativa4) {
             vm += questao.alternativa4;
         }
         if (questao.imagemAl4) {
-            vm += `<div>
-                    <img src="` + questao.imagemAl4 + `"/>
-                    </div>`;
+            vm += "<div>\n                    <img id=\"img4\" src=\"" + questao.imagemAl4 + "\"/>\n                    </div>";
         }
         if (questao.alternativa4 || questao.imagemAl4)
-            vm += `</p>`;
+            vm += "</p>";
         if (questao.alternativa5 || questao.imagemAl5)
-            vm += `<p style="text-align:justify"><span>e) </span>`;
+            vm += "<p style=\"text-align:justify\"><span>e) </span>";
         if (questao.alternativa5) {
             vm += questao.alternativa5;
         }
         if (questao.imagemAl5) {
-            vm += `<div>              
-                    <img src="` + questao.imagemAl5 + `"/>
-                </div>`;
+            vm += "<div>              \n                    <img id=\"img5\" src=\"" + questao.imagemAl5 + "\"/>\n                    </div>";
         }
         if (questao.alternativa5 || questao.imagemAl5)
-            vm += `</p>`;
-        vm += `_______________________________________________________________________________________________________________
-                </li>`;
+            vm += "</p>";
+        vm += "_______________________________________________________________________________________________________________\n                </li>";
         return vm;
-    }
-    addQuestao() {
-        let vm = '';
-        for (let i in this.questoes.data) {
+    };
+    provaGeradaComponent.prototype.addQuestaoIni = function () {
+        var vm = '';
+        for (var i in this.questoes.data) {
             vm += this.parseHTML(this.questoes.data[i]);
         }
         $('#listaQuestao').append(vm);
-    }
-    ExportDocx() {
-        $('#content-prova').wordExport(this.prova.ano + this.prova.bimestre + this.prova.area_id + this.prova.serie_id + this.prova.id);
-    }
-    ExportPDF() {
+    };
+    provaGeradaComponent.prototype.ExportDocx = function () {
+        $('#content-prova').wordExport(this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
+    };
+    provaGeradaComponent.prototype.ExportPDF = function () {
         /*let specialElementHandlers = {
          '#content-prova': function(element: any, renderer: any){
          return true;
          }
          };*/
-        let quotes = document.getElementById('content-prova');
-        let vm = this;
+        var quotes = document.getElementById('content-prova');
+        var vm = this;
         html2canvas(quotes, {
             onrendered: function (canvas) {
                 //! MAKE YOUR PDF
-                let pdf = new jsPdf('p', 'pt', 'a4');
-                for (let i = 0; i <= quotes.clientHeight / 980; i++) {
+                var pdf = new jsPdf('p', 'pt', 'a4');
+                for (var i = 0; i <= quotes.clientHeight / 980; i++) {
                     //! This is all just html2canvas stuff
-                    let srcImg = canvas;
-                    let sX = 0;
-                    let sY = 980 * i; // start 980 pixels down for every new page
-                    let sWidth = 900;
-                    let sHeight = 980;
-                    let dX = 0;
-                    let dY = 0;
-                    let dWidth = 900;
-                    let dHeight = 980;
+                    var srcImg = canvas;
+                    var sX = 0;
+                    var sY = 980 * i; // start 980 pixels down for every new page
+                    var sWidth = 900;
+                    var sHeight = 980;
+                    var dX = 0;
+                    var dY = 0;
+                    var dWidth = 900;
+                    var dHeight = 980;
                     window.onePageCanvas = document.createElement("canvas");
                     window.onePageCanvas.setAttribute('width', 900);
                     window.onePageCanvas.setAttribute('height', 980);
-                    let ctx = window.onePageCanvas.getContext('2d');
+                    var ctx = window.onePageCanvas.getContext('2d');
                     // details on this usage of this function:
                     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
                     ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
                     // document.body.appendChild(canvas);
-                    let canvasDataURL = window.onePageCanvas.toDataURL("image/png", 1.0);
-                    let width = window.onePageCanvas.width;
-                    let height = window.onePageCanvas.clientHeight;
+                    var canvasDataURL = window.onePageCanvas.toDataURL("image/png", 1.0);
+                    var width = window.onePageCanvas.width;
+                    var height = window.onePageCanvas.clientHeight;
                     //! If we're on anything other than the first page,
                     // add another page
                     if (i > 0) {
@@ -202,11 +191,12 @@ let provaGeradaComponent = class provaGeradaComponent {
                     pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width * .62), (height * .62));
                 }
                 //! after the for loop is finished running, we save the pdf.
-                pdf.output('save', vm.prova.ano + vm.prova.bimestre + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
+                pdf.output('save', vm.prova.ano + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
             }
         });
-    }
-};
+    };
+    return provaGeradaComponent;
+}());
 provaGeradaComponent = __decorate([
     core_1.Component({
         templateUrl: './provagerada.component.html',

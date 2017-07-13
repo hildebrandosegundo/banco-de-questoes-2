@@ -19,9 +19,6 @@ module.exports = webpackMerge(commonConfig, {
 
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal',
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    }
+    stats: 'minimal'
   }
 });

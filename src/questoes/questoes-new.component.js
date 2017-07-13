@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let QuestoesNewComponent = class QuestoesNewComponent {
-    constructor(httpService, route, router) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var QuestoesNewComponent = (function () {
+    function QuestoesNewComponent(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -33,6 +33,7 @@ let QuestoesNewComponent = class QuestoesNewComponent {
             imagemAl4: '',
             imagemAl5: '',
             correta: '',
+            codigo: '',
             alternativa1: '',
             alternativa2: '',
             alternativa3: '',
@@ -55,21 +56,21 @@ let QuestoesNewComponent = class QuestoesNewComponent {
             data: []
         };
     }
-    ngOnInit() {
+    QuestoesNewComponent.prototype.ngOnInit = function () {
         this.listAreas();
         this.listSeries();
-    }
-    onFileChange(e, img) {
-        const files = e.target.files || e.dataTransfer.files;
+    };
+    QuestoesNewComponent.prototype.onFileChange = function (e, img) {
+        var files = e.target.files || e.dataTransfer.files;
         if (!files.length) {
             return;
         }
         this.createImage(files[0], img);
-    }
-    createImage(file, img) {
-        const reader = new FileReader();
-        const vm = this;
-        reader.onload = (e) => {
+    };
+    QuestoesNewComponent.prototype.createImage = function (file, img) {
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload = function (e) {
             if (img === 1) {
                 vm.questao.imagem = e.target.result;
             }
@@ -90,8 +91,8 @@ let QuestoesNewComponent = class QuestoesNewComponent {
             }
         };
         reader.readAsDataURL(file);
-    }
-    removeImage(img) {
+    };
+    QuestoesNewComponent.prototype.removeImage = function (img) {
         if (img === 1) {
             this.questao.imagem = '';
         }
@@ -110,42 +111,47 @@ let QuestoesNewComponent = class QuestoesNewComponent {
         if (img === 6) {
             this.questao.imagemAl5 = '';
         }
-    }
-    listAreas() {
+    };
+    QuestoesNewComponent.prototype.listAreas = function () {
+        var _this = this;
         this.httpService.builder('areas')
             .list()
-            .then((res) => {
-            this.areas = res;
+            .then(function (res) {
+            _this.areas = res;
         });
-    }
-    listSeries() {
+    };
+    QuestoesNewComponent.prototype.listSeries = function () {
+        var _this = this;
         this.httpService.builder('series')
             .list()
-            .then((res) => {
-            this.series = res;
+            .then(function (res) {
+            _this.series = res;
         });
-    }
-    listNivels(data) {
+    };
+    QuestoesNewComponent.prototype.listNivels = function (data) {
+        var _this = this;
         this.httpService.builder('nivels')
             .getNivel(data)
-            .then((res) => {
-            this.nivels = res;
+            .then(function (res) {
+            _this.nivels = res;
         });
-    }
-    listCategorias(data) {
+    };
+    QuestoesNewComponent.prototype.listCategorias = function (data) {
+        var _this = this;
         this.httpService.builder('categorias')
             .getCategoria(data)
-            .then((res) => {
-            this.categorias = res;
+            .then(function (res) {
+            _this.categorias = res;
         });
-    }
-    listHabilidades(data) {
+    };
+    QuestoesNewComponent.prototype.listHabilidades = function (data) {
+        var _this = this;
         this.httpService.builder('habilidades')
             .getHabilidade(data)
-            .then((res) => {
-            this.habilidades = res;
+            .then(function (res) {
+            _this.habilidades = res;
         });
-    }
+    };
     /* view (id: number) {
          this.httpService.builder('pquestoes')
              .view(id)
@@ -153,8 +159,9 @@ let QuestoesNewComponent = class QuestoesNewComponent {
                  this.questao = res;
              })
      }*/
-    save() {
-        let data = new FormData();
+    QuestoesNewComponent.prototype.save = function () {
+        var _this = this;
+        var data = new FormData();
         data.append('serie_id', this.questao.serie_id || '');
         data.append('area_id', this.questao.area_id || '');
         data.append('nivel_id', this.questao.nivel_id || '');
@@ -172,17 +179,17 @@ let QuestoesNewComponent = class QuestoesNewComponent {
         data.append('alternativa3', this.questao.alternativa3 || '');
         data.append('alternativa4', this.questao.alternativa4 || '');
         data.append('alternativa5', this.questao.alternativa5 || '');
-        data.append('correta', this.questao.correta || null);
-        if ($("#selectHabilidade option:selected").val() != null)
-            data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
+        data.append('correta', this.questao.correta || '');
+        data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
         console.log(this.questao);
         this.httpService.builder('pquestoes')
             .insert(data)
-            .then((res) => {
-            this.router.navigate(['/questoes']);
+            .then(function (res) {
+            _this.router.navigate(['/questoes']);
         });
-    }
-};
+    };
+    return QuestoesNewComponent;
+}());
 QuestoesNewComponent = __decorate([
     core_1.Component({
         templateUrl: './questoes-new.component.html',

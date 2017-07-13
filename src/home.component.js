@@ -8,9 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 /**
  * Created by hildebrandosegundo on 07/06/17.
  */
-const core_1 = require("@angular/core");
-let HomeComponent = class HomeComponent {
-};
+var core_1 = require("@angular/core");
+var HomeComponent = (function () {
+    function HomeComponent() {
+    }
+    return HomeComponent;
+}());
 HomeComponent = __decorate([
     core_1.Component({
         templateUrl: './home.html',

@@ -86,19 +86,10 @@
             </div>
 
             <div class="card-content">
-                <div class="input-field col s3">
-                    <i class="ion-md-calendar prefix"></i>
-                    <input [(ngModel)]="prova.ano" name="qtdquestao" id="ano" type="text" class="validate">
-                    <label for="icon_prefix">Ano</label>
-                </div>
-                <div class="input-field col s2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Seleciona o bimestre de aplicação da prova.">
-                    <select [(ngModel)]="prova.bimestre" class="browser-default validate">
-                        <option value="" disabled selected>Bimestre</option>
-                        <option value="1º">1º</option>
-                        <option value="2º">2º</option>
-                        <option value="3º">3º</option>
-                        <option value="4º">4º</option>
-                    </select>
+                <div class="input-field col s6">
+                    <i class="ion-md-menu prefix"></i>
+                    <input [(ngModel)]="prova.titulo" name="titulo" id="questao_titulo" type="text" class="validate">
+                    <label for="questao_titulo">Título da prova</label>
                 </div>
                 <div class="input-field col s4">
                     <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"

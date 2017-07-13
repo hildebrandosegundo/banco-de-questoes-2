@@ -1,21 +1,21 @@
 <div class="row">
     <div class="content-header">
         <h1>Provas
-            <small>Criar prova</small>
+            <small>Alterar prova</small>
         </h1>
         <nav>
             <div class="nav-wrapper2 row">
                 <div class="col s12">
                     <a href="#/">Banco de provas</a> >
                     <a [routerLink]="['/provas']">Provas</a> >
-                    <span>Criar prova</span>
+                    <span>Alterar prova</span>
                 </div>
             </div>
         </nav>
     </div>
     <div class="card col s12">
         <div class="card-content">
-            <form class="row" autocomplete="on" (submit)="save()">
+            <form class="row" autocomplete="on">
                 <div class="input-field col s3">
                     <select [(ngModel)]="questao.area_id" name="area_id" id="questao_area" class="browser-default"
                             (change)="listNivels(questao)">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="input-field col s1">
                     <a (click)="addQuestao()" id="buttonAdd"
-                       class="btn-floating btn-large waves-effect waves-light"><i
+                       class="btn-floating btn-large waves-effect waves-light disabled"><i
                             class="ion-md-add"></i></a>
                 </div>
                 <div class="input-field col s2">
@@ -80,29 +80,20 @@
             </form>
             <div class="card-content">
                 <div>
-                    <ul #listaQuestao id="listaQuestao"  class="collapsible popout" data-collapsible="accordion" (change)="atualizaNum()">
+                    <ul #listaQuestao id="listaQuestao"  class="collapsible popout" data-collapsible="accordion">
                     </ul>
                 </div>
             </div>
 
             <div class="card-content">
-                <div class="input-field col s3">
-                    <i class="ion-md-calendar prefix"></i>
-                    <input [(ngModel)]="prova.ano" name="qtdquestao" id="ano" type="text" class="validate">
-                    <label for="icon_prefix">Ano</label>
-                </div>
-                <div class="input-field col s2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Seleciona o bimestre de aplicação da prova.">
-                    <select [(ngModel)]="prova.bimestre" class="browser-default validate">
-                        <option value="" disabled selected>Bimestre</option>
-                        <option value="1º">1º</option>
-                        <option value="2º">2º</option>
-                        <option value="3º">3º</option>
-                        <option value="4º">4º</option>
-                    </select>
+                <div class="input-field col s6">
+                    <i class="ion-md-menu prefix"></i>
+                    <input [(ngModel)]="prova.titulo" name="titulo" id="icon_prefix1" type="text" class="validate">
+                    <label for="icon_prefix1">Título da prova</label>
                 </div>
                 <div class="input-field col s6">
                     <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
-                           value="Gerar Prova" (click)="save()">
+                           value="Alterar Prova" (click)="save(prova.id)">
                 </div>
                 <div class="card-action input-field col s12">
                     <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/provas/' + prova.id]">Voltar</a>
@@ -112,3 +103,27 @@
 
     </div>
 </div>
+<style>
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    li {
+        cursor: move;
+        margin: 1px;
+        padding: 5px 20px;
+        font-size: 20px;
+        background-color: #ccc;
+    }
+
+    .ghost {
+        opacity: .4;
+    }
+
+</style>
+

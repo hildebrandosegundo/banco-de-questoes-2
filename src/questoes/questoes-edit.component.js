@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-const core_1 = require("@angular/core");
-const app_http_service_1 = require("../app/app-http.service");
-const router_1 = require("@angular/router");
-let QuestoesEditComponent = class QuestoesEditComponent {
-    constructor(httpService, route, router) {
+var core_1 = require("@angular/core");
+var app_http_service_1 = require("../app/app-http.service");
+var router_1 = require("@angular/router");
+var QuestoesEditComponent = (function () {
+    function QuestoesEditComponent(httpService, route, router) {
         this.httpService = httpService;
         this.route = route;
         this.router = router;
@@ -61,28 +61,29 @@ let QuestoesEditComponent = class QuestoesEditComponent {
             data: []
         };
     }
-    ngOnInit() {
+    QuestoesEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.listAreas();
         this.listSeries();
         this.listNivels(this.questao);
         this.listCategorias(this.questao);
         this.listHabilidades(this.questao);
         this.route.params
-            .subscribe((params) => {
-            this.view(params.id);
+            .subscribe(function (params) {
+            _this.view(params.id);
         });
-    }
-    onFileChange(e, img) {
-        const files = e.target.files || e.dataTransfer.files;
+    };
+    QuestoesEditComponent.prototype.onFileChange = function (e, img) {
+        var files = e.target.files || e.dataTransfer.files;
         if (!files.length) {
             return;
         }
         this.createImage(files[0], img);
-    }
-    createImage(file, img) {
-        const reader = new FileReader();
-        const vm = this;
-        reader.onload = (e) => {
+    };
+    QuestoesEditComponent.prototype.createImage = function (file, img) {
+        var reader = new FileReader();
+        var vm = this;
+        reader.onload = function (e) {
             if (img === 1) {
                 vm.questao.imagem = e.target.result;
             }
@@ -103,8 +104,8 @@ let QuestoesEditComponent = class QuestoesEditComponent {
             }
         };
         reader.readAsDataURL(file);
-    }
-    removeImage(img) {
+    };
+    QuestoesEditComponent.prototype.removeImage = function (img) {
         if (img === 1) {
             this.questao.imagem = '';
         }
@@ -123,64 +124,72 @@ let QuestoesEditComponent = class QuestoesEditComponent {
         if (img === 6) {
             this.questao.imagemAl5 = '';
         }
-    }
-    listAreas() {
+    };
+    QuestoesEditComponent.prototype.listAreas = function () {
+        var _this = this;
         this.httpService.builder('areas')
             .list()
-            .then((res) => {
-            this.areas = res;
+            .then(function (res) {
+            _this.areas = res;
         });
-    }
-    listSeries() {
+    };
+    QuestoesEditComponent.prototype.listSeries = function () {
+        var _this = this;
         this.httpService.builder('series')
             .list()
-            .then((res) => {
-            this.series = res;
+            .then(function (res) {
+            _this.series = res;
         });
-    }
-    listNivels(data) {
+    };
+    QuestoesEditComponent.prototype.listNivels = function (data) {
+        var _this = this;
         this.httpService.builder('nivels')
             .getNivel(data)
-            .then((res) => {
-            this.nivels = res;
+            .then(function (res) {
+            _this.nivels = res;
         });
-    }
-    listCategorias(data) {
+    };
+    QuestoesEditComponent.prototype.listCategorias = function (data) {
+        var _this = this;
         this.httpService.builder('categorias')
             .getCategoria(data)
-            .then((res) => {
-            this.categorias = res;
+            .then(function (res) {
+            _this.categorias = res;
         });
-    }
-    listHabilidades(data) {
+    };
+    QuestoesEditComponent.prototype.listHabilidades = function (data) {
+        var _this = this;
         this.httpService.builder('habilidades')
             .getHabilidade(data)
-            .then((res) => {
-            this.habilidades = res;
+            .then(function (res) {
+            _this.habilidades = res;
         });
-    }
-    view(id) {
+    };
+    QuestoesEditComponent.prototype.view = function (id) {
+        var _this = this;
         this.httpService.builder('pquestoes')
             .view(id)
-            .then((res) => {
-            this.questao = res;
+            .then(function (res) {
+            _this.questao = res;
         });
-    }
-    putCorreta(al) {
+    };
+    QuestoesEditComponent.prototype.putCorreta = function (al) {
         this.questao.correta = al;
-    }
-    save(id) {
+    };
+    QuestoesEditComponent.prototype.save = function (id) {
+        var _this = this;
         if ($("#selectHabilidade option:selected").val() != null)
             this.questao.codigo = $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0];
         console.log(this.questao);
         this.httpService.builder('pquestoes')
             .update(id, this.questao)
-            .then((res) => {
+            .then(function (res) {
             console.log(res);
-            this.router.navigate(['/questoes/' + id]);
+            _this.router.navigate(['/questoes/' + id]);
         });
-    }
-};
+    };
+    return QuestoesEditComponent;
+}());
 QuestoesEditComponent = __decorate([
     core_1.Component({
         templateUrl: './questoes-edit.component.html',

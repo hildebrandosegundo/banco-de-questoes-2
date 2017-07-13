@@ -13,7 +13,6 @@ import {provasViewComponent} from "./provas-view.component";
 import {provasNewComponent} from "./provas-new.component";
 import {provasEditComponent} from "./provas-edit.component";
 import { MaterializeModule } from 'ng2-materialize';
-import {AppendQuestaoComponent} from "../app/AppendQuestao.component";
 import {provaGeradaComponent} from "./provagerada.component";
 const appRoutes: Routes =[
     {path: 'provas', component: provasComponent},
@@ -38,7 +37,7 @@ const appRoutes: Routes =[
          provaGeradaComponent
      ],
      providers: [
-         AppHttpService, AppendQuestaoComponent
+         AppHttpService
      ]
  })
 
