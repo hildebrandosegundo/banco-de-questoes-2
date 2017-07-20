@@ -13,6 +13,23 @@
             </div>
         </nav>
     </div>
+    <style>
+        .ghost {
+            opacity: .4;
+        }
+    </style>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div id="modal-content1" class="modal-content">
+            Reordene a posição das questões
+            <ul id="ulQuestoes" class="collapsible popout" data-collapsible="accordion" style="{margin: 0;padding: 0;list-style: none;-webkit-user-select: none;-moz-user-select: none;user-select: none;}">
+
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a (click)="reorderQuestoes()" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
     <div class="card col s12">
         <div class="card-content">
             <form class="row" autocomplete="on" (submit)="save()">
@@ -86,6 +103,10 @@
             </div>
 
             <div class="card-content">
+                <div class="input-field col s1">
+                    <a (click)="parseUlQuestoes()" id="buttonSortable"
+                       class="btn-floating waves-effect waves-light"><i class="ion-md-shuffle"></i></a>
+                </div>
                 <div class="input-field col s6">
                     <i class="ion-md-menu prefix"></i>
                     <input [(ngModel)]="prova.titulo" name="titulo" id="questao_titulo" type="text" class="validate">

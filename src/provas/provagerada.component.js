@@ -53,6 +53,7 @@ var provaGeradaComponent = (function () {
     };
     provaGeradaComponent.prototype.view = function (id) {
         var _this = this;
+        var cont = 1;
         this.httpService.builder('provas')
             .view(id)
             .then(function (res) {
@@ -62,13 +63,17 @@ var provaGeradaComponent = (function () {
                 _this.httpService.builder('pquestoes')
                     .getQuestaoIni(_this.resultado[i].id)
                     .then(function (res) {
+                    _this.parseGabarito(res, cont);
                     _this.questoes = res;
                     _this.addQuestaoIni();
+                    cont++;
                 });
             }
         });
     };
-    provaGeradaComponent.prototype.parseGabarito = function () {
+    provaGeradaComponent.prototype.parseGabarito = function (res, i) {
+        var str = "<tr><td>" + i + "</td><td>" + res.data[0].correta + "</td></tr>";
+        $('#gabaritobody').append(str);
     };
     provaGeradaComponent.prototype.parseHTML = function (questao) {
         var vm = '';

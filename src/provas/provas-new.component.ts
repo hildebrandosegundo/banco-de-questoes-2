@@ -12,6 +12,7 @@ import { Router} from '@angular/router';
 export class provasNewComponent {
     public CountQuestoes: number = 0;
     public qtdquestao: number = 30;
+    public listQuestoes: any = [];
     public prova: any = {
         serie_id: '',
         area_id: '',
@@ -102,6 +103,7 @@ export class provasNewComponent {
         this.listSeries();
         ($('.collapsible')as any).collapsible();
         ($('.tooltipped') as any).tooltip({delay: 50});
+        ($('.modal') as any).modal();
     }
 
     listAreas () {
@@ -168,17 +170,57 @@ export class provasNewComponent {
         let vm = this;
         $('#listaQuestao li a').each(function () {
             vm.renderer.listen(this, 'click', (evt) => {
+                let i = vm.listQuestoes.indexOf($(this).closest('li').val());
+                if(i != -1) {
+                    vm.listQuestoes.splice(i, 1);
+                }
                     $(this).closest('li').remove();
                     vm.atualizaCount();
             });
             vm.CountQuestoes++;
         });
     }
+    reorderQuestoes() {
+        this.listQuestoes = [];
+        let vm = this;
+        $('#ulQuestoes li').each(function () {
+            vm.listQuestoes.push($(this).val());
+        });
+        this.CountQuestoes = 0;
+        $('#listaQuestao').html('');
+        for (let i = 0; i < this.listQuestoes.length; i++) {
+            this.httpService.builder('pquestoes')
+                .getQuestaoIni(this.listQuestoes[i])
+                .then((res) => {
+                    this.questoes = res;
+                    this.addQuestaoIni();
+                });
+        }
+    }
+    addQuestaoIni() {
+        let vm = '';
+        for (let i  in this.questoes.data) {
+            vm += this.parseHTML(this.questoes.data[i]);
+        }
+        $('#listaQuestao').append(vm);
+        this.atualizaNum();
+    }
+    parseUlQuestoes() {
+        $('#ulQuestoes').html('');
+        for(let i=0;i<this.listQuestoes.length;i++) {
+            $('#ulQuestoes').append(`<li style="{cursor: move;margin: 1px;padding: 5px 20px;font-size: 20px;background-color: #ccc;}" value="`+ this.listQuestoes[i] +`"># `+ this.listQuestoes[i] +` - Questão `+ (i+1) +`</li>`)
+        }
+        ($('#ulQuestoes') as any).sortable(document.getElementById('ulQuestoes'), function (item: any) {
+            console.log(item);
+        });
+        $('#modal1').modal('open');
+
+    }
     parseHTML (questao: any) {
         let vm = '';
         vm += `<li #liquestao value="` + questao.id + `">
                 <div class="collapsible-header">
-                <div class="col s11"><small>#` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo +` Habilidade: `+questao.habilidade.codigo+`</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
+                <div class="col s11"><small>#` + questao.id + ` | Código: ` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo +` Habilidade: `+questao.habilidade.codigo+`</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
                 </div>
                 <div class="collapsible-body">`;
         if (questao.enunciado) {
@@ -256,25 +298,29 @@ export class provasNewComponent {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
         }
         else {
-            if (this.CountQuestoes <= this.qtdquestao) {
-                Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
-                $('#buttonAdd').removeClass('pulse');
-                let vm = '';
-                if ($('#aleatorio').is(':checked')) {
-                    let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
-                    vm = this.parseHTML(questao);
-                }
-                else {
-                    for (let i  in this.questoes.data) {
-                        vm += this.parseHTML(this.questoes.data[i]);
+            if (this.questoes.data.length>0) {
+                if (this.CountQuestoes <= this.qtdquestao) {
+                    $('#buttonAdd').removeClass('pulse');
+                    let vm = '';
+                    if ($('#aleatorio').is(':checked')) {
+                        let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
+                        this.listQuestoes.push(questao.id);
+                        vm = this.parseHTML(questao);
                     }
-                }
-                $('#listaQuestao').append(vm);
+                    else {
+                        for (let i  in this.questoes.data) {
+                            this.listQuestoes.push(this.questoes.data[i].id);
+                            vm += this.parseHTML(this.questoes.data[i]);
+                        }
+                    }
+                    $('#listaQuestao').append(vm);
 
-            } else {
-                alert('A quantidade de questão ultrapassou a quantidade prevista! Por favor, adeque a quantidade de questões.');
+                } else {
+                    alert('A quantidade de questão ultrapassou a quantidade prevista! Por favor, adeque a quantidade de questões.');
+                }
+                this.atualizaNum();
             }
-            this.atualizaNum();
+            Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
         }
     }
     FormDataToJSON(key: any, value: any) {

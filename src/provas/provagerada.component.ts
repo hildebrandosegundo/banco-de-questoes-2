@@ -49,6 +49,7 @@ export class provaGeradaComponent {
     }
 
     view(id: number) {
+        let cont = 1;
         this.httpService.builder('provas')
             .view(id)
             .then((res) => {
@@ -58,14 +59,17 @@ export class provaGeradaComponent {
                     this.httpService.builder('pquestoes')
                         .getQuestaoIni(this.resultado[i].id)
                         .then((res) => {
+                            this.parseGabarito(res,cont);
                             this.questoes = res;
                             this.addQuestaoIni();
+                            cont++;
                         });
                 }
             })
     }
-    parseGabarito(){
-
+    parseGabarito(res: any, i: number){
+        let str = `<tr><td>`+i+`</td><td>`+res.data[0].correta+`</td></tr>`;
+        $('#gabaritobody').append(str);
     }
     parseHTML(questao: any) {
         let vm = '';
