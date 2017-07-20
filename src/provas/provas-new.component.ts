@@ -329,9 +329,14 @@ export class provasNewComponent {
     save () {
         if (this.CountQuestoes>0) {
             let vm = this;
+            for(let i=1;i<=50;i++){
+                vm.FormDataToJSON('questao' + i + '_id', null);
+            }
             $('#listaQuestao li').each(function (index, value) {
                 vm.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
+            this.prova.serie_id = $("#questao_serie option:selected").val();
+            this.prova.area_id = $("#questao_area option:selected").val();
             let codigo = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val();
             this.httpService.builder('provas')
                 .insert(this.prova)

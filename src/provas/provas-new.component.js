@@ -303,9 +303,14 @@ var provasNewComponent = (function () {
         var _this = this;
         if (this.CountQuestoes > 0) {
             var vm_1 = this;
+            for (var i = 1; i <= 50; i++) {
+                vm_1.FormDataToJSON('questao' + i + '_id', null);
+            }
             $('#listaQuestao li').each(function (index, value) {
                 vm_1.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
+            this.prova.serie_id = $("#questao_serie option:selected").val();
+            this.prova.area_id = $("#questao_area option:selected").val();
             var codigo_1 = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val();
             this.httpService.builder('provas')
                 .insert(this.prova)
