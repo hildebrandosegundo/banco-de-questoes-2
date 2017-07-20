@@ -68,7 +68,6 @@ export class AppHttpService {
     }
 
     update (id: number, data: any) {
-        console.log(JSON.stringify(data));
         return this.http.put(this.url + '/' + id, data, this.options)
             .toPromise()
             .then((res) => {
@@ -77,7 +76,6 @@ export class AppHttpService {
     }
 
     insert (data: any) {
-        console.log(JSON.stringify(data));
         return this.http.post(this.url, data, this.options)
             .toPromise()
             .then((res) => {
@@ -128,7 +126,7 @@ export class AppHttpService {
             });
     }
     getQuestaoIni (data: any) {
-        return this.http.get(this.url + '?where[id]=' + data.id , this.options)
+        return this.http.get(this.url + '?where[id]=' + data , this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};

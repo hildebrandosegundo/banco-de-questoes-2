@@ -54,10 +54,9 @@ export class provaGeradaComponent {
             .then((res) => {
                 this.prova = res;
                 this.percorrer(res);
-                console.log(this.resultado);
                 for (let i = 2; i < this.resultado.length; i++) {
                     this.httpService.builder('pquestoes')
-                        .getQuestaoIni(this.resultado[i])
+                        .getQuestaoIni(this.resultado[i].id)
                         .then((res) => {
                             this.questoes = res;
                             this.addQuestaoIni();
@@ -65,7 +64,9 @@ export class provaGeradaComponent {
                 }
             })
     }
+    parseGabarito(){
 
+    }
     parseHTML(questao: any) {
         let vm = '';
         this.CountQuestao++;

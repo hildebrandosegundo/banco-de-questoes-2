@@ -60,7 +60,6 @@ var AppHttpService = (function () {
         });
     };
     AppHttpService.prototype.update = function (id, data) {
-        console.log(JSON.stringify(data));
         return this.http.put(this.url + '/' + id, data, this.options)
             .toPromise()
             .then(function (res) {
@@ -68,7 +67,6 @@ var AppHttpService = (function () {
         });
     };
     AppHttpService.prototype.insert = function (data) {
-        console.log(JSON.stringify(data));
         return this.http.post(this.url, data, this.options)
             .toPromise()
             .then(function (res) {
@@ -118,7 +116,7 @@ var AppHttpService = (function () {
         });
     };
     AppHttpService.prototype.getQuestaoIni = function (data) {
-        return this.http.get(this.url + '?where[id]=' + data.id, this.options)
+        return this.http.get(this.url + '?where[id]=' + data, this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};

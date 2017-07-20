@@ -10,6 +10,15 @@
             </div>
         </nav>
     </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div id="modal-content1" class="modal-content">
+            <ul id="ulQuestao"></ul>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
     <div class="card col s12">
         <div class="col s4 card-action">
             <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/questoes/new']">Criar nova Questão</a>
@@ -25,27 +34,32 @@
                     <th>NIVEL</th>
                     <th>TEMA</th>
                     <th>HABILIDADE</th>
+                    <th>VISUALIZAR</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let questao of questoes.data" [routerLink]="['/questoes/' + questao.id]">
-                    <td>
+                <tr *ngFor="let questao of questoes.data" >
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.codigo}}</small>
                     </td>
-                    <td>
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.area.area}}</small>
                     </td>
-                    <td>
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.serie.serie}}</small>
                     </td>
-                    <td>
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.nivel.nivel}}</small>
                     </td>
-                    <td>
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.categoria.categoria}}</small>
                     </td>
-                    <td>
+                    <td [routerLink]="['/questoes/' + questao.id]">
                         <small>{{questao.habilidade.habilidade}}</small>
+                    </td>
+                    <td>
+                        <a (click)="openModal(questao)" class="waves-effect waves-light btn-floating"><i class="ion-md-search"></i></a>
+                        <a [routerLink]="['/questoes/' + questao.id + '/edit']" class="waves-effect waves-light btn-floating blue"><i class="ion-md-create"></i></a>
                     </td>
                 </tr>
                 </tbody>

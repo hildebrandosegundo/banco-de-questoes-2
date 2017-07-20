@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule, Http } from '@angular/http';
+import { Http, HttpModule} from '@angular/http';
 
 import { HomeModule } from '../home.module';
 import { QuestoesModule } from '../questoes/questoes.module';
@@ -27,7 +27,9 @@ const appRoutes: Routes =[
   ],
   bootstrap: [ AppComponent ],
   providers: [
-    { provide: Http, useClass: AuthenticationHttpService }
+    { provide: Http,
+      useClass: AuthenticationHttpService
+    }
   ]
 })
 

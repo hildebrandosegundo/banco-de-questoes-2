@@ -83,6 +83,7 @@ var provasEditComponent = (function () {
         this.questao = {
             data: []
         };
+        this.listQuestoes = [];
         this.questoes = {
             data: [],
             total: ''
@@ -114,9 +115,7 @@ var provasEditComponent = (function () {
         this.listSeries();
         $('.collapsible').collapsible();
         $('.tooltipped').tooltip({ delay: 50 });
-        this.sortable(document.getElementById('listaQuestao'), function (item) {
-            console.log(item);
-        });
+        $('.modal').modal();
     };
     provasEditComponent.prototype.sortable = function (rootEl, onUpdate) {
         var dragEl;
@@ -229,9 +228,10 @@ var provasEditComponent = (function () {
             _this.percorrer(res);
             for (var i = 2; i < _this.resultado.length; i++) {
                 _this.httpService.builder('pquestoes')
-                    .getQuestaoIni(_this.resultado[i])
+                    .getQuestaoIni(_this.resultado[i].id)
                     .then(function (res) {
                     _this.questoes = res;
+                    _this.listQuestoes.push(res.data[0].id);
                     _this.addQuestaoIni();
                 });
             }
@@ -257,14 +257,46 @@ var provasEditComponent = (function () {
             var _this = this;
             vm.renderer.listen(this, 'click', function (evt) {
                 $(_this).closest('li').remove();
+                var i = vm.listQuestoes.indexOf($(_this).closest('li').val());
+                if (i != -1) {
+                    vm.listQuestoes.splice(i, 1);
+                }
                 vm.atualizaCount();
             });
             vm.CountQuestoes++;
         });
     };
+    provasEditComponent.prototype.reorderQuestoes = function () {
+        var _this = this;
+        this.listQuestoes = [];
+        var vm = this;
+        $('#ulQuestoes li').each(function () {
+            vm.listQuestoes.push($(this).val());
+        });
+        this.CountQuestoes = 0;
+        $('#listaQuestao').html('');
+        for (var i = 0; i < this.listQuestoes.length; i++) {
+            this.httpService.builder('pquestoes')
+                .getQuestaoIni(this.listQuestoes[i])
+                .then(function (res) {
+                _this.questoes = res;
+                _this.addQuestaoIni();
+            });
+        }
+    };
+    provasEditComponent.prototype.parseUlQuestoes = function () {
+        $('#ulQuestoes').html('');
+        for (var i = 0; i < this.listQuestoes.length; i++) {
+            $('#ulQuestoes').append("<li style=\"{cursor: move;margin: 1px;padding: 5px 20px;font-size: 20px;background-color: #ccc;}\" value=\"" + this.listQuestoes[i] + "\"># " + this.listQuestoes[i] + " - Quest\u00E3o " + (i + 1) + "</li>");
+        }
+        $('#ulQuestoes').sortable(document.getElementById('ulQuestoes'), function (item) {
+            console.log(item);
+        });
+        $('#modal1').modal('open');
+    };
     provasEditComponent.prototype.parseHTML = function (questao) {
         var vm = '';
-        vm += "<li draggable=\"true\" #liquestao value=\"" + questao.id + "\">\n                <div class=\"collapsible-header\">\n                <div class=\"col s11\"><small> #" + questao.codigo + " | Area: " + questao.area.area + " | S\u00E9rie: " + questao.serie.serie + " | N\u00EDvel: " + questao.nivel.nivel + " | Tema: " + questao.categoria.codigo + " Habilidade: " + questao.habilidade.codigo + "</small></div><a class=\"btn-floating btn waves-effect waves-light red\"><div class=\"ion-md-trash\"></div></a>\n                </div>\n                <div class=\"collapsible-body\">";
+        vm += "<li value=\"" + questao.id + "\">\n                <div class=\"collapsible-header\">\n                <div class=\"col s11\"><small> #" + questao.id + " | C\u00F3digo: " + questao.codigo + " | Area: " + questao.area.area + " | S\u00E9rie: " + questao.serie.serie + " | N\u00EDvel: " + questao.nivel.nivel + " | Tema: " + questao.categoria.codigo + " Habilidade: " + questao.habilidade.codigo + "</small></div><a class=\"btn-floating btn waves-effect waves-light red\"><div class=\"ion-md-trash\"></div></a>\n                </div>\n                <div class=\"collapsible-body\">";
         if (questao.enunciado) {
             vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"questao.enunciado\" name=\"enuciado\" class=\"materialize-textarea\">" + questao.enunciado + "</textarea>\n                <label class=\"active\">ENUCIADO DA QUEST\u00C3O</label>\n                </div>";
         }
@@ -317,25 +349,29 @@ var provasEditComponent = (function () {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
         }
         else {
-            if (this.CountQuestoes <= this.qtdquestao) {
-                Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
-                $('#buttonAdd').removeClass('pulse');
-                var vm = '';
-                if ($('#aleatorio').is(':checked')) {
-                    var questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
-                    vm = this.parseHTML(questao);
+            if (this.questoes.data.length > 0) {
+                if (this.CountQuestoes <= this.qtdquestao) {
+                    $('#buttonAdd').removeClass('pulse');
+                    var vm = '';
+                    if ($('#aleatorio').is(':checked')) {
+                        var questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
+                        this.listQuestoes.push(questao.id);
+                        vm = this.parseHTML(questao);
+                    }
+                    else {
+                        for (var i in this.questoes.data) {
+                            this.listQuestoes.push(this.questoes.data[i].id);
+                            vm += this.parseHTML(this.questoes.data[i]);
+                        }
+                    }
+                    $('#listaQuestao').append(vm);
                 }
                 else {
-                    for (var i in this.questoes.data) {
-                        vm += this.parseHTML(this.questoes.data[i]);
-                    }
+                    alert('A quantidade de questão ultrapassou a quantidade prevista! Por favor, adeque a quantidade de questões.');
                 }
-                $('#listaQuestao').append(vm);
+                this.atualizaNum();
             }
-            else {
-                alert('A quantidade de questão ultrapassou a quantidade prevista! Por favor, adeque a quantidade de questões.');
-            }
-            this.atualizaNum();
+            Materialize.toast(this.questoes.total + ' questões encontradas', 4000);
         }
     };
     provasEditComponent.prototype.FormDataToJSON = function (key, value) {
@@ -352,7 +388,6 @@ var provasEditComponent = (function () {
                 vm_1.FormDataToJSON('questao' + (index + 1) + '_id', $(this).val());
             });
             this.prova.codigo = $("#questao_area option:selected").val() + $("#questao_serie option:selected").val() + this.prova.ano + id;
-            //console.log(JSON.stringify(this.FormDataToJSON(data)));
             this.httpService.builder('provas')
                 .update(id, this.prova)
                 .then(function (res) {

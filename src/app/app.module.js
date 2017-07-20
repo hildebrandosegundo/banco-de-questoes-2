@@ -39,7 +39,9 @@ AppModule = __decorate([
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: [
-            { provide: http_1.Http, useClass: authentication_http_service_1.AuthenticationHttpService }
+            { provide: http_1.Http,
+                useClass: authentication_http_service_1.AuthenticationHttpService
+            }
         ]
     })
 ], AppModule);

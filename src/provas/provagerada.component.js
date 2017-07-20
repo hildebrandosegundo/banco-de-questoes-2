@@ -58,16 +58,17 @@ var provaGeradaComponent = (function () {
             .then(function (res) {
             _this.prova = res;
             _this.percorrer(res);
-            console.log(_this.resultado);
             for (var i = 2; i < _this.resultado.length; i++) {
                 _this.httpService.builder('pquestoes')
-                    .getQuestaoIni(_this.resultado[i])
+                    .getQuestaoIni(_this.resultado[i].id)
                     .then(function (res) {
                     _this.questoes = res;
                     _this.addQuestaoIni();
                 });
             }
         });
+    };
+    provaGeradaComponent.prototype.parseGabarito = function () {
     };
     provaGeradaComponent.prototype.parseHTML = function (questao) {
         var vm = '';
