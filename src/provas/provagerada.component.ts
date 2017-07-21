@@ -147,7 +147,7 @@ export class provaGeradaComponent {
         }
         if (questao.alternativa5 || questao.imagemAl5)
             vm += `</p>`;
-        vm += `_______________________________________________________________________________________________________________
+        vm += `________________________________________________________________________________
                 </li>`;
         return vm;
     }
@@ -165,59 +165,13 @@ export class provaGeradaComponent {
     }
 
     ExportPDF() {
-        /*let specialElementHandlers = {
-         '#content-prova': function(element: any, renderer: any){
-         return true;
-         }
-         };*/
-        let quotes = document.getElementById('content-prova');
-        let vm = this;
-        html2canvas(quotes, {
-            onrendered: function (canvas: any) {
+        let quotes = $("#content-prova").get(0);
+        //! MAKE YOUR PDF
+        let pdf = new jsPdf('p', 'pt', 'a4', true);
 
-                //! MAKE YOUR PDF
-                let pdf = new jsPdf('p', 'pt', 'a4');
-
-                for (let i = 0; i <= quotes.clientHeight / 980; i++) {
-                    //! This is all just html2canvas stuff
-                    let srcImg = canvas;
-                    let sX = 0;
-                    let sY = 980 * i; // start 980 pixels down for every new page
-                    let sWidth = 900;
-                    let sHeight = 980;
-                    let dX = 0;
-                    let dY = 0;
-                    let dWidth = 900;
-                    let dHeight = 980;
-
-                    (window as any).onePageCanvas = document.createElement("canvas");
-                    (window as any).onePageCanvas.setAttribute('width', 900);
-                    (window as any).onePageCanvas.setAttribute('height', 980);
-                    let ctx = (window as any).onePageCanvas.getContext('2d');
-                    // details on this usage of this function:
-                    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
-                    ctx.drawImage(srcImg, sX, sY, sWidth, sHeight, dX, dY, dWidth, dHeight);
-
-                    // document.body.appendChild(canvas);
-                    let canvasDataURL = (window as any).onePageCanvas.toDataURL("image/png", 1.0);
-
-                    let width = (window as any).onePageCanvas.width;
-                    let height = (window as any).onePageCanvas.clientHeight;
-
-                    //! If we're on anything other than the first page,
-                    // add another page
-                    if (i > 0) {
-                        pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
-                    }
-                    //! now we declare that we're working on that page
-                    pdf.setPage(i + 1);
-                    //! now we add content to that page!
-                    pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width * .62), (height * .62));
-
-                }
-                //! after the for loop is finished running, we save the pdf.
-                pdf.output('save', vm.prova.ano + vm.prova.area_id + vm.prova.serie_id + vm.prova.id + '.pdf');
-            }
-        });
+        pdf.fromHTML(quotes, 15, 15, {'width': 500},
+            function() {
+                pdf.output('dataurlnewwindow');
+            });
     }
 }
