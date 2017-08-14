@@ -7,11 +7,10 @@
     <div class="card col s4 offset-s4">
 
         <div class="card-content">
-
             <img  width="350px" height="90px" src="../assets/LogoSemec.png"/>
 
             <div class="card-title">Acesso ao sistema</div>
-            <form class="row" autocomplete="off" (submit)='login()'>
+            <form class="row" autocomplete="off" >
                 <div class="input-field col s12">
                     <input name="email" [(ngModel)]="user.username" type="email" id="email" class="validate" placeholder="Informe seu email..." required>
                     <label for="email" class="active">Email</label>
@@ -20,10 +19,10 @@
                     <input name="password" [(ngModel)]="user.password" type="password" id="password" class="validate" placeholder="Informe sua senha" required>
                     <label for="password" class="active">Senha</label>
                 </div>
-                <div class="input-field col s12">
-                    <input type="submit"class="waves-effect waves-light btn-large blue-grey darken-4" value="Entrar">
-                </div>
             </form>
+            <div class="input-field col s6" id="loading-entrar">
+                <input type="submit"class="waves-effect waves-light btn-large blue-grey darken-4" value="Entrar" (click)='login()'>
+            </div><div id="loading-spinner" ></div>
         </div>
     </div>
 
