@@ -20,8 +20,12 @@ var LoginComponent = (function () {
         this.router = router;
         this.user = {};
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        $('#loading-spinner').hide();
+    };
     LoginComponent.prototype.login = function () {
         var _this = this;
+        $('#loading-spinner').show();
         var auth = {
             grant_type: 'password',
             client_id: '2',
@@ -30,7 +34,10 @@ var LoginComponent = (function () {
             password: this.user.password,
             scope: '',
         };
-        this.httpService.client('oauth/token').insert(auth)
+        this.httpService.client('oauth/token').insert(auth).catch(function (res) {
+            $('#loading-spinner').hide();
+            alert('Erro ao realizar o login, verifique seu cadastro!');
+        })
             .then(function (res) {
             localStorage['tokens'] = JSON.stringify(res);
             _this.httpService.setAccessToken(res.access_token);

@@ -4,7 +4,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppHttpService } from '../app/app-http.service';
-// import any = jasmine.any;
 
 interface User {
     username?:string;
@@ -23,8 +22,11 @@ export class LoginComponent {
         private httpService: AppHttpService,
         private router: Router,
     ) {}
-
+    ngOnInit(){
+        $('#loading-spinner').hide();
+    }
     public login () {
+        $('#loading-spinner').show();
         let auth = {
             grant_type: 'password',
             client_id: '2',
@@ -34,7 +36,10 @@ export class LoginComponent {
             scope: '',
         };
 
-        this.httpService.client('oauth/token').insert(auth)
+        this.httpService.client('oauth/token').insert(auth).catch((res)=>{
+            $('#loading-spinner').hide();
+            alert('Erro ao realizar o login, verifique seu cadastro!');
+        })
             .then((res)=>{
                 localStorage['tokens'] = JSON.stringify(res);
                 this.httpService.setAccessToken(res.access_token);
