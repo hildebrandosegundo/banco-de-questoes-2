@@ -63,6 +63,8 @@ var QuestoesEditComponent = (function () {
     }
     QuestoesEditComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
         this.listAreas();
         this.listSeries();
         this.listNivels(this.questao);

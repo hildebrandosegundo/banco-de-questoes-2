@@ -43,6 +43,12 @@ export class LoginComponent {
             .then((res)=>{
                 localStorage['tokens'] = JSON.stringify(res);
                 this.httpService.setAccessToken(res.access_token);
+                this.httpService.builder('user')
+                    .getUser()
+                    .then((res) => {
+                        localStorage['user'] = JSON.stringify(res);
+                    });
+
                 this.router.navigate(['/home']);
             });
     }

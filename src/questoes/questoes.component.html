@@ -19,7 +19,7 @@
             <a class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
         </div>
     </div>
-    <div class="card col s12">
+    <div class="card col s12" *ngIf="user.type=='ADMINISTRADOR'">
         <div class="col s4 card-action">
             <a class="waves-effect waves-light btn indigo accent-1 darken-4" [routerLink]="['/questoes/new']">Criar nova Questão</a>
         </div>

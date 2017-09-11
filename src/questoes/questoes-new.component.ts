@@ -31,7 +31,7 @@ export class QuestoesNewComponent {
         alternativa4: '',
         alternativa5: ''
     };
-
+    public user: any;
     public areas: Object = {
         data: []
     };
@@ -54,6 +54,8 @@ export class QuestoesNewComponent {
     ) {}
 
     ngOnInit () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
         this.listAreas();
         this.listSeries();
     }

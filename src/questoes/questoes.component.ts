@@ -11,11 +11,13 @@ export class QuestoesComponent {
     public questoes: Object = {
         data: []
     };
-
+    public user: any;
     constructor (private httpService: AppHttpService) {}
     ngOnInit () {
         this.list();
         ($('.modal') as any).modal();
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
     }
 
     list () {

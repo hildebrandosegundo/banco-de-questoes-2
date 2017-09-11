@@ -57,6 +57,8 @@ var QuestoesNewComponent = (function () {
         };
     }
     QuestoesNewComponent.prototype.ngOnInit = function () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
         this.listAreas();
         this.listSeries();
     };

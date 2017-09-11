@@ -23,8 +23,17 @@ var AppComponent = (function () {
         this.router = router;
         this.ano = new Date().getFullYear();
     }
+    /*ngOnInit(){
+        if (localStorage['user'])
+        this.user = JSON.parse(localStorage['user']);
+    }*/
+    AppComponent.prototype.ngAfterContentChecked = function () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
+    };
     AppComponent.prototype.logout = function () {
         localStorage.removeItem('tokens');
+        localStorage.removeItem('user');
         this.router.navigate(['/login']);
     };
     AppComponent.prototype.istoken = function () {

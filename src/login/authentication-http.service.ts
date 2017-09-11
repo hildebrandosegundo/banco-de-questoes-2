@@ -31,7 +31,7 @@ export class AuthenticationHttpService extends Http {
                             let token = localStorage['tokens'] ? JSON.parse(localStorage['tokens']) : {};
                             if (token.access_token) {
                                 this.setAccessToken(token.access_token);
-                                alert('Login atualizado, refaça o último passo');
+                                //alert('Login atualizado, refaça o último passo');
                             }
                         } else {
                             this.router.navigate(['/login']);
@@ -53,10 +53,10 @@ export class AuthenticationHttpService extends Http {
             let auth = {
                 grant_type: 'refresh_token',
                 client_id: '2',
-                client_secret: 'R8u3pIAN6kDgiNrymKa5rhPiAoaC3g0pX0UZL4Az',
+                client_secret: 'blZmXjP1utuXX9wDg4DKbXAN1SPq1JvUnZKTZfHX',
                 refresh_token: token.refresh_token,
                 scope: '',
-            }
+            };
 
             return this.post('http://localhost:8000/oauth/token', auth)
                 .toPromise()

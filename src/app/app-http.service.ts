@@ -132,4 +132,11 @@ export class AppHttpService {
                 return res.json() || {};
             });
     }
+    getUser(){
+        return this.http.get(this.url, this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
 }

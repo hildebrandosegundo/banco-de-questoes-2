@@ -23,6 +23,8 @@ var QuestoesComponent = (function () {
     QuestoesComponent.prototype.ngOnInit = function () {
         this.list();
         $('.modal').modal();
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
     };
     QuestoesComponent.prototype.list = function () {
         var _this = this;

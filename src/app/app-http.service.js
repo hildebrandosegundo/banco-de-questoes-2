@@ -122,6 +122,13 @@ var AppHttpService = (function () {
             return res.json() || {};
         });
     };
+    AppHttpService.prototype.getUser = function () {
+        return this.http.get(this.url, this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
     return AppHttpService;
 }());
 AppHttpService = __decorate([

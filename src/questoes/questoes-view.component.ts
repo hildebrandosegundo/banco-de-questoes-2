@@ -16,7 +16,7 @@ export class QuestoesViewComponent {
         categoria: {},
         habilidade: {}
     }
-
+    public user: any;
     constructor (
         private httpService: AppHttpService,
         private route: ActivatedRoute,
@@ -24,6 +24,8 @@ export class QuestoesViewComponent {
     ) {}
 
     ngOnInit () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
         this.route.params
             .subscribe((params:any) => {
                 this.view(params.id);

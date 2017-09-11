@@ -16,11 +16,21 @@ import {Router} from "@angular/router";
 
 export class AppComponent {
     public ano = new Date().getFullYear();
+    public user: any;
     constructor (
         private router: Router,
     ) {}
+    /*ngOnInit(){
+        if (localStorage['user'])
+        this.user = JSON.parse(localStorage['user']);
+    }*/
+    ngAfterContentChecked(){
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
+    }
   logout () {
     localStorage.removeItem('tokens');
+    localStorage.removeItem('user');
       this.router.navigate(['/login']);
   }
   istoken () {

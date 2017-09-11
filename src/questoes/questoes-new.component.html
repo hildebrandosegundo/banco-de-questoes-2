@@ -13,7 +13,7 @@
             </div>
         </nav>
     </div>
-    <div class="card col s12">
+    <div class="card col s12" *ngIf="user.type=='ADMINISTRADOR'">
         <div class="card-content">
             <form class="row" autocomplete="on" (submit)="save()">
                 <div class="input-field col s3">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="input-field col s9">
                     <textarea [(ngModel)]="questao.enunciado" name="enuciado" class="materialize-textarea"></textarea>
-                    <label class="active">ENUCIADO DA QUESTÃO</label>
+                    <label class="active">ENUNCIADO DA QUESTÃO</label>
                 </div>
 
                 <div class="input-field col s3">

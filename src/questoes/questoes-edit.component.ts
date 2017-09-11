@@ -53,6 +53,7 @@ export class QuestoesEditComponent {
     public habilidades: Object = {
         data: []
     };
+    public user: any;
     constructor (
         private httpService: AppHttpService,
         private route: ActivatedRoute,
@@ -60,6 +61,8 @@ export class QuestoesEditComponent {
     ) {}
 
     ngOnInit () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
         this.listAreas();
         this.listSeries();
         this.listNivels(this.questao);

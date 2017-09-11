@@ -41,6 +41,11 @@ var LoginComponent = (function () {
             .then(function (res) {
             localStorage['tokens'] = JSON.stringify(res);
             _this.httpService.setAccessToken(res.access_token);
+            _this.httpService.builder('user')
+                .getUser()
+                .then(function (res) {
+                localStorage['user'] = JSON.stringify(res);
+            });
             _this.router.navigate(['/home']);
         });
     };
