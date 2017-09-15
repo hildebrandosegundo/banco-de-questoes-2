@@ -16,7 +16,7 @@
         <a [routerLink]="['/home']" class="collection-item indigo accent-1 white-text">Menu</a>
         <a *ngIf="user.type=='ADMINISTRADOR'" [routerLink]="['/questoes']" class="collection-item">Questões</a>
         <a *ngIf="user.type=='ADMINISTRADOR' || user.type=='ESCOLA'" [routerLink]="['/provas']" class="collection-item">Provas</a>
-        <a *ngIf="istoken() && user.type=='ADMINISTRADOR'" href="http://localhost:8000/register" class="collection-item">Cadastrar novo usuário</a>
+        <a *ngIf="istoken() && user.type=='ADMINISTRADOR'" href="http://www.dmei.96.lt/laravel/public/register" class="collection-item">Cadastrar novo usuário</a>
       </div>
       <div class="collection">
         <a href="" (click)="logout()" class="collection-item">Sair</a>
@@ -26,7 +26,7 @@
       <!--Router outlet-->
       <router-outlet></router-outlet>
       <div class="col s10 grey lighten-2">
-        <small>by <a href="http://www.semec.pi.gov.br/"target="_blank">Secretaria Municipal de Educação - SEMEC</a> -  &copy; <span>{{getAno()}}</span></small>
+        <small>by <a href="http://www.semec.teresina.pi.gov.br/"target="_blank">Secretaria Municipal de Educação - SEMEC</a> -  &copy; <span>{{getAno()}}</span></small>
       </div>
       <div class="col s2 grey lighten-2 right-align">
         <small>v1.0.0@dev</small>

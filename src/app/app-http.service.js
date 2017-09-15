@@ -24,11 +24,11 @@ var AppHttpService = (function () {
         this.options.headers = header;
     };
     AppHttpService.prototype.client = function (url) {
-        this.url = 'http://localhost:8000/' + url;
+        this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
         return this;
     };
     AppHttpService.prototype.builder = function (resource) {
-        this.url = 'http://localhost:8000/api/' + resource;
+        this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
         return this;
     };
     AppHttpService.prototype.list = function (options) {
