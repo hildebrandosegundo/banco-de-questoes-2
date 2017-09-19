@@ -11,9 +11,9 @@
     </div>
   </nav>
   <div class="row" id="main">
-    <div *ngIf="user" class="col s12 m4 l3 indigo accent-1 padding-top" id="left-side">
+    <div *ngIf="user" class="col s12 m4 l3 accent-1 padding-top" id="left-side">
       <div class="collection">
-        <a [routerLink]="['/home']" class="collection-item indigo accent-1 white-text">Menu</a>
+        <a [routerLink]="['/home']" class="collection-item indigo darken-4 white-text">Menu</a>
         <a *ngIf="user.type=='ADMINISTRADOR'" [routerLink]="['/questoes']" class="collection-item">Questões</a>
         <a *ngIf="user.type=='ADMINISTRADOR' || user.type=='ESCOLA'" [routerLink]="['/provas']" class="collection-item">Provas</a>
         <a *ngIf="istoken() && user.type=='ADMINISTRADOR'" href="http://www.dmei.96.lt/laravel/public/register" class="collection-item">Cadastrar novo usuário</a>
