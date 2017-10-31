@@ -4,7 +4,7 @@ html, body, #app, #main, #left-side, #right-side {
 }
 
 body {
-    background-color: #8c9eff !important;
+    background-color: #0D47A1 !important;
 }
 
 .nav-wrapper {
@@ -12,7 +12,7 @@ body {
     color: #F8F8FF;
 }
 .nav-wrapper2 {
-    background-color: #8c9eff !important;
+    background-color: #0D47A1 !important;
     color: #F8F8FF;
 }
 
@@ -46,7 +46,7 @@ body {
 
 .content-header h1 small {
     font-size: 70%;
-    color: #6495ED;
+    color: #0D47A1;
 }
 
 table thead tr th:first-child {
