@@ -13,6 +13,7 @@ let html2canvas = require('html2canvas');
 export class provaGeradaComponent {
     public resultado: any = [];
     public doc: any;
+    public user: any;
     public CountQuestao: number = 0;
     public prova: any = {
         area: {},
@@ -29,7 +30,10 @@ export class provaGeradaComponent {
     constructor(private httpService: AppHttpService,
                 private route: ActivatedRoute) {
     }
-
+    ngAfterContentChecked(){
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
+    }
     ngOnInit() {
         this.doc = new jsPdf('p', 'pt', 'letter');
         this.route.params

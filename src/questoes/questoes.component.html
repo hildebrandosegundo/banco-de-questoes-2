@@ -1,11 +1,11 @@
 <div class="row">
     <div class="content-header">
-        <h1>Questões <small>Gerenciamento de questões</small></h1>
+        <h1>Itens <small>Gerenciamento de itens</small></h1>
         <nav>
             <div class="nav-wrapper2 row">
                 <div class="col s12">
-                    <a [routerLink]="['/questoes']">Banco de questões</a> >
-                    <span>Suas questões</span>
+                    <a [routerLink]="['/questoes']">Banco de itens</a> >
+                    <span>Seus itens</span>
                 </div>
             </div>
         </nav>
@@ -21,7 +21,7 @@
     </div>
     <div class="card col s12" *ngIf="user.type=='ADMINISTRADOR'">
         <div class="col s4 card-action">
-            <a class="waves-effect indigo darken-4 btn " [routerLink]="['/questoes/new']">Criar nova Questão</a>
+            <a class="waves-effect indigo darken-4 btn " [routerLink]="['/questoes/new']">Criar novo Item</a>
         </div>
         <search [resource]="'pquestoes'" (onSearch)="searched($event)"></search>
         <div class="card-content">
@@ -73,7 +73,7 @@
                 ></paginate>
         </div>
         <div class="card-action">
-            <a class="waves-effect indigo darken-4 btn" [routerLink]="['/questoes/new']">Criar nova Questão</a>
+            <a class="waves-effect indigo darken-4 btn" [routerLink]="['/questoes/new']">Criar novo Item</a>
         </div>
     </div>
 </div>

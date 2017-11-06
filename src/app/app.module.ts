@@ -9,6 +9,7 @@ import { QuestoesModule } from '../questoes/questoes.module';
 import { ProvasModule } from '../provas/provas.module';
 import { LoginModule } from '../login/login.module';
 import { AuthenticationHttpService } from '../login/authentication-http.service';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 const appRoutes: Routes =[
     {path: '', redirectTo: '/login', pathMatch: 'full'}
 ]
@@ -21,6 +22,7 @@ const appRoutes: Routes =[
     ProvasModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   declarations: [
     AppComponent,

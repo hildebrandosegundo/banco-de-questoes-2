@@ -34,6 +34,10 @@ var provaGeradaComponent = (function () {
             total: ''
         };
     }
+    provaGeradaComponent.prototype.ngAfterContentChecked = function () {
+        if (localStorage['user'])
+            this.user = JSON.parse(localStorage['user']);
+    };
     provaGeradaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.doc = new jsPdf('p', 'pt', 'letter');

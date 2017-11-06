@@ -94,7 +94,9 @@ export class provasNewComponent {
     constructor (
         private httpService: AppHttpService,
         private router: Router,
+/*
         private listaQuestao:ElementRef,
+*/
         private renderer: Renderer2
     ) {}
 
@@ -121,8 +123,8 @@ export class provasNewComponent {
             })
     }
     listNivels (data: any) {
-        this.httpService.builder('nivels')
-            .getNivel(data)
+        this.httpService.builder('pquestoes')
+            .getNivel1(data)
             .then((res) => {
                 this.nivels = res;
             })
@@ -131,15 +133,15 @@ export class provasNewComponent {
         $('#questao_area').attr('disabled', 'true');
         $('#questao_serie').attr('disabled', 'true');
 
-        this.httpService.builder('categorias')
-            .getCategoria(data)
+        this.httpService.builder('pquestoes')
+            .getCategoria1(data)
             .then((res) => {
                 this.categorias = res;
             })
     }
     listHabilidades (data: any) {
-        this.httpService.builder('habilidades')
-            .getHabilidade(data)
+        this.httpService.builder('pquestoes')
+            .getHabilidade1(data)
             .then((res) => {
                 this.habilidades = res;
             })
@@ -214,7 +216,6 @@ export class provasNewComponent {
             console.log(item);
         });
         $('#modal1').modal('open');
-
     }
     parseHTML (questao: any) {
         let vm = '';

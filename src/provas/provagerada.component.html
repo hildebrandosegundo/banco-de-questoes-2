@@ -1,5 +1,5 @@
 <div class="card col s12">
-    <div id="content-prova" class="card-content">
+    <div id="content-prova" class="A4">
         <div class="right-align">
             <img  width="300px" height="80px" src="../assets/LogoSemec.png"/>
         </div>
@@ -39,7 +39,7 @@
             <i class="ion-md-menu"></i>
         </a>
         <ul>
-            <li><a (click)="ExportDocx()" class="waves-effect waves-purple blue"><i class="ion-md-paper"></i> WORD</a></li>
+            <li  *ngIf="user.type=='ADMINISTRADOR'"><a (click)="ExportDocx()" class="waves-effect waves-purple blue"><i class="ion-md-paper"></i> WORD</a></li>
             <li><a (click)="ExportPDF()" class="waves-effect waves-orange"><i class="ion-ios-book"></i> PDF</a></li>
             <li><a class="waves-effect waves-orange blue-grey" [routerLink]="['/provas']"><i class="ion-md-arrow-back"></i> Voltar</a></li>
         </ul>

@@ -15,10 +15,13 @@ var core_1 = require("@angular/core");
 var app_http_service_1 = require("../app/app-http.service");
 var router_1 = require("@angular/router");
 var provasNewComponent = (function () {
-    function provasNewComponent(httpService, router, listaQuestao, renderer) {
+    function provasNewComponent(httpService, router, 
+        /*
+                private listaQuestao:ElementRef,
+        */
+        renderer) {
         this.httpService = httpService;
         this.router = router;
-        this.listaQuestao = listaQuestao;
         this.renderer = renderer;
         this.CountQuestoes = 0;
         this.qtdquestao = 30;
@@ -127,8 +130,8 @@ var provasNewComponent = (function () {
     };
     provasNewComponent.prototype.listNivels = function (data) {
         var _this = this;
-        this.httpService.builder('nivels')
-            .getNivel(data)
+        this.httpService.builder('pquestoes')
+            .getNivel1(data)
             .then(function (res) {
             _this.nivels = res;
         });
@@ -137,16 +140,16 @@ var provasNewComponent = (function () {
         var _this = this;
         $('#questao_area').attr('disabled', 'true');
         $('#questao_serie').attr('disabled', 'true');
-        this.httpService.builder('categorias')
-            .getCategoria(data)
+        this.httpService.builder('pquestoes')
+            .getCategoria1(data)
             .then(function (res) {
             _this.categorias = res;
         });
     };
     provasNewComponent.prototype.listHabilidades = function (data) {
         var _this = this;
-        this.httpService.builder('habilidades')
-            .getHabilidade(data)
+        this.httpService.builder('pquestoes')
+            .getHabilidade1(data)
             .then(function (res) {
             _this.habilidades = res;
         });
@@ -342,7 +345,6 @@ provasNewComponent = __decorate([
     }),
     __metadata("design:paramtypes", [app_http_service_1.AppHttpService,
         router_1.Router,
-        core_1.ElementRef,
         core_1.Renderer2])
 ], provasNewComponent);
 exports.provasNewComponent = provasNewComponent;
