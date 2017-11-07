@@ -24,13 +24,13 @@ var AppHttpService = (function () {
         this.options.headers = header;
     };
     AppHttpService.prototype.client = function (url) {
-        this.url = 'http://localhost:8000/' + url;
-        //this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
+        //this.url = 'http://localhost:8000/' + url;
+        this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
         return this;
     };
     AppHttpService.prototype.builder = function (resource) {
-        this.url = 'http://localhost:8000/api/' + resource;
-        //this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
+        //this.url = 'http://localhost:8000/api/' + resource;
+        this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
         return this;
     };
     AppHttpService.prototype.list = function (options) {
@@ -118,21 +118,21 @@ var AppHttpService = (function () {
         });
     };
     AppHttpService.prototype.getNivel1 = function (data) {
-        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=id,nivel_id&groupby=id,nivel_id', this.options)
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id', this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};
         });
     };
     AppHttpService.prototype.getCategoria1 = function (data) {
-        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[nivel_id]=' + data.nivel_id + '&select=id,categoria_id&groupby=id,categoria_id', this.options)
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[nivel_id]=' + data.nivel_id + '&select=categoria_id&groupby=categoria_id', this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};
         });
     };
     AppHttpService.prototype.getHabilidade1 = function (data) {
-        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&select=id,habilidade_id&groupby=id,habilidade_id', this.options)
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&select=habilidade_id&groupby=habilidade_id', this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};

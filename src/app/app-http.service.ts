@@ -26,14 +26,14 @@ export class AppHttpService {
     }
 
     client(url: string) {
-        this.url = 'http://localhost:8000/' + url;
-        //this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
+        //this.url = 'http://localhost:8000/' + url;
+        this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
         return this;
     }
 
     builder (resource: string) {
-        this.url = 'http://localhost:8000/api/' + resource;
-        //this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
+        //this.url = 'http://localhost:8000/api/' + resource;
+        this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
         return this;
     }
 
@@ -128,21 +128,21 @@ export class AppHttpService {
             });
     }
     getNivel1 (data: any) {
-        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=id,nivel_id&groupby=id,nivel_id', this.options)
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id', this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};
             });
     }
     getCategoria1 (data: any) {
-        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[nivel_id]=' + data.nivel_id + '&select=id,categoria_id&groupby=id,categoria_id' , this.options)
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[nivel_id]=' + data.nivel_id + '&select=categoria_id&groupby=categoria_id' , this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};
             });
     }
     getHabilidade1 (data: any) {
-        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&select=id,habilidade_id&groupby=id,habilidade_id', this.options)
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&select=habilidade_id&groupby=habilidade_id', this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};
