@@ -2,7 +2,7 @@
  * Created by hildebrandosegundo on 06/06/17.
  */
 import { Component } from '@angular/core';
-import { AppHttpService } from '../app/app-http.service'
+import { AppHttpService } from '../app/app-http.service';
 @Component({
     templateUrl: './questoes.component.html',
     styles: ['tbody tr {cursor: pointer}'],

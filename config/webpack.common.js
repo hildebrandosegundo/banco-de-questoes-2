@@ -59,6 +59,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery/dist/jquery-2.1.1.min.js',
             jQuery: 'jquery/dist/jquery-2.1.1.min.js',
+            jquery: 'jquery/dist/jquery-2.1.1.min.js',
             'window.$': 'jquery/dist/jquery-2.1.1.min.js',
             'window.jQuery': 'jquery/dist/jquery-2.1.1.min.js',
             vel: 'materialize-css/js/velocity.js'

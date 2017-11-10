@@ -24,13 +24,13 @@ var AppHttpService = (function () {
         this.options.headers = header;
     };
     AppHttpService.prototype.client = function (url) {
-        //this.url = 'http://localhost:8000/' + url;
-        this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
+        this.url = 'http://localhost:8000/' + url;
+        //this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
         return this;
     };
     AppHttpService.prototype.builder = function (resource) {
-        //this.url = 'http://localhost:8000/api/' + resource;
-        this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
+        this.url = 'http://localhost:8000/api/' + resource;
+        //this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
         return this;
     };
     AppHttpService.prototype.list = function (options) {
@@ -118,7 +118,7 @@ var AppHttpService = (function () {
         });
     };
     AppHttpService.prototype.getNivel1 = function (data) {
-        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id', this.options)
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};

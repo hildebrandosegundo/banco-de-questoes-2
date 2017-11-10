@@ -15,7 +15,7 @@ var questoes_module_1 = require("../questoes/questoes.module");
 var provas_module_1 = require("../provas/provas.module");
 var login_module_1 = require("../login/login.module");
 var authentication_http_service_1 = require("../login/authentication-http.service");
-var angular_froala_wysiwyg_1 = require("angular-froala-wysiwyg");
+var forms_1 = require("@angular/forms");
 var appRoutes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
@@ -34,7 +34,7 @@ AppModule = __decorate([
             provas_module_1.ProvasModule,
             router_1.RouterModule.forRoot(appRoutes),
             http_1.HttpModule,
-            angular_froala_wysiwyg_1.FroalaEditorModule.forRoot(), angular_froala_wysiwyg_1.FroalaViewModule.forRoot()
+            forms_1.FormsModule
         ],
         declarations: [
             app_component_1.AppComponent,

@@ -14,10 +14,12 @@ var router_1 = require("@angular/router");
 var app_shared_components_module_1 = require("../app/app-shared-components.module");
 var app_http_service_1 = require("../app/app-http.service");
 var forms_1 = require("@angular/forms");
+var common_1 = require("@angular/common");
 var questoes_component_1 = require("./questoes.component");
 var questoes_view_component_1 = require("./questoes-view.component");
 var questoes_new_component_1 = require("./questoes-new.component");
 var questoes_edit_component_1 = require("./questoes-edit.component");
+var ngx_quill_1 = require("ngx-quill");
 var appRoutes = [
     { path: 'questoes', component: questoes_component_1.QuestoesComponent },
     { path: 'questoes/new', component: questoes_new_component_1.QuestoesNewComponent },
@@ -34,8 +36,11 @@ QuestoesModule = __decorate([
         imports: [
             app_shared_components_module_1.AppSharedComponentsModule,
             platform_browser_1.BrowserModule,
-            router_1.RouterModule.forRoot(appRoutes),
-            forms_1.FormsModule
+            forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
+            ngx_quill_1.QuillModule,
+            common_1.CommonModule,
+            router_1.RouterModule.forRoot(appRoutes)
         ],
         declarations: [
             questoes_component_1.QuestoesComponent,

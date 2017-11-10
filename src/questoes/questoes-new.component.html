@@ -51,12 +51,17 @@
                     </select>
                     <label class="active">Habilidades</label>
                 </div>
-                <div class="input-field col s9">
-                    <textarea [(ngModel)]="questao.enunciado" name="enuciado" class="materialize-textarea"></textarea>
+                <br>
+
+                <div class="input-field col s12">
                     <label class="active">ENUNCIADO DA QUESTÃO</label>
+                    <quill-editor [(ngModel)]="questao.enunciado" name="enunciado" placeholder="Escreva o enunciado do item"></quill-editor>
+                    <!--<quill-editor [ngModel]="teste" placeholder="Escreva o enunciado do item" ></quill-editor>-->
+                    <!--<textarea  name="enuciado" class="materialize-textarea"></textarea>
+                    <label class="active">ENUNCIADO DA QUESTÃO</label>-->
                 </div>
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -72,15 +77,16 @@
                         <img [src]="questao.imagem"/>
                         <button (click)="removeImage(1)">Remover imagem</button>
                     </div>
-                </div>
+                </div>-->
 
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="questao.alternativa1" name="alternativa1" class="materialize-textarea"></textarea>
+                <div class="input-field col s10">
+                    <!--<textarea [(ngModel)]="questao.alternativa1" name="alternativa1" class="materialize-textarea"></textarea>-->
                     <label class="active">1º ALTERNATIVA</label>
+                    <quill-editor [(ngModel)]="questao.alternativa1" name="alternativa1" placeholder="1ª Alternativa"></quill-editor>
                 </div>
 
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -89,7 +95,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div>-->
 
                 <div class="input-field col s2">
                     <p>
@@ -97,18 +103,19 @@
                         <label for="correta1">Alternativa correta</label>
                     </p>
                 </div>
-                <div class="col s12">
+                <!--<div class="col s12">
                     <div *ngIf="questao.imagemAl1">
                         <img [src]="questao.imagemAl1"/>
                         <button (click)="removeImage(2)">Remover imagem</button>
                     </div>
-                </div>
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="questao.alternativa2" name="alternativa2" class="materialize-textarea"></textarea>
+                </div>-->
+                <div class="input-field col s10">
+                    <!--<textarea [(ngModel)]="questao.alternativa2" name="alternativa2" class="materialize-textarea"></textarea>-->
                     <label class="active">2º ALTERNATIVA</label>
+                    <quill-editor [(ngModel)]="questao.alternativa2" name="alternativa2" placeholder="2ª Alternativa"></quill-editor>
                 </div>
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -118,7 +125,7 @@
 
                         </div>
                     </form>
-                </div>
+                </div>-->
 
                 <div class="input-field col s2">
                     <p>
@@ -126,19 +133,20 @@
                         <label for="correta2">Alternativa correta</label>
                     </p>
                 </div>
-                <div class="col s12">
+               <!-- <div class="col s12">
                     <div *ngIf="questao.imagemAl2">
                         <img [src]="questao.imagemAl2"/>
                         <button (click)="removeImage(3)">Remover imagem</button>
                     </div>
-                </div>
+                </div>-->
 
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="questao.alternativa3" name="alternativa3" class="materialize-textarea"></textarea>
+                <div class="input-field col s10">
+                    <!--<textarea [(ngModel)]="questao.alternativa3" name="alternativa3" class="materialize-textarea"></textarea>-->
                     <label class="active">3º ALTERNATIVA</label>
+                    <quill-editor [(ngModel)]="questao.alternativa3" name="alternativa3" placeholder="3ª Alternativa"></quill-editor>
                 </div>
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -148,7 +156,7 @@
 
                         </div>
                     </form>
-                </div>
+                </div>-->
 
                 <div class="input-field col s2">
                     <p>
@@ -157,18 +165,19 @@
                     </p>
                 </div>
 
-                <div class="col s12">
+                <!--<div class="col s12">
                     <div *ngIf="questao.imagemAl3">
                         <img [src]="questao.imagemAl3"/>
                         <button (click)="removeImage(4)">Remover imagem</button>
                     </div>
-                </div>
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="questao.alternativa4" name="alternativa4" class="materialize-textarea"></textarea>
+                </div>-->
+                <div class="input-field col s10">
+                    <!--<textarea [(ngModel)]="questao.alternativa4" name="alternativa4" class="materialize-textarea"></textarea>-->
                     <label class="active">4º ALTERNATIVA</label>
+                    <quill-editor [(ngModel)]="questao.alternativa4" name="alternativa4" placeholder="4ª Alternativa"></quill-editor>
                 </div>
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -177,7 +186,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div>-->
 
                 <div class="input-field col s2">
                     <p>
@@ -185,19 +194,20 @@
                         <label for="correta4">Alternativa correta</label>
                     </p>
                 </div>
-                <div class="col s12">
+                <!--<div class="col s12">
                     <div *ngIf="questao.imagemAl4">
                         <img [src]="questao.imagemAl4"/>
                         <button (click)="removeImage(5)">Remover imagem</button>
                     </div>
-                </div>
+                </div>-->
 
-                <div class="input-field col s7">
-                    <textarea [(ngModel)]="questao.alternativa5" name="alternativa5" class="materialize-textarea"></textarea>
+                <div class="input-field col s10">
+                    <!--<textarea [(ngModel)]="questao.alternativa5" name="alternativa5" class="materialize-textarea"></textarea>-->
                     <label class="active">5º ALTERNATIVA</label>
+                    <quill-editor [(ngModel)]="questao.alternativa5" name="alternativa5" placeholder="5ª Alternativa"></quill-editor>
                 </div>
 
-                <div class="input-field col s3">
+                <!--<div class="input-field col s3">
                     <form action="#">
                         <div class="file-field input-field">
                             <div class="btn btn-floating">
@@ -207,7 +217,7 @@
 
                         </div>
                     </form>
-                </div>
+                </div>-->
 
                 <div class="input-field col s2">
                     <p>
@@ -215,12 +225,12 @@
                         <label for="correta5">Alternativa correta</label>
                     </p>
                 </div>
-                <div class="col s12">
+                <!--<div class="col s12">
                     <div *ngIf="questao.imagemAl5">
                         <img [src]="questao.imagemAl5"/>
                         <button (click)="removeImage(6)">Remover imagem</button>
                     </div>
-                </div>
+                </div>-->
                 <div class="input-field col s6">
                     <input type="submit" class="waves-effect waves-light btn-large  indigo accent-1 darken-4"
                            value="Salvar">

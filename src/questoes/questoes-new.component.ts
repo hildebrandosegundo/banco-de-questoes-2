@@ -1,15 +1,15 @@
 /**
  * Created by hildebrandosegundo on 06/06/17.
  */
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
 import { Router, ActivatedRoute} from '@angular/router';
-
+//import * as Quill from 'quill';
 @Component({
     templateUrl: './questoes-new.component.html',
     styles: ['tbody tr {cursor: pointer}'],
 })
-export class QuestoesNewComponent {
+export class QuestoesNewComponent{
     public questao: any = {
         serie_id: '',
         area_id: '',
@@ -60,7 +60,7 @@ export class QuestoesNewComponent {
         this.listSeries();
     }
     onFileChange (e: any, img: number) {
-        const files = e.target.files || e.dataTransfer.files
+        const files = e.target.files || e.dataTransfer.files;
 
         if (!files.length) {
             return

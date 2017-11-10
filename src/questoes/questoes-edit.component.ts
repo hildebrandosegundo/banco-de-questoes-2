@@ -4,7 +4,6 @@
 import { Component } from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 @Component({
     templateUrl: './questoes-edit.component.html',
     styles: ['tbody tr {cursor: pointer}'],

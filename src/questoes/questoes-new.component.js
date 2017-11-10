@@ -14,6 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var app_http_service_1 = require("../app/app-http.service");
 var router_1 = require("@angular/router");
+//import * as Quill from 'quill';
 var QuestoesNewComponent = (function () {
     function QuestoesNewComponent(httpService, route, router) {
         this.httpService = httpService;

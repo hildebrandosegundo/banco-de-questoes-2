@@ -17,6 +17,19 @@ require("ionicons/dist/css/ionicons.css");
 require("jquery/dist/jquery-2.1.1.min.js");
 require("../../src/jquery.wordexport.js");
 require("../../src/jquery.sortable.min.js");
+/*
+import "tinymce/tinymce.min.js";
+import "tinymce/themes/modern/theme.min.js";
+import "tinymce/plugins/link/plugin.min.js";
+import "tinymce/plugins/paste/plugin.min.js";
+import "tinymce/plugins/table/plugin.min.js";
+import "tinymce/plugins/advlist/plugin.min.js";
+import "tinymce/plugins/autoresize/plugin.min.js";
+import "tinymce/plugins/lists/plugin.min.js";
+import "tinymce/plugins/code/plugin.min.js";
+*/
+require("../assets/css/quill.snow.css");
+require("../assets/css/quill.bubble.css");
 var router_1 = require("@angular/router");
 var AppComponent = (function () {
     function AppComponent(router) {

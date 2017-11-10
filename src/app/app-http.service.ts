@@ -26,14 +26,14 @@ export class AppHttpService {
     }
 
     client(url: string) {
-        //this.url = 'http://localhost:8000/' + url;
-        this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
+        this.url = 'http://localhost:8000/' + url;
+        //this.url = 'http://www.dmei.96.lt/laravel/public/' + url;
         return this;
     }
 
     builder (resource: string) {
-        //this.url = 'http://localhost:8000/api/' + resource;
-        this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
+        this.url = 'http://localhost:8000/api/' + resource;
+        //this.url = 'http://www.dmei.96.lt/laravel/public/api/' + resource;
         return this;
     }
 
@@ -128,7 +128,7 @@ export class AppHttpService {
             });
     }
     getNivel1 (data: any) {
-        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id', this.options)
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
             .toPromise()
             .then((res) => {
                 return res.json() || {};

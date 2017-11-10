@@ -15,7 +15,7 @@ export class QuestoesViewComponent {
         serie: {},
         categoria: {},
         habilidade: {}
-    }
+    };
     public user: any;
     constructor (
         private httpService: AppHttpService,
