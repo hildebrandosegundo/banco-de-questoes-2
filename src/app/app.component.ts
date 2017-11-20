@@ -7,6 +7,12 @@ import 'ionicons/dist/css/ionicons.css';
 import 'jquery/dist/jquery-2.1.1.min.js';
 import '../../src/jquery.wordexport.js';
 import '../../src/jquery.sortable.min.js';
+//import 'font-awesome/css/font-awesome.min.css';
+/*import 'froala-editor/css/froala_editor.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/js/froala_editor.pkgd.min.js';
+import 'froala-editor/js/languages/pt_br.js';*/
+
 /*
 import "tinymce/tinymce.min.js";
 import "tinymce/themes/modern/theme.min.js";
@@ -20,6 +26,11 @@ import "tinymce/plugins/code/plugin.min.js";
 */
 import "../assets/css/quill.snow.css";
 import "../assets/css/quill.bubble.css";
+/*
+import "quill/dist/quill.min.js";
+import "quill-image-resize-module/image-resize.min.js";
+*/
+
 import {Router} from "@angular/router";
 @Component({
   selector: 'my-app',

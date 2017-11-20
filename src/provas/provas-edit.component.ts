@@ -305,18 +305,15 @@ export class provasEditComponent {
         $('#modal1').modal('open');
 
     }
-    parseHTML(questao: any) {
+    parseHTML (questao: any) {
         let vm = '';
-        vm += `<li value="` + questao.id + `">
+        vm += `<li #liquestao value="` + questao.id + `">
                 <div class="collapsible-header">
-                <div class="col s11"><small> #` + questao.id + ` | Código: ` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo + ` Habilidade: ` + questao.habilidade.codigo + `</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
+                <div class="col s11"><small>#` + questao.id + ` | Código: ` + questao.codigo + ` | Area: ` + questao.area.area + ` | Série: ` + questao.serie.serie + ` | Nível: ` + questao.nivel.nivel + ` | Tema: ` + questao.categoria.codigo +` Habilidade: `+questao.habilidade.codigo+`</small></div><a class="btn-floating btn waves-effect waves-light red"><div class="ion-md-trash"></div></a>
                 </div>
                 <div class="collapsible-body">`;
         if (questao.enunciado) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="questao.enunciado" name="enuciado" class="materialize-textarea">` + questao.enunciado + `</textarea>
-                <label class="active">ENUCIADO DA QUESTÃO</label>
-                </div>`;
+            vm +=  `<label class="active">ENUCIADO DA QUESTÃO</label>`+ questao.enunciado;
         }
         if (questao.imagem) {
             vm += `<div>           
@@ -324,10 +321,7 @@ export class provasEditComponent {
                 </div>`;
         }
         if (questao.alternativa1) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa1" name="alternativa1" class="materialize-textarea">` + questao.alternativa1 + `</textarea>
-                <label class="active">1º ALTERNATIVA</label>
-                </div>`;
+            vm += `<label class="active">1º ALTERNATIVA</label>` + questao.alternativa1 ;
         }
         if (questao.imagemAl1) {
             vm += `<div>
@@ -335,10 +329,7 @@ export class provasEditComponent {
                     </div>`;
         }
         if (questao.alternativa2) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa2" name="alternativa2" class="materialize-textarea">` + questao.alternativa2 + `</textarea>
-                <label class="active">2º ALTERNATIVA</label>
-                </div>`;
+            vm += `<label class="active">2º ALTERNATIVA</label>` + questao.alternativa2;
         }
         if (questao.imagemAl2) {
             vm += `<div>
@@ -346,10 +337,7 @@ export class provasEditComponent {
                     </div>`;
         }
         if (questao.alternativa3) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa3" name="alternativa3" class="materialize-textarea">` + questao.alternativa3 + `</textarea>
-                <label class="active">3º ALTERNATIVA</label>
-                </div>`;
+            vm += `<label class="active">3º ALTERNATIVA</label>` + questao.alternativa3 ;
         }
         if (questao.imagemAl3) {
             vm += `<div>
@@ -357,10 +345,7 @@ export class provasEditComponent {
                 </div>`;
         }
         if (questao.alternativa4) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="prova.alternativa4" name="alternativa4" class="materialize-textarea">` + questao.alternativa4 + `</textarea>
-                <label class="active">4º ALTERNATIVA</label>
-                </div>`;
+            vm += `<label class="active">4º ALTERNATIVA</label>` + questao.alternativa4;
         }
         if (questao.imagemAl4) {
             vm += `<div>
@@ -368,10 +353,7 @@ export class provasEditComponent {
                     </div>`;
         }
         if (questao.alternativa5) {
-            vm += `<div class="input-field">
-                <textarea [(ngModel)]="questao.alternativa5" name="alternativa5" class="materialize-textarea">` + questao.alternativa5 + `</textarea>
-                <label class="active">5º ALTERNATIVA</label>
-                </div>`;
+            vm += `<label class="active">5º ALTERNATIVA</label>` + questao.alternativa5;
         }
         if (questao.imagemAl5) {
             vm += `<div>              
@@ -391,6 +373,7 @@ export class provasEditComponent {
         this.atualizaNum();
     }
     addQuestao() {
+        let ch = true;
         if (this.qtdquestao > 50) {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
         }
@@ -400,14 +383,33 @@ export class provasEditComponent {
                     $('#buttonAdd').removeClass('pulse');
                     let vm = '';
                     if ($('#aleatorio').is(':checked')) {
-                        let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
-                        this.listQuestoes.push(questao.id);
-                        vm = this.parseHTML(questao);
+                        while (ch) {
+                            let questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
+                            this.listQuestoes.forEach(function (el, i) {
+                                if (el.id === questao.id) {
+                                    // achou!
+                                    ch = false;
+                                }
+                            });
+                            if (ch) {
+                                ch = false;
+                                this.listQuestoes.push(questao.id);
+                                vm = this.parseHTML(questao);
+                            }
+                        }
                     }
                     else {
                         for (let i  in this.questoes.data) {
-                            this.listQuestoes.push(this.questoes.data[i].id);
-                            vm += this.parseHTML(this.questoes.data[i]);
+                            this.listQuestoes.forEach(function(el, i){
+                                if(el.id === this.questoes.data[i].id) {
+                                    // achou!
+                                    ch = false;
+                                }
+                            });
+                            if(ch) {
+                                this.listQuestoes.push(this.questoes.data[i].id);
+                                vm += this.parseHTML(this.questoes.data[i]);
+                            }
                         }
                     }
                     $('#listaQuestao').append(vm);

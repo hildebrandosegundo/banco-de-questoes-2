@@ -30,6 +30,29 @@
             <a (click)="reorderQuestoes()" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
         </div>
     </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <div class="right-align">
+                <img  width="300px" height="80px" src="../assets/LogoSemec.png"/>
+            </div>
+            <!--<spinner></spinner>-->
+            <div style="text-align: inherit">
+                <p>ESCOLA MUNICIPAL ______________________________________________________________</p>
+
+                <p>ALUNO(A): _______________________________________________________________________</p>
+
+                <p>TERESINA (PI) __________ DE ______________ DE ______.             Turma: ______________</p>
+            </div>
+            <br>
+            <div style="background-color:black;color:white;padding:10px;text-align: center">
+                {{prova.titulo}}
+            </div>
+            <div id="modal-content2"></div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
     <div class="card col s12">
         <div class="card-content">
             <form class="row" autocomplete="on">

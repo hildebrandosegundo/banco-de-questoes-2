@@ -296,39 +296,39 @@ var provasEditComponent = (function () {
     };
     provasEditComponent.prototype.parseHTML = function (questao) {
         var vm = '';
-        vm += "<li value=\"" + questao.id + "\">\n                <div class=\"collapsible-header\">\n                <div class=\"col s11\"><small> #" + questao.id + " | C\u00F3digo: " + questao.codigo + " | Area: " + questao.area.area + " | S\u00E9rie: " + questao.serie.serie + " | N\u00EDvel: " + questao.nivel.nivel + " | Tema: " + questao.categoria.codigo + " Habilidade: " + questao.habilidade.codigo + "</small></div><a class=\"btn-floating btn waves-effect waves-light red\"><div class=\"ion-md-trash\"></div></a>\n                </div>\n                <div class=\"collapsible-body\">";
+        vm += "<li #liquestao value=\"" + questao.id + "\">\n                <div class=\"collapsible-header\">\n                <div class=\"col s11\"><small>#" + questao.id + " | C\u00F3digo: " + questao.codigo + " | Area: " + questao.area.area + " | S\u00E9rie: " + questao.serie.serie + " | N\u00EDvel: " + questao.nivel.nivel + " | Tema: " + questao.categoria.codigo + " Habilidade: " + questao.habilidade.codigo + "</small></div><a class=\"btn-floating btn waves-effect waves-light red\"><div class=\"ion-md-trash\"></div></a>\n                </div>\n                <div class=\"collapsible-body\">";
         if (questao.enunciado) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"questao.enunciado\" name=\"enuciado\" class=\"materialize-textarea\">" + questao.enunciado + "</textarea>\n                <label class=\"active\">ENUCIADO DA QUEST\u00C3O</label>\n                </div>";
+            vm += "<label class=\"active\">ENUCIADO DA QUEST\u00C3O</label>" + questao.enunciado;
         }
         if (questao.imagem) {
             vm += "<div>           \n                <img src=\"" + questao.imagem + "\"/>\n                </div>";
         }
         if (questao.alternativa1) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa1\" name=\"alternativa1\" class=\"materialize-textarea\">" + questao.alternativa1 + "</textarea>\n                <label class=\"active\">1\u00BA ALTERNATIVA</label>\n                </div>";
+            vm += "<label class=\"active\">1\u00BA ALTERNATIVA</label>" + questao.alternativa1;
         }
         if (questao.imagemAl1) {
             vm += "<div>\n                    <img src=\"" + questao.imagemAl1 + "\"/>\n                    </div>";
         }
         if (questao.alternativa2) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa2\" name=\"alternativa2\" class=\"materialize-textarea\">" + questao.alternativa2 + "</textarea>\n                <label class=\"active\">2\u00BA ALTERNATIVA</label>\n                </div>";
+            vm += "<label class=\"active\">2\u00BA ALTERNATIVA</label>" + questao.alternativa2;
         }
         if (questao.imagemAl2) {
             vm += "<div>\n                    <img src=\"" + questao.imagemAl2 + "\"/>\n                    </div>";
         }
         if (questao.alternativa3) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa3\" name=\"alternativa3\" class=\"materialize-textarea\">" + questao.alternativa3 + "</textarea>\n                <label class=\"active\">3\u00BA ALTERNATIVA</label>\n                </div>";
+            vm += "<label class=\"active\">3\u00BA ALTERNATIVA</label>" + questao.alternativa3;
         }
         if (questao.imagemAl3) {
             vm += "<div>\n                    <img src=\"" + questao.imagemAl3 + "\"/>\n                </div>";
         }
         if (questao.alternativa4) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"prova.alternativa4\" name=\"alternativa4\" class=\"materialize-textarea\">" + questao.alternativa4 + "</textarea>\n                <label class=\"active\">4\u00BA ALTERNATIVA</label>\n                </div>";
+            vm += "<label class=\"active\">4\u00BA ALTERNATIVA</label>" + questao.alternativa4;
         }
         if (questao.imagemAl4) {
             vm += "<div>\n                    <img src=\"" + questao.imagemAl4 + "\"/>\n                    </div>";
         }
         if (questao.alternativa5) {
-            vm += "<div class=\"input-field\">\n                <textarea [(ngModel)]=\"questao.alternativa5\" name=\"alternativa5\" class=\"materialize-textarea\">" + questao.alternativa5 + "</textarea>\n                <label class=\"active\">5\u00BA ALTERNATIVA</label>\n                </div>";
+            vm += "<label class=\"active\">5\u00BA ALTERNATIVA</label>" + questao.alternativa5;
         }
         if (questao.imagemAl5) {
             vm += "<div>              \n                    <img src=\"" + questao.imagemAl5 + "\"/>\n                </div>";
@@ -345,6 +345,7 @@ var provasEditComponent = (function () {
         this.atualizaNum();
     };
     provasEditComponent.prototype.addQuestao = function () {
+        var ch = true;
         if (this.qtdquestao > 50) {
             alert('A quantidade de questões utrapassou a quantidade suportada, adeque a quantidade de questões.');
         }
@@ -354,14 +355,37 @@ var provasEditComponent = (function () {
                     $('#buttonAdd').removeClass('pulse');
                     var vm = '';
                     if ($('#aleatorio').is(':checked')) {
-                        var questao = this.questoes.data[Math.floor(Math.random() * this.questoes.data.length)];
-                        this.listQuestoes.push(questao.id);
-                        vm = this.parseHTML(questao);
+                        var _loop_1 = function () {
+                            var questao = this_1.questoes.data[Math.floor(Math.random() * this_1.questoes.data.length)];
+                            this_1.listQuestoes.forEach(function (el, i) {
+                                if (el.id === questao.id) {
+                                    // achou!
+                                    ch = false;
+                                }
+                            });
+                            if (ch) {
+                                ch = false;
+                                this_1.listQuestoes.push(questao.id);
+                                vm = this_1.parseHTML(questao);
+                            }
+                        };
+                        var this_1 = this;
+                        while (ch) {
+                            _loop_1();
+                        }
                     }
                     else {
                         for (var i in this.questoes.data) {
-                            this.listQuestoes.push(this.questoes.data[i].id);
-                            vm += this.parseHTML(this.questoes.data[i]);
+                            this.listQuestoes.forEach(function (el, i) {
+                                if (el.id === this.questoes.data[i].id) {
+                                    // achou!
+                                    ch = false;
+                                }
+                            });
+                            if (ch) {
+                                this.listQuestoes.push(this.questoes.data[i].id);
+                                vm += this.parseHTML(this.questoes.data[i]);
+                            }
                         }
                     }
                     $('#listaQuestao').append(vm);

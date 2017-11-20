@@ -14,6 +14,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var app_http_service_1 = require("../app/app-http.service");
 var router_1 = require("@angular/router");
+/*import Quill from 'quill';
+//declare const Quill: any;
+import { ImageResize } from 'quill-image-resize-module/image-resize.min';
+
+Quill.register('modules/imageResize', ImageResize);
+
+const Parchment = Quill.import('parchment');
+let Block = Parchment.query('block');
+
+Block.tagName = 'DIV';
+// or class NewBlock extends Block {}; NewBlock.tagName = 'DIV';
+Quill.register(Block /!* or NewBlock *!/, true);*/
 var jsPdf = require('jspdf');
 var html2canvas = require('html2canvas');
 var provaGeradaComponent = (function () {
@@ -82,14 +94,10 @@ var provaGeradaComponent = (function () {
     provaGeradaComponent.prototype.parseHTML = function (questao) {
         var vm = '';
         this.CountQuestao++;
-        vm += "<li>";
         if (questao.enunciado || questao.imagem)
-            vm += "<p style=\"text-align:justify\"><span>" + this.CountQuestao + " . </span>";
+            vm += "<p style=\"text-align:justify\"><span>" + this.CountQuestao + " . (" + questao.codigo + ") </span>";
         if (questao.enunciado) {
             vm += questao.enunciado;
-        }
-        if (questao.imagem) {
-            vm += "<div style=\"display: flex;display: -webkit-flex;justify-content: center;align-items: center;\">           \n                <img src=\"" + questao.imagem + "\"/>\n                </div>";
         }
         if (questao.enunciado || questao.imagem)
             vm += "</p><br>";
@@ -98,18 +106,12 @@ var provaGeradaComponent = (function () {
         if (questao.alternativa1) {
             vm += questao.alternativa1;
         }
-        if (questao.imagemAl1) {
-            vm += "<div>\n                    <img id=\"img1\" src=\"" + questao.imagemAl1 + "\"/>\n                    </div>";
-        }
         if (questao.alternativa1 || questao.imagemAl1)
             vm += "</p>";
         if (questao.alternativa2 || questao.imagemAl2)
             vm += "<p style=\"text-align:justify\"><span>b) </span>";
         if (questao.alternativa2) {
             vm += questao.alternativa2;
-        }
-        if (questao.imagemAl2) {
-            vm += "<div>\n                    <img id=\"img2\" src=\"" + questao.imagemAl2 + "\"/>\n                    </div>";
         }
         if (questao.alternativa2 || questao.imagemAl2)
             vm += "</p>";
@@ -118,18 +120,12 @@ var provaGeradaComponent = (function () {
         if (questao.alternativa3) {
             vm += questao.alternativa3;
         }
-        if (questao.imagemAl3) {
-            vm += "<div>\n                   <img id=\"img3\" src=\"" + questao.imagemAl3 + "\"/>\n                   </div>";
-        }
         if (questao.alternativa3 || questao.imagemAl3)
             vm += "</p>";
         if (questao.alternativa4 || questao.imagemAl4)
             vm += "<p style=\"text-align:justify\"><span>d) </span>";
         if (questao.alternativa4) {
             vm += questao.alternativa4;
-        }
-        if (questao.imagemAl4) {
-            vm += "<div>\n                    <img id=\"img4\" src=\"" + questao.imagemAl4 + "\"/>\n                    </div>";
         }
         if (questao.alternativa4 || questao.imagemAl4)
             vm += "</p>";
@@ -138,12 +134,9 @@ var provaGeradaComponent = (function () {
         if (questao.alternativa5) {
             vm += questao.alternativa5;
         }
-        if (questao.imagemAl5) {
-            vm += "<div>              \n                    <img id=\"img5\" src=\"" + questao.imagemAl5 + "\"/>\n                    </div>";
-        }
         if (questao.alternativa5 || questao.imagemAl5)
             vm += "</p>";
-        vm += "________________________________________________________________________________\n                </li>";
+        vm += "________________________________________________________________________________";
         return vm;
     };
     provaGeradaComponent.prototype.addQuestaoIni = function () {
@@ -151,13 +144,13 @@ var provaGeradaComponent = (function () {
         for (var i in this.questoes.data) {
             vm += this.parseHTML(this.questoes.data[i]);
         }
-        $('#listaQuestao').append(vm);
+        this.provagerada += vm;
     };
     provaGeradaComponent.prototype.ExportDocx = function () {
         $('#content-prova').wordExport(this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
     };
     provaGeradaComponent.prototype.ExportPDF = function () {
-        var quotes = $("#content-prova").get(0);
+        var quotes = $('#prova-cabecalho').html() + this.provagerada;
         //! MAKE YOUR PDF
         var pdf = new jsPdf('p', 'pt', 'a4', true);
         pdf.fromHTML(quotes, 15, 15, { 'width': 500 }, function () {

@@ -40,6 +40,11 @@ module.exports = {
                 test: /\.css$/,
                 include: helpers.root('src', 'app'),
                 loader: 'raw-loader'
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
+                loader: 'babel-loader'
             }
         ]
     },
@@ -62,7 +67,9 @@ module.exports = {
             jquery: 'jquery/dist/jquery-2.1.1.min.js',
             'window.$': 'jquery/dist/jquery-2.1.1.min.js',
             'window.jQuery': 'jquery/dist/jquery-2.1.1.min.js',
-            vel: 'materialize-css/js/velocity.js'
+            vel: 'materialize-css/js/velocity.js',
+            'window.Quill': 'quill/dist/quill.js',
+            'Quill': 'quill/dist/quill.js'
         }),
         new HtmlWebpackPlugin({
             template: 'src/index.html'

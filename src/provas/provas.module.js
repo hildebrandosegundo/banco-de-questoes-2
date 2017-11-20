@@ -20,6 +20,7 @@ var provas_new_component_1 = require("./provas-new.component");
 var provas_edit_component_1 = require("./provas-edit.component");
 var ng2_materialize_1 = require("ng2-materialize");
 var provagerada_component_1 = require("./provagerada.component");
+var ngx_quill_1 = require("ngx-quill");
 var appRoutes = [
     { path: 'provas', component: provas_component_1.provasComponent },
     { path: 'provas/new', component: provas_new_component_1.provasNewComponent },
@@ -39,7 +40,9 @@ ProvasModule = __decorate([
             platform_browser_1.BrowserModule,
             ng2_materialize_1.MaterializeModule.forRoot(),
             router_1.RouterModule.forRoot(appRoutes),
-            forms_1.FormsModule
+            forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
+            ngx_quill_1.QuillModule
         ],
         declarations: [
             provas_component_1.provasComponent,

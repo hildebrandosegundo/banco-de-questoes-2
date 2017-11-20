@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppSharedComponentsModule } from '../app/app-shared-components.module';
 import { AppHttpService } from '../app/app-http.service';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {provasComponent} from "./provas.component";
 import {provasViewComponent} from "./provas-view.component";
@@ -14,6 +14,7 @@ import {provasNewComponent} from "./provas-new.component";
 import {provasEditComponent} from "./provas-edit.component";
 import { MaterializeModule } from 'ng2-materialize';
 import {provaGeradaComponent} from "./provagerada.component";
+import {QuillModule} from "ngx-quill";
 const appRoutes: Routes =[
     {path: 'provas', component: provasComponent},
     {path: 'provas/new', component: provasNewComponent},
@@ -27,7 +28,9 @@ const appRoutes: Routes =[
          BrowserModule,
          MaterializeModule.forRoot(),
          RouterModule.forRoot(appRoutes),
-         FormsModule
+         FormsModule,
+         ReactiveFormsModule,
+         QuillModule
      ],
      declarations: [
          provasComponent,

@@ -6,7 +6,7 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
     (function($) {
         $.fn.wordExport = function(fileName) {
             fileName = typeof fileName !== 'undefined' ? fileName : "jQuery-Word-Export";
-            var static = {
+            var _static = {
                 mhtml: {
                     top: "Mime-Version: 1.0\nContent-Base: " + location.href + "\nContent-Type: Multipart/related; boundary=\"NEXT.ITEM-BOUNDARY\";type=\"text/html\"\n\n--NEXT.ITEM-BOUNDARY\nContent-Type: text/html; charset=\"utf-8\"\nContent-Location: " + location.href + "\n\n<!DOCTYPE html>\n<html>\n_html_</html>",
                     head: "<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<style>\n_styles_\n</style>\n</head>\n",
@@ -69,7 +69,7 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
             var styles = "";
 
             // Aggregate parts of the file together
-            var fileContent = static.mhtml.top.replace("_html_", static.mhtml.head.replace("_styles_", styles) + static.mhtml.body.replace("_body_", markup.html())) + mhtmlBottom;
+            var fileContent = _static.mhtml.top.replace("_html_", _static.mhtml.head.replace("_styles_", styles) + _static.mhtml.body.replace("_body_", markup.html())) + mhtmlBottom;
 
             // Create a Blob with the file contents
             var blob = new Blob([fileContent], {

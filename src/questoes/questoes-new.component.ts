@@ -4,7 +4,7 @@
 import {Component} from '@angular/core';
 import { AppHttpService } from '../app/app-http.service';
 import { Router, ActivatedRoute} from '@angular/router';
-//import * as Quill from 'quill';
+//import Quill from "quill";
 @Component({
     templateUrl: './questoes-new.component.html',
     styles: ['tbody tr {cursor: pointer}'],

@@ -1,5 +1,11 @@
 <div class="card col s12">
-    <div id="content-prova" class="A4 card-content">
+
+    <!--<quill-editor #editor [(ngModel)]='provagerada' name='provagerada'></quill-editor>-->
+
+    <!--<quill-editor #editor [modules]="{ imageResize: {imageResize: {displaySize: true}} }" [(ngModel)]='provagerada' name='provagerada'></quill-editor>-->
+
+    <div id="content-prova">
+        <div id="prova-cabecalho">
         <div class="right-align">
             <img  width="300px" height="80px" src="../assets/LogoSemec.png"/>
         </div>
@@ -11,16 +17,16 @@
 
         <p>TERESINA (PI) __________ DE ______________ DE ______.             Turma: ______________</p>
         </div>
-        <br><br>
+        <br>
         <div style="background-color:black;color:white;padding:10px;text-align: center">
             {{prova.titulo}}
         </div>
-        <br><br>
-        <div>
-            <ul #listaQuestao id="listaQuestao">
-            </ul>
         </div>
-        <br><br>
+        <quill-editor #editor [(ngModel)]='provagerada' name='provagerada'></quill-editor>
+
+    </div>
+    <br><br>
+    <div>
         <div>
             <h4>Gabarito</h4>
             <table border="2" bordercolor="#000000" style="text-align: center">
@@ -29,7 +35,6 @@
                 <th>Item</th>
                 </thead>
                 <tbody id="gabaritobody">
-
                 </tbody>
             </table>
         </div>

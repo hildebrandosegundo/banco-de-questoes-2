@@ -42,68 +42,36 @@ var QuestoesComponent = (function () {
     };
     QuestoesComponent.prototype.parseHTML = function (questao) {
         var vm = '';
-        vm += "<li>";
         if (questao.enunciado || questao.imagem)
-            vm += "<p style=\"text-align:justify\"><span>(" + questao.codigo + ") - </span>";
+            vm += "<DIV>(" + questao.codigo + ")";
         if (questao.enunciado) {
-            vm += questao.enunciado;
+            vm += questao.enunciado + '</DIV>';
         }
-        if (questao.imagem) {
-            vm += "<div style=\"display: flex;display: -webkit-flex;justify-content: center;align-items: center;\">           \n                <img src=\"" + questao.imagem + "\"/>\n                </div>";
-        }
-        if (questao.enunciado || questao.imagem)
-            vm += "</p>";
         if (questao.alternativa1 || questao.imagemAl1)
-            vm += "<p style=\"text-align:justify\"><span>a) </span>";
+            vm += "<DIV class=\"input-field\">a) ";
         if (questao.alternativa1) {
-            vm += questao.alternativa1;
+            vm += questao.alternativa1 + '</DIV>';
         }
-        if (questao.imagemAl1) {
-            vm += "<div>\n                    <img id=\"img1\" src=\"" + questao.imagemAl1 + "\"/>\n                    </div>";
-        }
-        if (questao.alternativa1 || questao.imagemAl1)
-            vm += "</p>";
         if (questao.alternativa2 || questao.imagemAl2)
-            vm += "<p style=\"text-align:justify\"><span>b) </span>";
+            vm += "<DIV class=\"input-field\">b) ";
         if (questao.alternativa2) {
-            vm += questao.alternativa2;
+            vm += questao.alternativa2 + '</DIV>';
         }
-        if (questao.imagemAl2) {
-            vm += "<div>\n                    <img id=\"img2\" src=\"" + questao.imagemAl2 + "\"/>\n                    </div>";
-        }
-        if (questao.alternativa2 || questao.imagemAl2)
-            vm += "</p>";
         if (questao.alternativa3 || questao.imagemAl3)
-            vm += "<p style=\"text-align:justify\"><span>c) </span>";
+            vm += "<DIV class=\"input-field\">c) ";
         if (questao.alternativa3) {
-            vm += questao.alternativa3;
+            vm += questao.alternativa3 + '</DIV>';
         }
-        if (questao.imagemAl3) {
-            vm += "<div>\n                   <img id=\"img3\" src=\"" + questao.imagemAl3 + "\"/>\n                   </div>";
-        }
-        if (questao.alternativa3 || questao.imagemAl3)
-            vm += "</p>";
         if (questao.alternativa4 || questao.imagemAl4)
-            vm += "<p style=\"text-align:justify\"><span>d) </span>";
+            vm += "<DIV class=\"input-field\">d) ";
         if (questao.alternativa4) {
-            vm += questao.alternativa4;
+            vm += questao.alternativa4 + '</DIV>';
         }
-        if (questao.imagemAl4) {
-            vm += "<div>\n                    <img id=\"img4\" src=\"" + questao.imagemAl4 + "\"/>\n                    </div>";
-        }
-        if (questao.alternativa4 || questao.imagemAl4)
-            vm += "</p>";
         if (questao.alternativa5 || questao.imagemAl5)
-            vm += "<p style=\"text-align:justify\"><span>e) </span>";
+            vm += "<DIV class=\"input-field\">e) ";
         if (questao.alternativa5) {
-            vm += questao.alternativa5;
+            vm += questao.alternativa5 + '</DIV>';
         }
-        if (questao.imagemAl5) {
-            vm += "<div>              \n                    <img id=\"img5\" src=\"" + questao.imagemAl5 + "\"/>\n                    </div>";
-        }
-        if (questao.alternativa5 || questao.imagemAl5)
-            vm += "</p>";
-        vm += "</li>";
         return vm;
     };
     QuestoesComponent.prototype.openModal = function (data) {
