@@ -23,6 +23,42 @@
         <div class="col s4 card-action">
             <a class="waves-effect indigo darken-4 btn " [routerLink]="['/questoes/new']">Criar novo Item</a>
         </div>
+        <div class="input-field col s3">
+            <select id="selectArea" [(ngModel)]="questao.area_id" name="area_id" class="browser-default" (change)="listArea1(questao)">
+                <option value="" disabled selected>Selecione a área</option>
+                <option *ngFor="let area of areas.data" [value]="area.id">{{area.area}}</option>
+            </select>
+            <label class="active">Área</label>
+        </div>
+        <div class="input-field col s2">
+            <select id="selectSerie" [(ngModel)]="questao.serie_id" name="serie_id" class="browser-default" (change)="listSerie1(questao)">
+                <option value="" disabled selected>Selecione a série</option>
+                <option *ngFor="let serie of series.data" [value]="serie.id">{{serie.serie}}</option>
+            </select>
+            <label class="active">Série</label>
+        </div>
+        <div class="input-field col s1 ">
+            <select id="selectNivel" [(ngModel)]="questao.nivel_id" name="nivel_id" class="browser-default" (change)="listNivel1(questao)">
+                <option value="" disabled selected>Selecione o nível</option>
+                <option *ngFor="let nivel of nivels.data" [value]="nivel.nivel.id">{{nivel.nivel.nivel}}</option>
+            </select>
+            <label class="active">Nível</label>
+        </div>
+        <div class="input-field col s3">
+            <select id="selectCategoria" [(ngModel)]="questao.categoria_id" name="categoria_id" class="browser-default" (change)="listCategoria1(questao)">
+                <option value="" disabled selected>Selecione o Tema/Tópicos</option>
+                <option *ngFor="let categoria of categorias.data" [value]="categoria.categoria.id">{{categoria.categoria.codigo}} - {{categoria.categoria.categoria}}</option>
+            </select>
+            <label class="active">Tema/Tópicos</label>
+        </div>
+        <div class="input-field col s3">
+            <select id="selectHabilidade" [(ngModel)]="questao.habilidade_id" name="habilidade_id" class="browser-default" (change)="listHabilidade1(questao)">
+                <option value="" disabled selected>Selecione a Habilidades</option>
+                <option *ngFor="let habilidade of habilidades.data" [value]="habilidade.habilidade.id">{{habilidade.habilidade.codigo}} - {{habilidade.habilidade.habilidade}}</option>
+            </select>
+            <label class="active">Habilidades</label>
+        </div>
+        <br>
         <search [resource]="'pquestoes'" (onSearch)="searched($event)"></search>
         <div class="card-content">
             <table class="striped">

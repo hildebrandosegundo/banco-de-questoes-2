@@ -117,6 +117,20 @@ var AppHttpService = (function () {
             return res.json() || {};
         });
     };
+    AppHttpService.prototype.getArea1 = function (data) {
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id, this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getSerie1 = function (data) {
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id, this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
     AppHttpService.prototype.getNivel1 = function (data) {
         return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
             .toPromise()
@@ -133,6 +147,48 @@ var AppHttpService = (function () {
     };
     AppHttpService.prototype.getHabilidade1 = function (data) {
         return this.http.get(this.url + '?where[serie_id]=' + data.serie_id + '&where[area_id]=' + data.area_id + '&where[categoria_id]=' + data.categoria_id + '&select=habilidade_id&groupby=habilidade_id', this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getNivel2 = function () {
+        return this.http.get(this.url + '?select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getCategoria2 = function () {
+        return this.http.get(this.url + '?select=categoria_id&groupby=categoria_id', this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getHabilidade2 = function () {
+        return this.http.get(this.url + '?select=habilidade_id&groupby=habilidade_id', this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getNivel3 = function (data) {
+        return this.http.get(this.url + '?where[nivel_id]=' + data.nivel_id, this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getCategoria3 = function (data) {
+        return this.http.get(this.url + '?where[categoria_id]=' + data.categoria_id, this.options)
+            .toPromise()
+            .then(function (res) {
+            return res.json() || {};
+        });
+    };
+    AppHttpService.prototype.getHabilidade3 = function (data) {
+        return this.http.get(this.url + '?where[habilidade_id]=' + data.habilidade_id, this.options)
             .toPromise()
             .then(function (res) {
             return res.json() || {};

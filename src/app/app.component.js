@@ -22,23 +22,17 @@ require("../../src/jquery.sortable.min.js");
 import 'froala-editor/css/froala_editor.pkgd.min.css';
 import 'froala-editor/js/froala_editor.pkgd.min.js';
 import 'froala-editor/js/languages/pt_br.js';*/
-/*
-import "tinymce/tinymce.min.js";
-import "tinymce/themes/modern/theme.min.js";
-import "tinymce/plugins/link/plugin.min.js";
-import "tinymce/plugins/paste/plugin.min.js";
-import "tinymce/plugins/table/plugin.min.js";
-import "tinymce/plugins/advlist/plugin.min.js";
-import "tinymce/plugins/autoresize/plugin.min.js";
-import "tinymce/plugins/lists/plugin.min.js";
-import "tinymce/plugins/code/plugin.min.js";
-*/
+require("../assets/tinymce/js/tinymce/tinymce.min.js");
+require("../assets/tinymce/js/tinymce/themes/modern/theme.min.js");
+require("../assets/tinymce/js/tinymce/plugins/link/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/paste/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/table/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/advlist/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/autoresize/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/lists/plugin.min.js");
+require("../assets/tinymce/js/tinymce/plugins/code/plugin.min.js");
 require("../assets/css/quill.snow.css");
 require("../assets/css/quill.bubble.css");
-/*
-import "quill/dist/quill.min.js";
-import "quill-image-resize-module/image-resize.min.js";
-*/
 var router_1 = require("@angular/router");
 var AppComponent = (function () {
     function AppComponent(router) {

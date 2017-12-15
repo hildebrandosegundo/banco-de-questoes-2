@@ -15,7 +15,7 @@ var core_1 = require("@angular/core");
 var app_http_service_1 = require("../app/app-http.service");
 var router_1 = require("@angular/router");
 /*import Quill from 'quill';
-//declare const Quill: any;
+
 import { ImageResize } from 'quill-image-resize-module/image-resize.min';
 
 Quill.register('modules/imageResize', ImageResize);
@@ -33,6 +33,7 @@ var provaGeradaComponent = (function () {
         this.httpService = httpService;
         this.route = route;
         this.resultado = [];
+        this.provagerada = '';
         this.CountQuestao = 0;
         this.prova = {
             area: {},
@@ -56,6 +57,9 @@ var provaGeradaComponent = (function () {
         this.route.params
             .subscribe(function (params) {
             _this.view(params.id);
+        });
+        tinymce.init({
+            selector: 'textarea'
         });
     };
     provaGeradaComponent.prototype.percorrer = function (obj) {
@@ -88,49 +92,49 @@ var provaGeradaComponent = (function () {
         });
     };
     provaGeradaComponent.prototype.parseGabarito = function (res, i) {
-        var str = "<tr><td>" + i + "</td><td>" + res.data[0].correta + "</td></tr>";
+        var str = "<tr><td>" + i + "</td><td>" + res.data[0].nivel.nivel + "</td><td>" + res.data[0].categoria.categoria + "</td><td>" + res.data[0].habilidade.habilidade + "</td><td>" + res.data[0].correta + "</td></tr>";
         $('#gabaritobody').append(str);
     };
     provaGeradaComponent.prototype.parseHTML = function (questao) {
         var vm = '';
         this.CountQuestao++;
         if (questao.enunciado || questao.imagem)
-            vm += "<p style=\"text-align:justify\"><span>" + this.CountQuestao + " . (" + questao.codigo + ") </span>";
+            vm += "<p class=\"pinline\">" + this.CountQuestao + " . (" + questao.codigo + ")";
         if (questao.enunciado) {
             vm += questao.enunciado;
         }
         if (questao.enunciado || questao.imagem)
-            vm += "</p><br>";
+            vm += "</p>";
         if (questao.alternativa1 || questao.imagemAl1)
-            vm += "<p style=\"text-align:justify\"><span>a) </span>";
+            vm += "<p class=\"pinline\">a) ";
         if (questao.alternativa1) {
             vm += questao.alternativa1;
         }
         if (questao.alternativa1 || questao.imagemAl1)
             vm += "</p>";
         if (questao.alternativa2 || questao.imagemAl2)
-            vm += "<p style=\"text-align:justify\"><span>b) </span>";
+            vm += "<p class=\"pinline\">b) ";
         if (questao.alternativa2) {
             vm += questao.alternativa2;
         }
         if (questao.alternativa2 || questao.imagemAl2)
             vm += "</p>";
         if (questao.alternativa3 || questao.imagemAl3)
-            vm += "<p style=\"text-align:justify\"><span>c) </span>";
+            vm += "<p class=\"pinline\">c) ";
         if (questao.alternativa3) {
             vm += questao.alternativa3;
         }
         if (questao.alternativa3 || questao.imagemAl3)
             vm += "</p>";
         if (questao.alternativa4 || questao.imagemAl4)
-            vm += "<p style=\"text-align:justify\"><span>d) </span>";
+            vm += "<p class=\"pinline\">d) ";
         if (questao.alternativa4) {
             vm += questao.alternativa4;
         }
         if (questao.alternativa4 || questao.imagemAl4)
             vm += "</p>";
         if (questao.alternativa5 || questao.imagemAl5)
-            vm += "<p style=\"text-align:justify\"><span>e) </span>";
+            vm += "<p class=\"pinline\">e) ";
         if (questao.alternativa5) {
             vm += questao.alternativa5;
         }
@@ -150,9 +154,20 @@ var provaGeradaComponent = (function () {
         $('#content-prova').wordExport(this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
     };
     provaGeradaComponent.prototype.ExportPDF = function () {
-        var quotes = $('#prova-cabecalho').html() + this.provagerada;
+        var quotes = $('#content-prova').html();
         //! MAKE YOUR PDF
-        var pdf = new jsPdf('p', 'pt', 'a4', true);
+        var pdf = new jsPdf('p', 'pt', 'a4');
+        pdf.fromHTML(quotes, 15, 15, { 'width': 500 }, function () {
+            pdf.output('dataurlnewwindow');
+        });
+    };
+    provaGeradaComponent.prototype.ExportDocxG = function () {
+        $('#gabarito').wordExport('Gabarito - ' + this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
+    };
+    provaGeradaComponent.prototype.ExportPDFG = function () {
+        var quotes = $('#gabarito').html();
+        //! MAKE YOUR PDF
+        var pdf = new jsPdf('p', 'pt', 'a4');
         pdf.fromHTML(quotes, 15, 15, { 'width': 500 }, function () {
             pdf.output('dataurlnewwindow');
         });

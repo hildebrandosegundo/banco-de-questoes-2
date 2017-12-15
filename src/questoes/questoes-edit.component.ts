@@ -14,6 +14,7 @@ export class QuestoesEditComponent {
         serie_id: '',
         area_id: '',
         nivel_id: '',
+        user_id: '',
         categoria_id: '',
         habilidade_id: '',
         enunciado: '',
@@ -70,7 +71,7 @@ export class QuestoesEditComponent {
         this.route.params
             .subscribe((params:any) => {
                 this.view(params.id);
-            })
+            });
     }
     onFileChange (e: any, img: number) {
         const files = e.target.files || e.dataTransfer.files;
@@ -150,8 +151,9 @@ export class QuestoesEditComponent {
     save (id: number) {
         if ($("#selectHabilidade option:selected").val()!=null)
             this.questao.codigo = $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0];
-
-        console.log(this.questao);
+        this.questao.user_id = JSON.parse(localStorage['user']).id;
+        console.log(this.questao.user_id)
+        console.log('Envio: '+JSON.stringify(this.questao));
        this.httpService.builder('pquestoes')
             .update(id, this.questao)
             .then((res) => {

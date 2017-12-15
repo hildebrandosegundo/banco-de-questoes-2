@@ -4,8 +4,9 @@
 import {Component} from '@angular/core';
 import {AppHttpService} from '../app/app-http.service';
 import {ActivatedRoute} from '@angular/router';
+declare const tinymce: any;
 /*import Quill from 'quill';
-//declare const Quill: any;
+
 import { ImageResize } from 'quill-image-resize-module/image-resize.min';
 
 Quill.register('modules/imageResize', ImageResize);
@@ -27,7 +28,7 @@ export class provaGeradaComponent {
     public resultado: any = [];
     public doc: any;
     public user: any;
-    public provagerada: string;
+    public provagerada: string = '';
     public CountQuestao: number = 0;
     public prova: any = {
         area: {},
@@ -53,6 +54,9 @@ export class provaGeradaComponent {
             .subscribe((params: any) => {
                 this.view(params.id);
             });
+        tinymce.init({
+            selector: 'textarea'
+        });
     }
 
     percorrer(obj: any) {
@@ -86,49 +90,49 @@ export class provaGeradaComponent {
             });
     }
     parseGabarito(res: any, i: number){
-        let str = `<tr><td>`+i+`</td><td>`+res.data[0].correta+`</td></tr>`;
+        let str = `<tr><td>`+i+`</td><td>`+res.data[0].nivel.nivel+`</td><td>`+res.data[0].categoria.categoria+`</td><td>`+res.data[0].habilidade.habilidade+`</td><td>`+res.data[0].correta+`</td></tr>`;
         $('#gabaritobody').append(str);
     }
     parseHTML(questao: any) {
         let vm = '';
         this.CountQuestao++;
         if (questao.enunciado || questao.imagem)
-            vm += `<p style="text-align:justify"><span>` + this.CountQuestao + ` . (`+ questao.codigo +`) </span>`;
+            vm +=  `<p class="pinline">` +this.CountQuestao + ` . (`+ questao.codigo +`)` ;
         if (questao.enunciado) {
             vm += questao.enunciado;
         }
         if (questao.enunciado || questao.imagem)
-            vm += `</p><br>`;
+            vm += `</p>`;
         if (questao.alternativa1 || questao.imagemAl1)
-            vm += `<p style="text-align:justify"><span>a) </span>`;
+            vm += `<p class="pinline">a) `;
         if (questao.alternativa1) {
             vm += questao.alternativa1;
         }
         if (questao.alternativa1 || questao.imagemAl1)
             vm += `</p>`;
         if (questao.alternativa2 || questao.imagemAl2)
-            vm += `<p style="text-align:justify"><span>b) </span>`;
+            vm += `<p class="pinline">b) `;
         if (questao.alternativa2) {
             vm += questao.alternativa2;
         }
         if (questao.alternativa2 || questao.imagemAl2)
             vm += `</p>`;
         if (questao.alternativa3 || questao.imagemAl3)
-            vm += `<p style="text-align:justify"><span>c) </span>`;
+            vm += `<p class="pinline">c) `;
         if (questao.alternativa3) {
             vm += questao.alternativa3;
         }
         if (questao.alternativa3 || questao.imagemAl3)
             vm += `</p>`;
         if (questao.alternativa4 || questao.imagemAl4)
-            vm += `<p style="text-align:justify"><span>d) </span>`;
+            vm += `<p class="pinline">d) `;
         if (questao.alternativa4) {
             vm += questao.alternativa4;
         }
         if (questao.alternativa4 || questao.imagemAl4)
             vm += `</p>`;
         if (questao.alternativa5 || questao.imagemAl5)
-            vm += `<p style="text-align:justify"><span>e) </span>`;
+            vm += `<p class="pinline">e) `;
         if (questao.alternativa5) {
             vm += questao.alternativa5;
         }
@@ -152,9 +156,24 @@ export class provaGeradaComponent {
     }
 
     ExportPDF() {
-        let quotes = $('#prova-cabecalho').html() + this.provagerada;
+        let quotes = $('#content-prova').html();
         //! MAKE YOUR PDF
-        let pdf = new jsPdf('p', 'pt', 'a4', true);
+        let pdf = new jsPdf('p', 'pt', 'a4');
+
+        pdf.fromHTML(quotes, 15, 15, {'width': 500},
+            function() {
+                pdf.output('dataurlnewwindow');
+            });
+    }
+    ExportDocxG() {
+
+        ($('#gabarito') as any).wordExport('Gabarito - '+this.prova.ano + this.prova.area_id + this.prova.serie_id + this.prova.id);
+    }
+
+    ExportPDFG() {
+        let quotes = $('#gabarito').html();
+        //! MAKE YOUR PDF
+        let pdf = new jsPdf('p', 'pt', 'a4');
 
         pdf.fromHTML(quotes, 15, 15, {'width': 500},
             function() {

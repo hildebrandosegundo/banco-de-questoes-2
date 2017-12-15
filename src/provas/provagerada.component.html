@@ -5,9 +5,8 @@
     <!--<quill-editor #editor [modules]="{ imageResize: {imageResize: {displaySize: true}} }" [(ngModel)]='provagerada' name='provagerada'></quill-editor>-->
 
     <div id="content-prova">
-        <div id="prova-cabecalho">
         <div class="right-align">
-            <img  width="300px" height="80px" src="../assets/LogoSemec.png"/>
+            <img  width="290px" height="62px" src="../assets/LogoSemec.png"/>
         </div>
         <!--<spinner></spinner>-->
         <div style="text-align: inherit">
@@ -21,17 +20,41 @@
         <div style="background-color:black;color:white;padding:10px;text-align: center">
             {{prova.titulo}}
         </div>
-        </div>
-        <quill-editor #editor [(ngModel)]='provagerada' name='provagerada'></quill-editor>
 
+        <quill-editor #editor [(ngModel)]='provagerada' [strict]="false"  name='provagerada'></quill-editor>
     </div>
-    <br><br>
+    <div style="position: relative; height: 70px;">
+        <div class="fixed-action-btn toolbar" style="position: absolute; right: 24px; transition: transform 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19); transform: translate3d(0px, 0px, 0px);">
+            <a class="btn-floating btn-large red pulse">
+                <i class="ion-md-menu"></i>
+            </a>
+            <ul>
+                <li  *ngIf="user.type=='ADMINISTRADOR'"><a (click)="ExportDocx()" class="waves-effect waves-purple blue"><i class="ion-md-paper"></i> WORD</a></li>
+                <li><a (click)="ExportPDF()" class="waves-effect waves-orange"><i class="ion-ios-book"></i> PDF</a></li>
+                <li><a class="waves-effect waves-orange blue-grey" [routerLink]="['/provas']"><i class="ion-md-arrow-back"></i> Voltar</a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="position: relative; height: 70px;">
+        <div class="fixed-action-btn toolbar" style="position: absolute; right: 24px; transition: transform 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19); transform: translate3d(0px, 0px, 0px);">
+            <a class="btn-floating btn-large blue pulse">
+                <i class="ion-md-menu"></i>
+            </a>
+            <ul>
+                <li  *ngIf="user.type=='ADMINISTRADOR'"><a (click)="ExportDocxG()" class="waves-effect waves-purple"><i class="ion-md-paper"></i>Gabarito - WORD</a></li>
+                <li><a (click)="ExportPDFG()" class="waves-effect waves-orange"><i class="ion-ios-book"></i>Gabarito PDF</a></li>
+            </ul>
+        </div>
+    </div>
     <div>
-        <div>
-            <h4>Gabarito</h4>
+        <div id="gabarito">
+            <h5>Gabarito - {{prova.titulo}}</h5>
             <table border="2" bordercolor="#000000" style="text-align: center">
                 <thead>
                 <th>Questão</th>
+                <th>Nível</th>
+                <th>Tema/Temática</th>
+                <th>Habilidade</th>
                 <th>Item</th>
                 </thead>
                 <tbody id="gabaritobody">
@@ -39,15 +62,6 @@
             </table>
         </div>
     </div>
-    <div class="fixed-action-btn toolbar">
-        <a class="btn-floating btn-large red pulse">
-            <i class="ion-md-menu"></i>
-        </a>
-        <ul>
-            <li  *ngIf="user.type=='ADMINISTRADOR'"><a (click)="ExportDocx()" class="waves-effect waves-purple blue"><i class="ion-md-paper"></i> WORD</a></li>
-            <li><a (click)="ExportPDF()" class="waves-effect waves-orange"><i class="ion-ios-book"></i> PDF</a></li>
-            <li><a class="waves-effect waves-orange blue-grey" [routerLink]="['/provas']"><i class="ion-md-arrow-back"></i> Voltar</a></li>
-        </ul>
-    </div>
-    <div class="previewIFRAME"></div>
+
+
 </div>

@@ -14,6 +14,7 @@ export class QuestoesNewComponent{
         serie_id: '',
         area_id: '',
         nivel_id: '',
+        user_id: '',
         categoria_id: '',
         habilidade_id: '',
         enunciado: '',
@@ -132,8 +133,12 @@ export class QuestoesNewComponent{
             })
     }*/
     save () {
+        this.questao.user_id = JSON.parse(localStorage['user']).id;
+        console.log(this.questao.user_id)
+
         let data = new FormData();
         data.append('serie_id', this.questao.serie_id || '');
+        data.append('user_id', this.questao.user_id || '');
         data.append('area_id', this.questao.area_id || '');
         data.append('nivel_id', this.questao.nivel_id || '');
         data.append('categoria_id', this.questao.categoria_id || '');
@@ -152,7 +157,7 @@ export class QuestoesNewComponent{
         data.append('alternativa5', this.questao.alternativa5 || '');
         data.append('correta', this.questao.correta || '');
         data.append('codigo', $("#selectArea option:selected").val() + $("#selectSerie option:selected").val() + $("#selectNivel option:selected").text() + $("#selectCategoria option:selected").text().split(' - ')[0] + $("#selectHabilidade option:selected").text().split(' - ')[0] || '');
-        console.log(this.questao);
+        console.log('Envio: '+JSON.stringify(this.questao));
         this.httpService.builder('pquestoes')
             .insert(data)
             .then((res) => {

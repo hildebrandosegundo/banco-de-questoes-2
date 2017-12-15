@@ -127,6 +127,20 @@ export class AppHttpService {
                 return res.json() || {};
             });
     }
+    getArea1 (data: any) {
+        return this.http.get(this.url + '?where[area_id]=' + data.area_id, this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getSerie1 (data: any) {
+        return this.http.get(this.url + '?where[serie_id]=' + data.serie_id, this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
     getNivel1 (data: any) {
         return this.http.get(this.url + '?where[area_id]=' + data.area_id + '&where[serie_id]=' + data.serie_id + '&select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
             .toPromise()
@@ -148,7 +162,48 @@ export class AppHttpService {
                 return res.json() || {};
             });
     }
-
+    getNivel2 () {
+        return this.http.get(this.url + '?select=nivel_id&groupby=nivel_id&order=nivel_id', this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getCategoria2 () {
+        return this.http.get(this.url + '?select=categoria_id&groupby=categoria_id' , this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getHabilidade2 () {
+        return this.http.get(this.url + '?select=habilidade_id&groupby=habilidade_id', this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getNivel3 (data: any) {
+        return this.http.get(this.url + '?where[nivel_id]=' + data.nivel_id , this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getCategoria3 (data: any) {
+        return this.http.get(this.url + '?where[categoria_id]=' + data.categoria_id , this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
+    getHabilidade3 (data: any) {
+        return this.http.get(this.url + '?where[habilidade_id]=' + data.habilidade_id , this.options)
+            .toPromise()
+            .then((res) => {
+                return res.json() || {};
+            });
+    }
     getQuestaoIni (data: any) {
         return this.http.get(this.url + '?where[id]=' + data , this.options)
             .toPromise()

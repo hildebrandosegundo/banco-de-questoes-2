@@ -8,13 +8,36 @@ import { AppHttpService } from '../app/app-http.service';
     styles: ['tbody tr {cursor: pointer}'],
 })
 export class QuestoesComponent {
+    public questao: any = {
+        data: []
+    };
     public questoes: Object = {
+        data: []
+    };
+    public areas: Object = {
+        data: []
+    };
+    public series: Object = {
+        data: []
+    };
+    public nivels: Object = {
+        data: []
+    };
+    public categorias: Object = {
+        data: []
+    };
+    public habilidades: Object = {
         data: []
     };
     public user: any;
     constructor (private httpService: AppHttpService) {}
     ngOnInit () {
         this.list();
+        this.listAreas();
+        this.listSeries();
+        this.listNivels();
+        this.listCategorias();
+        this.listHabilidades();
         ($('.modal') as any).modal();
         if (localStorage['user'])
             this.user = JSON.parse(localStorage['user']);
@@ -27,7 +50,76 @@ export class QuestoesComponent {
                 this.questoes = res;
             })
     }
-
+    listAreas () {
+        this.httpService.builder('areas')
+            .list()
+            .then((res) => {
+                this.areas = res;
+            })
+    }
+    listSeries () {
+        this.httpService.builder('series')
+            .list()
+            .then((res) => {
+                this.series = res;
+            })
+    }
+    listNivels () {
+        this.httpService.builder('pquestoes')
+            .getNivel2()
+            .then((res) => {
+                this.nivels = res;
+            })
+    }
+    listCategorias () {
+        this.httpService.builder('pquestoes')
+            .getCategoria2()
+            .then((res) => {
+                this.categorias = res;
+            })
+    }
+    listHabilidades () {
+        this.httpService.builder('pquestoes')
+            .getHabilidade2()
+            .then((res) => {
+                this.habilidades = res;
+            })
+    }
+    listArea1 (data: any) {
+        this.httpService.builder('pquestoes')
+            .getArea1(data)
+            .then((res) => {
+                this.questoes = res;
+            })
+    }
+    listSerie1 (data:any) {
+        this.httpService.builder('pquestoes')
+            .getSerie1(data)
+            .then((res) => {
+                this.questoes = res;
+            })
+    }
+    listNivel1 (data:any) {
+        this.httpService.builder('pquestoes')
+            .getNivel3(data)
+            .then((res) => {
+                this.questoes = res;
+            })
+    }
+    listCategoria1 (data:any) {
+        this.httpService.builder('pquestoes')
+            .getCategoria3(data)
+            .then((res) => {
+                this.questoes = res;
+            })
+    }
+    listHabilidade1 (data:any) {
+        this.httpService.builder('pquestoes')
+            .getHabilidade3(data)
+            .then((res) => {
+                this.questoes = res;
+            })
+    }
     pageChanged(data: Object) {
         this.questoes = data;
     }

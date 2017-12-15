@@ -16,12 +16,35 @@ var app_http_service_1 = require("../app/app-http.service");
 var QuestoesComponent = (function () {
     function QuestoesComponent(httpService) {
         this.httpService = httpService;
+        this.questao = {
+            data: []
+        };
         this.questoes = {
+            data: []
+        };
+        this.areas = {
+            data: []
+        };
+        this.series = {
+            data: []
+        };
+        this.nivels = {
+            data: []
+        };
+        this.categorias = {
+            data: []
+        };
+        this.habilidades = {
             data: []
         };
     }
     QuestoesComponent.prototype.ngOnInit = function () {
         this.list();
+        this.listAreas();
+        this.listSeries();
+        this.listNivels();
+        this.listCategorias();
+        this.listHabilidades();
         $('.modal').modal();
         if (localStorage['user'])
             this.user = JSON.parse(localStorage['user']);
@@ -30,6 +53,86 @@ var QuestoesComponent = (function () {
         var _this = this;
         this.httpService.builder('pquestoes')
             .list({ order: 'id,desc' })
+            .then(function (res) {
+            _this.questoes = res;
+        });
+    };
+    QuestoesComponent.prototype.listAreas = function () {
+        var _this = this;
+        this.httpService.builder('areas')
+            .list()
+            .then(function (res) {
+            _this.areas = res;
+        });
+    };
+    QuestoesComponent.prototype.listSeries = function () {
+        var _this = this;
+        this.httpService.builder('series')
+            .list()
+            .then(function (res) {
+            _this.series = res;
+        });
+    };
+    QuestoesComponent.prototype.listNivels = function () {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getNivel2()
+            .then(function (res) {
+            _this.nivels = res;
+        });
+    };
+    QuestoesComponent.prototype.listCategorias = function () {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getCategoria2()
+            .then(function (res) {
+            _this.categorias = res;
+        });
+    };
+    QuestoesComponent.prototype.listHabilidades = function () {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getHabilidade2()
+            .then(function (res) {
+            _this.habilidades = res;
+        });
+    };
+    QuestoesComponent.prototype.listArea1 = function (data) {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getArea1(data)
+            .then(function (res) {
+            _this.questoes = res;
+        });
+    };
+    QuestoesComponent.prototype.listSerie1 = function (data) {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getSerie1(data)
+            .then(function (res) {
+            _this.questoes = res;
+        });
+    };
+    QuestoesComponent.prototype.listNivel1 = function (data) {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getNivel3(data)
+            .then(function (res) {
+            _this.questoes = res;
+        });
+    };
+    QuestoesComponent.prototype.listCategoria1 = function (data) {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getCategoria3(data)
+            .then(function (res) {
+            _this.questoes = res;
+        });
+    };
+    QuestoesComponent.prototype.listHabilidade1 = function (data) {
+        var _this = this;
+        this.httpService.builder('pquestoes')
+            .getHabilidade3(data)
             .then(function (res) {
             _this.questoes = res;
         });
