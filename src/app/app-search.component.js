@@ -35,11 +35,13 @@ var AppSearchComponent = (function () {
                     _this.onSearch.emit(res);
                 });
             }
-            _this.httpService.builder(_this.resource)
-                .list()
-                .then(function (res) {
-                _this.onSearch.emit(res);
-            });
+            else {
+                _this.httpService.builder(_this.resource)
+                    .list({ order: 'desc' })
+                    .then(function (res) {
+                    _this.onSearch.emit(res);
+                });
+            }
         });
     };
     AppSearchComponent.prototype.search = function (term) {

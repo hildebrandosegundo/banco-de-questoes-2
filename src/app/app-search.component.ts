@@ -39,12 +39,13 @@ export class AppSearchComponent {
                         .then((res) => {
                             this.onSearch.emit(res);
                         })
+                }else {
+                    this.httpService.builder(this.resource)
+                        .list({order:'desc'})
+                        .then((res) => {
+                            this.onSearch.emit(res);
+                        })
                 }
-                this.httpService.builder(this.resource)
-                    .list()
-                    .then((res) => {
-                        this.onSearch.emit(res);
-                    })
             })
     }
     search(term: string) {
